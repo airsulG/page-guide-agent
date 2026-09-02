@@ -1,4 +1,23 @@
 const DEFAULTS_URL = "default-guides.json";
+const SERVICE_URL = "http://127.0.0.1:8765/guides.json";
+
+async function fetchFromService() {
+  try {
+    const res = await fetch(SERVICE_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const guides = Array.isArray(data) ? data : data.guides || [];
+    if (!guides.length) throw new Error("服务返回空任务包");
+    await chrome.storage.local.set({ pga_guides: guides, pga_source: "service" });
+    return guides;
+  } catch (e) {
+    const st = document.getElementById("status");
+    st.textContent = `Agent 服务不可用（${e.message}），使用本地缓存`;
+    st.className = "err";
+    const stored = await chrome.storage.local.get("pga_guides");
+    return Array.isArray(stored.pga_guides) && stored.pga_guides.length ? stored.pga_guides : null;
+  }
+}
 
 function matches(guide, url) {
   const pattern = guide.pageBinding?.urlPattern || "";
@@ -80,19 +99,16 @@ document.getElementById("stop").addEventListener("click", async () => {
   window.close();
 });
 
-document.getElementById("file").addEventListener("change", async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const data = JSON.parse(await file.text());
-  const guides = Array.isArray(data) ? data : data.guides || [data];
-  await chrome.storage.local.set({ pga_guides: guides });
+document.getElementById("reload").addEventListener("click", async () => {
+  const guides = await fetchFromService();
+  if (!guides) return;
   const tab = await activeTab();
   renderList(guides, tab?.url || "");
-  const st = document.getElementById("status");
-  st.textContent = `已导入 ${guides.length} 个任务指引`;
 });
 
 (async () => {
-  const [guides, tab] = await Promise.all([loadGuides(), activeTab()]);
+  let [guides, tab] = await Promise.all([loadGuides(), activeTab()]);
+  const fresh = await fetchFromService();
+  if (fresh) guides = fresh;
   renderList(guides, tab?.url || "");
 })();
