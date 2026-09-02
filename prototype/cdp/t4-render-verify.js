@@ -49,10 +49,18 @@ async function main() {
     const root = document.createElement("div");
     root.id = "pga-overlay-root";
     root.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:2147483647;";
+    const placed = [];
     for (const it of items) {
       if (!it.box) continue;
+      let tagTop = Math.max(0, it.box.y - 34);
+      let guard = 0;
+      while (placed.some((p) => Math.abs(p.left - (it.box.x - 8)) < 8 && Math.abs(p.top - tagTop) < 30) && guard < 5) {
+        tagTop -= 28;
+        guard += 1;
+      }
+      placed.push({ left: it.box.x - 8, top: tagTop });
       const tag = document.createElement("div");
-      tag.style.cssText = `position:absolute;left:${Math.max(0, it.box.x - 8)}px;top:${Math.max(0, it.box.y - 34)}px;background:#7c3aed;color:#fff;font:12px -apple-system,sans-serif;padding:2px 8px;border-radius:6px;`;
+      tag.style.cssText = `position:absolute;left:${Math.max(0, it.box.x - 8)}px;top:${tagTop}px;background:#7c3aed;color:#fff;font:12px -apple-system,sans-serif;padding:2px 8px;border-radius:6px;`;
       tag.textContent = `#${it.id} 命中(${it.used})`;
       root.appendChild(tag);
       const ring = document.createElement("div");
