@@ -12,7 +12,7 @@
 
 ## 当前 Task
 
-- `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（未开始；下一步 T1 技术选型）。
+- `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（T1-T5 完成，T6 收口中；等待 EV2 注释质量人工确认）。
 
 ## 外部材料
 

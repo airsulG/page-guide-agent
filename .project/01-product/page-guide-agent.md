@@ -194,7 +194,15 @@ flowchart TD
 
 ## 3. 已验收目标证据
 
-尚无已验收证据。实现尚未开始，验收标准 1–7 均未执行。
+第一阶段原型验证（Task `02-tasks/01-cdp-guide-prototype.md`）取得以下证据：
+
+- 已证明验收标准 1（未配置页面凭空产出指引）：OpenRouter 模型页上 5/5 条注释指引经验证命中并渲染。证据：`prototype/cdp/samples/openrouter-guide-render.png`、`openrouter-guide-verify.json`。未覆盖：其他网站的适应性。
+- 已证明验收标准 3（持久化生效）：指引从本地任务文件二次加载渲染 5/5 命中，零重新生成。证据：`prototype/cdp/samples/t5-reload-render.png`、`t5-reload-verify.json`。
+- 已证明验收标准 4（改版自愈）：模拟改版（placeholder 与两个筛选标题改名）后命中 5→3，Agent 重新定位 2 条失效项并写回任务文件 revisionLog，恢复 5/5 命中。证据：`prototype/cdp/samples/t6-selfheal-verify.json`、`t6-selfheal-render.png`。未覆盖：真实网站改版（本次为 DOM 注入模拟）。
+- 已证明验收标准 5（失效显性显示）：不可修复条目在页面右上角显示红色「指引过期」徽标，不错误指向。证据：`prototype/cdp/samples/t6-selfheal-render.png`。
+- 验收标准 2（注释质量人工确认）待 Karl 查看 `openrouter-models-guide.json` 或渲染截图后确认。
+
+**顶层对象方案结论（原型验证）**：以任务文件（task.md + guide.json）为顶层对象的原型已完整走通创建、持久化、二次恢复与自愈写回全链路，恢复成本 = 一次文件读取 + 一次页面加载；“网页为主对象”形态未做对等原型，当前无证据显示其恢复成本更低。结论：任务为主对象从候选方案晋升为第一阶段实现基准；真实多任务、多页面场景的成本复核推迟到第二阶段前。
 
 ## 4. 长期踩坑点
 

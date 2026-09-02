@@ -4,13 +4,13 @@
 
 | 恢复字段 | 当前状态 |
 |---|---|
-| 任务状态 | `[>]` 正在做 |
-| 当前轮次 / cursor | T3、T4 完成；进入 T5 持久化与恢复 |
-| 最近完成 | 指引 Skill 初版 + OpenRouter 指引配置生成 + 真实页面渲染与验证 |
-| 最近验证 | `node prototype/cdp/t4-render-verify.js`：5/5 条选择器命中（2 条 primary、2 条 text/h3、1 条 fallback 接管），截图与逐条命中记录落盘（2026-09-02） |
+| 任务状态 | `[>]` 收口中（剩余唯一等待：EV2 人工确认） |
+| 当前轮次 / cursor | T1-T5 全部完成；T6 结论写回执行中 |
+| 最近完成 | T5 持久化恢复（5/5 命中）、T5 自愈（3/5→5/5 且写回）、T5 过期显性显示（红色徽标） |
+| 最近验证 | Evidence 面板 revision 3：4/5 verified，80%（EV2 等 Karl 人工确认） |
 | 当前阻塞 | 无 |
-| 下一步动作 | T5 持久化与恢复：用现有 guide.json 做二次加载渲染，并做任务/网页两种顶层对象的恢复成本比较 |
-| 下一步前必须读取 | 本文件 04 的 T5 行、PRD 1.3 对象关系 |
+| 下一步动作 | 完成 T6 写回后等待 Karl 对 EV2 注释质量人工确认；确认后 Goal 进入 closeout audit |
+| 下一步前必须读取 | PRD 已验收证据区、Evidence 面板 revision 3 |
 | 最后更新 | 2026-09-02 Asia/Shanghai |
 
 <<<<<<<<<<<<<<<<<<<< 01A Objective Decomposition 目标对象定义 <<<<<<<<<<<<<<<<<<<<
@@ -54,8 +54,8 @@
 | `[x]` | T2 页面采集 | 从目标页面取得结构化 DOM / 语义摘要 | `prototype/cdp/samples/openrouter-models.json` | 无 |
 | `[x]` | T3 指引 Skill 初版 | 定义观察、生成、验证、修复工作法 | `prototype/skill/page-guide-skill.md` 指导真实生成 | 无 |
 | `[x]` | T4 渲染与验证 | 注释指引注入页面并验证选择器命中 | `prototype/cdp/samples/openrouter-guide-render.png` + `openrouter-guide-verify.json` | 相邻筛选区标签视觉重叠，T5 收口时调注释层间距 |
-| `[ ]` | T5 持久化与恢复 | 生成示例任务文件并二次加载渲染 | 文件内容 + 恢复渲染证据 | 两种顶层对象各做一次成本比较 |
-| `[ ]` | T6 收口 | 比较结论写回 PRD，任务收口 | PRD 证据区更新记录 | 无 |
+| `[x]` | T5 持久化与恢复 | 生成示例任务文件并二次加载渲染 | `t5-reload-verify.json` + `t6-selfheal-verify.json` + 三张截图 | 无 |
+| `[>]` | T6 收口 | 比较结论写回 PRD，任务收口 | PRD 证据区更新记录 | 等 EV2 人工确认后 closeout |
 
 <<<<<<<<<<<<<<<<<<<< 05 PDOC 执行记录 <<<<<<<<<<<<<<<<<<<<
 
