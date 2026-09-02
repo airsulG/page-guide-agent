@@ -5,12 +5,12 @@
 | 恢复字段 | 当前状态 |
 |---|---|
 | 任务状态 | `[>]` 正在做 |
-| 当前轮次 / cursor | T2 完成；进入 T3 指引 Skill 初版 |
-| 最近完成 | T2 页面采集：OpenRouter 模型列表页结构化摘要（标题、25 个筛选分区标题、40 按钮、11 输入框、45 候选行、12 行样本） |
-| 最近验证 | `node prototype/cdp/t2-extract.js` 真实运行，样本存于 `prototype/cdp/samples/openrouter-models.json`（2026-09-02） |
+| 当前轮次 / cursor | T3、T4 完成；进入 T5 持久化与恢复 |
+| 最近完成 | 指引 Skill 初版 + OpenRouter 指引配置生成 + 真实页面渲染与验证 |
+| 最近验证 | `node prototype/cdp/t4-render-verify.js`：5/5 条选择器命中（2 条 primary、2 条 text/h3、1 条 fallback 接管），截图与逐条命中记录落盘（2026-09-02） |
 | 当前阻塞 | 无 |
-| 下一步动作 | T3 指引 Skill 初版：基于 OpenRouter 快照产出并验证注释指引 |
-| 下一步前必须读取 | 本文件 04 的 T3 行、`prototype/cdp/samples/openrouter-models.json` |
+| 下一步动作 | T5 持久化与恢复：用现有 guide.json 做二次加载渲染，并做任务/网页两种顶层对象的恢复成本比较 |
+| 下一步前必须读取 | 本文件 04 的 T5 行、PRD 1.3 对象关系 |
 | 最后更新 | 2026-09-02 Asia/Shanghai |
 
 <<<<<<<<<<<<<<<<<<<< 01A Objective Decomposition 目标对象定义 <<<<<<<<<<<<<<<<<<<<
@@ -52,8 +52,8 @@
 |---|---|---|---|---|
 | `[x]` | T1 技术选型 | CDP 连接方式、Agent 运行环境、原型目录结构 | `prototype/cdp/t1-connect.js` 真实运行输出 | 无 |
 | `[x]` | T2 页面采集 | 从目标页面取得结构化 DOM / 语义摘要 | `prototype/cdp/samples/openrouter-models.json` | 无 |
-| `[ ]` | T3 指引 Skill 初版 | 定义观察、生成、验证、修复工作法 | Skill 文件指导一次真实生成 | 生成质量差先修 Skill，不跳到渲染 |
-| `[ ]` | T4 渲染与验证 | 注释指引注入页面并验证选择器命中 | 渲染截图 + 逐条命中记录 | 命中失败回到 T3 修正定位策略 |
+| `[x]` | T3 指引 Skill 初版 | 定义观察、生成、验证、修复工作法 | `prototype/skill/page-guide-skill.md` 指导真实生成 | 无 |
+| `[x]` | T4 渲染与验证 | 注释指引注入页面并验证选择器命中 | `prototype/cdp/samples/openrouter-guide-render.png` + `openrouter-guide-verify.json` | 相邻筛选区标签视觉重叠，T5 收口时调注释层间距 |
 | `[ ]` | T5 持久化与恢复 | 生成示例任务文件并二次加载渲染 | 文件内容 + 恢复渲染证据 | 两种顶层对象各做一次成本比较 |
 | `[ ]` | T6 收口 | 比较结论写回 PRD，任务收口 | PRD 证据区更新记录 | 无 |
 
@@ -84,6 +84,19 @@
 | 未解决问题 | 无 |
 | 下一步快照 | T3 指引 Skill 初版 |
 | Git receipt | pending：本轮 T2 代码与样本待提交 |
+
+### 2026-09-02 03:05 Asia/Shanghai｜Session Closeout
+
+| 写回项 | 本轮记录 |
+|---|---|
+| Plan | 写指引 Skill 初版，生成 OpenRouter 指引，渲染并逐条验证 |
+| Do | 建 `prototype/skill/page-guide-skill.md`、`guides/openrouter-models-guide.json`（5 条三层注释）、`t4-render-verify.js`（验证 + 高亮环 + 命中标签 + 截图） |
+| Observation | 真实 Chrome 中 5/5 命中；primary 3 条、fallback 2 条接管；截图确认环与标签出现在正确元素上 |
+| Correct | PRD 验收标准 1 成立的第一份真实证据；修正记录：相邻 h3 标签注释需要间距策略；text 定位需要范围约束避免误命中（本次 Models 文本命中正确导航项，靠人工确认） |
+| 当前状态 | 进行中 |
+| 未解决问题 | 注释层视觉密度（T5 顺手修）；text 锚点误命中风险（Skill 下一条迭代加 uniqueness 校验） |
+| 下一步快照 | T5 持久化与恢复 |
+| Git receipt | pending：本轮 Skill、指南、渲染验证代码与证据待提交 |
 
 <<<<<<<<<<<<<<<<<<<< 06 停止条件 <<<<<<<<<<<<<<<<<<<<
 

@@ -1,0 +1,60 @@
+{
+  "verifiedAt": "2026-09-02T18:04:56.863Z",
+  "verify": [
+    {
+      "id": 1,
+      "status": "hit",
+      "used": "fallback",
+      "box": {
+        "x": 288,
+        "y": 120,
+        "width": 320,
+        "height": 36
+      }
+    },
+    {
+      "id": 2,
+      "status": "hit",
+      "used": "primary",
+      "box": {
+        "x": 834.9921875,
+        "y": 11.5,
+        "width": 65.546875,
+        "height": 32
+      }
+    },
+    {
+      "id": 3,
+      "status": "hit",
+      "used": "primary",
+      "box": {
+        "x": 56,
+        "y": 408.25,
+        "width": 99.7109375,
+        "height": 22.75
+      }
+    },
+    {
+      "id": 4,
+      "status": "hit",
+      "used": "primary",
+      "box": {
+        "x": 56,
+        "y": 361.5,
+        "width": 99.84375,
+        "height": 22.75
+      }
+    },
+    {
+      "id": 5,
+      "status": "hit",
+      "used": "fallback",
+      "box": {
+        "x": 288,
+        "y": 231.125,
+        "width": 1128,
+        "height": 146.75
+      }
+    }
+  ]
+}
