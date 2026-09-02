@@ -1,0 +1,72 @@
+{
+  "guides": [
+    {
+      "id": "openrouter-model-compare",
+      "task": "找到并比较适合的模型",
+      "pageBinding": {
+        "urlPattern": "openrouter.ai/models",
+        "landmarks": ["Compare AI Models: Pricing, Context & Benchmarks"]
+      },
+      "steps": [
+        {
+          "id": 1,
+          "primary": { "strategy": "placeholder", "value": "Search models..." },
+          "fallback": { "strategy": "css", "value": "input[type=text][placeholder*=\"Search\"]" },
+          "comment": "模型搜索框：直接输入模型名（如 claude）可以快速缩小列表；按 ⌘K 也能唤起搜索。"
+        },
+        {
+          "id": 2,
+          "primary": { "strategy": "text", "value": "Models" },
+          "fallback": { "strategy": "css", "value": "nav a" },
+          "comment": "主导航的 Models 页签：选模型从这里进，比较跑分去 Benchmarks，看热度去 Rankings。"
+        },
+        {
+          "id": 3,
+          "primary": { "strategy": "text", "value": "Context length" },
+          "fallback": { "strategy": "css", "value": "h3" },
+          "comment": "筛选分区「Context length」：按模型能一次处理的最大上下文长度过滤；长文任务选这里大的。"
+        },
+        {
+          "id": 4,
+          "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" },
+          "fallback": { "strategy": "css", "value": "main li" },
+          "comment": "模型卡片：点进去看该模型的价格、上下文和供应商详情；卡片上的折扣标签表示当前官方折扣。"
+        }
+      ]
+    },
+    {
+      "id": "openrouter-cheapest",
+      "task": "找到最便宜的可用模型",
+      "pageBinding": {
+        "urlPattern": "openrouter.ai/models",
+        "landmarks": ["Prompt pricing"]
+      },
+      "steps": [
+        {
+          "id": 1,
+          "primary": { "strategy": "text", "value": "Prompt pricing" },
+          "fallback": { "strategy": "css", "value": "h3" },
+          "comment": "筛选分区「Prompt pricing」：按每百万 token 的输入价格过滤；选最低区间先筛掉贵的。"
+        },
+        {
+          "id": 2,
+          "primary": { "strategy": "text", "value": "Output pricing" },
+          "fallback": { "strategy": "css", "value": "h3" },
+          "comment": "筛选分区「Output pricing」：输出 token 通常比输入贵好几倍，便宜模型也要看输出价才算真实成本。"
+        },
+        {
+          "id": 3,
+          "primary": { "strategy": "text", "value": "Discounted" },
+          "fallback": { "strategy": "css", "value": "h3" },
+          "comment": "筛选分区「Discounted」：只看当前有官方折扣的模型，折扣常在 50% 以上，捡便宜先来这里。"
+        },
+        {
+          "id": 4,
+          "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" },
+          "fallback": { "strategy": "css", "value": "main li" },
+          "comment": "模型卡片：对比卡片上的 $/M input 与 $/M output 两个价格，总价 = 输入量×输入价 + 输出量×输出价。"
+        }
+      ]
+    }
+  ]
+}
