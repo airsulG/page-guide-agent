@@ -1,4 +1,5 @@
 let pgaTimers = [];
+let pgaAdvance = null;
 let pgaRoot = null;
 
 function pgaClear() {
@@ -42,11 +43,27 @@ function pgaPlay(guide) {
   localStorage.setItem("pga_last_guide", JSON.stringify(guide));
   let i = 0;
   const playBadge = document.createElement("div");
-  playBadge.style.cssText = "position:fixed;top:20px;right:20px;background:rgba(23,23,26,0.88);backdrop-filter:blur(8px);color:#fff;font:12px/1 -apple-system,sans-serif;padding:7px 12px;border-radius:99px;z-index:2147483647;";
+  playBadge.style.cssText = "position:fixed;top:20px;right:20px;background:rgba(23,23,26,0.88);backdrop-filter:blur(8px);color:#fff;font:12px/1 -apple-system,sans-serif;padding:7px 8px 7px 14px;border-radius:99px;z-index:2147483647;display:flex;align-items:center;gap:8px;pointer-events:auto;";
   const badgeText = document.createElement("span");
   badgeText.textContent = `${Math.min(i + 1, guide.steps.length)} / ${guide.steps.length}`;
   playBadge.appendChild(badgeText);
+  const nextBtn = document.createElement("button");
+  nextBtn.style.cssText = "appearance:none;border:none;border-radius:99px;background:#8b5cf6;color:#fff;font:12px -apple-system,sans-serif;padding:4px 10px;cursor:pointer;";
+  nextBtn.textContent = "下一步 →";
+  playBadge.appendChild(nextBtn);
   pgaRoot.appendChild(playBadge);
+
+  const advance = () => {
+    if (i >= guide.steps.length) return;
+    i += 1;
+    playStep();
+  };
+  pgaAdvance = advance;
+  nextBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    advance();
+  });
+
   const playStep = () => {
     pgaRoot.querySelectorAll(".pga-step").forEach((n) => n.remove());
     if (i >= guide.steps.length) {
@@ -55,10 +72,11 @@ function pgaPlay(guide) {
       done.style.cssText = "position:fixed;top:64px;right:24px;background:rgba(22,163,74,0.95);color:#fff;font:13px -apple-system,sans-serif;padding:9px 14px;border-radius:10px;box-shadow:0 6px 20px rgba(22,163,74,0.3);";
       done.textContent = `重播完成（${guide.steps.length} 步）`;
       badgeText.textContent = `完成 ${guide.steps.length} / ${guide.steps.length}`;
+      nextBtn.remove();
       pgaRoot.appendChild(done);
       return;
     }
-    const step = guide.steps[i];
+      const step = guide.steps[i];
     const res = pgaLocate(step);
     if (res) {
       const ring = document.createElement("div");
@@ -79,24 +97,24 @@ function pgaPlay(guide) {
       badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
     } else {
       const badge = document.createElement("div");
+      badge.className = "pga-step";
       badge.style.cssText = "position:fixed;top:64px;right:24px;background:#dc2626;color:#fff;font:13px -apple-system,sans-serif;padding:8px 14px;border-radius:8px;";
       badge.textContent = `#${step.id} 指引过期：页面已改版，无法自动定位`;
       pgaRoot.appendChild(badge);
     }
-    i += 1;
-    pgaTimers.push(setTimeout(playStep, 4200));
+    badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
   };
   playStep();
 }
 
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "PGA_PLAY") pgaPlay(msg.guide);
-  if (msg.type === "PGA_STOP") pgaClear();
-});
-
 document.addEventListener("dblclick", () => {
   const saved = localStorage.getItem("pga_last_guide");
   if (saved) pgaPlay(JSON.parse(saved));
+});
+
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type === "PGA_PLAY") pgaPlay(msg.guide);
+  if (msg.type === "PGA_STOP") pgaClear();
 });
 
 if (location.hostname.includes("openrouter.ai") && localStorage.getItem("pga_autoplay") === "1") {
