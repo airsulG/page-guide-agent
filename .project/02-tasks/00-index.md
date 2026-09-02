@@ -6,7 +6,8 @@ execution_mode: interactive
 
 ## 看板
 
-- [>] 01-cdp-guide-prototype.md：第一阶段 CDP 指引原型验证；下一步 T1 技术选型（CDP 连接方式与 Agent 运行环境）。
+- [x] 01-cdp-guide-prototype.md：第一阶段原型验证（已完成，五项验收证据齐备）。
+- [>] 02-phase2-interactive-wizard.md：第二阶段可交互任务向导；下一步 T1 完成判定协议设计。
 
 ## Checkbox 语义
 

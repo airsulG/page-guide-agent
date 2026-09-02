@@ -13,6 +13,7 @@
 ## 当前 Task
 
 - `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（五项验收证据齐备，收口中）。
+- `02-tasks/02-phase2-interactive-wizard.md` —— 第二阶段可交互任务向导（未开始；下一步 T1 完成判定协议设计）。
 
 ## 外部材料
 
