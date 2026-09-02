@@ -11,28 +11,60 @@
           "primary": { "strategy": "placeholder", "value": "Search models..." },
           "fallback": { "strategy": "css", "value": "input[type=text][placeholder*=\"Search\"]" },
           "completion": { "type": "input" },
-          "comment": "在搜索框输入模型名（如 claude），输入后自动进入下一步。"
+          "comment": "在搜索框输入模型名（如 claude），输入后自动进入下一步。",
+          "lesson": {
+            "title": "搜索是选模型最快的方式",
+            "blocks": [
+              { "type": "text", "content": "OpenRouter 收录了数百个模型，靠滚动浏览效率很低。搜索框支持按模型名和厂商名模糊匹配，比如输入 claude 会同时列出 Anthropic Claude 系列和名字含 claude 的其他模型。" },
+              { "type": "list", "items": ["按厂商搜：google、anthropic、openai", "按能力搜：vision、reasoning、tool", "按用途搜：coding、chat、batch"] },
+              { "type": "tip", "content": "任何时候按 ⌘K（Mac）或 Ctrl+K 都能直接唤起搜索，不用回到列表页顶部。" }
+            ]
+          }
         },
         {
           "id": 2,
           "primary": { "strategy": "text", "value": "Models" },
           "fallback": { "strategy": "css", "value": "nav a" },
           "completion": { "type": "click" },
-          "comment": "点击主导航的 Models 页签确认位置：选模型从这里进，比较跑分去 Benchmarks。"
+          "comment": "点击主导航的 Models 页签确认位置：选模型从这里进，比较跑分去 Benchmarks。",
+          "lesson": {
+            "title": "Models、Benchmarks、Rankings 三个页面的分工",
+            "blocks": [
+              { "type": "text", "content": "顶栏三个入口承担不同任务：Models 是带筛选器的完整目录；Benchmarks 是按学科和跑分聚合的评测视图；Rankings 是按真实用量排序的热度榜。" },
+              { "type": "list", "items": ["找候选模型 → Models + 筛选", "验证能力上限 → Benchmarks 看跑分", "看别人都在用什么 → Rankings"] },
+              { "type": "tip", "content": "选型顺序建议：先用 Models 缩小范围，再用 Benchmarks 对比候选，最后看 Rankings 做交叉验证。" }
+            ]
+          }
         },
         {
           "id": 3,
           "primary": { "strategy": "text", "value": "Context length" },
           "fallback": { "strategy": "css", "value": "h3" },
           "completion": { "type": "click" },
-          "comment": "点击展开「Context length」筛选区：按模型能一次处理的最大上下文长度过滤，长文任务选大的。"
+          "comment": "点击展开「Context length」筛选区：按模型能一次处理的最大上下文长度过滤，长文任务选大的。",
+          "lesson": {
+            "title": "上下文长度如何影响模型选择",
+            "blocks": [
+              { "type": "text", "content": "上下文长度（Context）是模型一次请求能处理的最大 token 量。1M token 约等于 75 万字中文。长度直接决定你能一次性丢给它多少材料。" },
+              { "type": "list", "items": ["短对话 / 快速问答：128K 足够", "长文档分析、代码仓库理解：选 1M 档", "注意：上下文越大的模型档位，通常单价也更高"] },
+              { "type": "tip", "content": "估算方法：把你的典型输入（文档 + 历史对话）粗算 token，再留一倍余量选档。" }
+            ]
+          }
         },
         {
           "id": 4,
           "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" },
           "fallback": { "strategy": "css", "value": "main li" },
           "completion": { "type": "click" },
-          "comment": "点击任意模型卡片进入详情，查看价格、上下文与供应商，完成任务。"
+          "comment": "点击任意模型卡片进入详情，查看价格、上下文与供应商，完成任务。",
+          "lesson": {
+            "title": "读懂模型卡片上的价格",
+            "blocks": [
+              { "type": "text", "content": "每张卡片都标着两个价格：$/M input（每百万输入 token 多少美元）和 $/M output（每百万输出 token）。输出价通常是输入价的 3~5 倍，因为生成比理解更耗算力。" },
+              { "type": "list", "items": ["$0.75/M input + $3.75/M output：输入为主任务很便宜", "带 50% off 徽标：当前官方折扣价", "batch 变体：非实时批量任务可再省一半"] },
+              { "type": "tip", "content": "真实成本 = 输入量 × 输入价 + 输出量 × 输出价。对话类应用输出量往往占大头，别只看输入价。" }
+            ]
+          }
         }
       ]
 }

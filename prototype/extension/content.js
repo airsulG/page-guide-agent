@@ -122,6 +122,18 @@ function pgaPlay(guide) {
       const body = document.createElement("div");
       body.textContent = step.comment;
       bubble.appendChild(body);
+      if (step.lesson) {
+        const more = document.createElement("div");
+        more.style.cssText = "margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.25);font-size:12px;font-weight:600;cursor:pointer;pointer-events:auto;";
+        more.textContent = "📖 在侧边栏深入了解";
+        more.addEventListener("click", (e) => {
+          e.stopPropagation();
+          try {
+            chrome.runtime.sendMessage({ type: "PGA_SHOW_LESSON", step: { comment: step.comment, lesson: step.lesson, index: i + 1, total: guide.steps.length } });
+          } catch {}
+        });
+        bubble.appendChild(more);
+      }
       pgaRoot.appendChild(bubble);
       badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
       if (step.completion) {
