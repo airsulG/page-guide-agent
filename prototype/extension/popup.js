@@ -10,7 +10,19 @@ async function currentGuide() {
 async function sendToActiveTab(message) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab) return null;
-  return chrome.tabs.sendMessage(tab.id, message).catch(() => null);
+  try {
+    return await chrome.tabs.sendMessage(tab.id, message);
+  } catch {
+    // content script not injected yet (tab opened before the extension loaded):
+    // inject it now, then retry the message once
+    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["content.js"] });
+    return chrome.tabs.sendMessage(tab.id, message).catch((e) => {
+      const st = document.getElementById("status");
+      st.textContent = `发送失败：${e.message}`;
+      st.className = "err";
+      return null;
+    });
+  }
 }
 
 async function updateStatus() {
