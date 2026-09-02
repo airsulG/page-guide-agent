@@ -12,7 +12,7 @@
 
 ## 当前 Task
 
-- 暂无。尚未成熟为 PRD 的真实问题或由 PRD 产生的交付工作，从 `02-tasks/00-index.md` 进入。
+- `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（未开始；下一步 T1 技术选型）。
 
 ## 外部材料
 

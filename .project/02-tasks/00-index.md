@@ -6,7 +6,7 @@ execution_mode: interactive
 
 ## 看板
 
-- 暂无任务；真实工作需要跨会话承载时，由 `karl-task-pdoc` 或 `karl-loop-task-prompt` 创建第一个 Task。
+- [>] 01-cdp-guide-prototype.md：第一阶段 CDP 指引原型验证；下一步 T1 技术选型（CDP 连接方式与 Agent 运行环境）。
 
 ## Checkbox 语义
 
