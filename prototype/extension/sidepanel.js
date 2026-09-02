@@ -70,6 +70,11 @@ function matches(guide, url) {
 
 async function activeTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (tab && !tab.url) {
+    const st = document.getElementById("status");
+    st.textContent = "无法读取标签页 URL（tabs 权限缺失）";
+    st.className = "err";
+  }
   return tab;
 }
 
