@@ -3,9 +3,11 @@
   "name": "Page Guide Agent",
   "version": "0.1.0",
   "description": "在当前页面渲染 AI 指引：箭头、注释与重播。",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["activeTab", "scripting", "storage", "sidePanel"],
   "host_permissions": ["http://127.0.0.1:8765/*", "file:///*"],
-  "action": { "default_popup": "popup.html", "default_title": "Page Guide Agent" },
+  "action": { "default_title": "Page Guide Agent" },
+  "background": { "service_worker": "background.js" },
+  "side_panel": { "default_path": "sidepanel.html" },
   "content_scripts": [
     { "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_idle" }
   ]

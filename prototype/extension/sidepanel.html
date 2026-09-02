@@ -6,20 +6,20 @@
   <style>
     :root {
       --bg: #131316; --surface: #1c1c21; --border: #2c2c33;
-      --text: #f4f4f5; --text-2: #9d9da8; --accent: #8b5cf6; --accent-soft: #a78bfa; --danger: #f87171;
+      --text: #f4f4f5; --text-2: #9d9da8; --accent: #8b5cf6; --danger: #f87171;
     }
     * { box-sizing: border-box; margin: 0; }
     body {
-      width: 320px; background: var(--bg);
-      font: 13px/1.45 -apple-system, "PingFang SC", sans-serif; color: var(--text);
+      background: var(--bg); color: var(--text);
+      font: 13px/1.5 -apple-system, "PingFang SC", sans-serif;
       padding: 14px;
     }
-    header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .logo { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); position: relative; flex: none; }
-    .logo::after { content: ""; position: absolute; inset: 6px; border: 2px solid #fff; border-radius: 3px; }
-    header h1 { font-size: 14px; font-weight: 600; }
+    header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .logo { width: 24px; height: 24px; border-radius: 7px; background: var(--accent); position: relative; flex: none; }
+    .logo::after { content: ""; position: absolute; inset: 7px; border: 2px solid #fff; border-radius: 3px; }
+    header h1 { font-size: 15px; font-weight: 600; }
     header span { margin-left: auto; font-size: 11px; color: var(--text-2); }
-    .page { font-size: 11px; color: var(--text-2); margin-bottom: 8px; }
+    .page { font-size: 12px; color: var(--text-2); margin-bottom: 10px; }
     .page b { color: var(--text); font-weight: 500; }
     .guide {
       background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
@@ -38,17 +38,9 @@
     .play:hover { filter: brightness(1.08); }
     .empty {
       background: var(--surface); border: 1px dashed var(--border); border-radius: 10px;
-      padding: 16px 12px; text-align: center; color: var(--text-2); font-size: 12px;
+      padding: 20px 14px; text-align: center; color: var(--text-2); font-size: 12px;
     }
-    .import {
-      flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 7px 10px; text-align: center; color: var(--text-2); font-size: 12px; cursor: pointer;
-    }
-    .import:hover { color: var(--text); }
-    .stop { background: transparent; border: none; color: var(--text-2); font-size: 12px; cursor: pointer; padding: 7px 6px; }
-    .stop:hover { color: var(--danger); }
-    #file { display: none; }
-    #status { margin-top: 8px; font-size: 11px; color: var(--text-2); min-height: 14px; }
+    #status { margin-top: 10px; font-size: 11px; color: var(--text-2); min-height: 14px; }
     #status.err { color: var(--danger); }
   </style>
 </head>
@@ -56,11 +48,11 @@
   <header>
     <div class="logo"></div>
     <h1>Page Guide Agent</h1>
-    <span>v0.2</span>
+    <span>v0.3</span>
   </header>
   <div class="page" id="page-line">读取当前页面…</div>
   <div id="list"></div>
   <div id="status"></div>
-  <script src="popup.js"></script>
+  <script src="sidepanel.js"></script>
 </body>
 </html>
