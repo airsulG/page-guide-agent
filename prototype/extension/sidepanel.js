@@ -58,6 +58,11 @@ async function loadGuides() {
   return data.guides || [];
 }
 
+async function guideSource() {
+  const stored = await chrome.storage.local.get("pga_source");
+  return stored.pga_source || "内置默认";
+}
+
 function matches(guide, url) {
   const pattern = guide.pageBinding?.urlPattern || "";
   return url.includes(pattern.replace(/^https?:\/\//, ""));
@@ -130,6 +135,11 @@ function renderList(guides, url) {
   const fresh = await refreshGuides();
   if (fresh) guides = fresh;
   renderList(guides, tab?.url || "");
+  const source = await guideSource();
+  const st = document.getElementById("status");
+  if (!st.className) {
+    st.textContent = `任务包：${guides.length} 条（来源：${source}）`;
+  }
 
   chrome.tabs.onActivated.addListener(async () => {
     const t = await activeTab();
