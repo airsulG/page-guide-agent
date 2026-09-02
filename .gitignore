@@ -10,5 +10,6 @@
 
 # Build and cache folders
 build/
+node_modules/
 DerivedData/
 .project/build/
