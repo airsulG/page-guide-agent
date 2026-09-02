@@ -130,18 +130,6 @@ function renderList(guides, url) {
   }
 }
 
-document.getElementById("stop").addEventListener("click", async () => {
-  await sendToActiveTab({ type: "PGA_STOP" });
-  window.close();
-});
-
-document.getElementById("reload").addEventListener("click", async () => {
-  const guides = await refreshGuides();
-  if (!guides) return;
-  const tab = await activeTab();
-  renderList(guides, tab?.url || "");
-});
-
 (async () => {
   let [guides, tab] = await Promise.all([loadGuides(), activeTab()]);
   const fresh = await refreshGuides();

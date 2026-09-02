@@ -40,13 +40,11 @@
       background: var(--surface); border: 1px dashed var(--border); border-radius: 10px;
       padding: 16px 12px; text-align: center; color: var(--text-2); font-size: 12px;
     }
-    .footer { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
     .import {
       flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
       padding: 7px 10px; text-align: center; color: var(--text-2); font-size: 12px; cursor: pointer;
     }
     .import:hover { color: var(--text); }
-    .stop:hover { color: var(--danger); }
     .stop { background: transparent; border: none; color: var(--text-2); font-size: 12px; cursor: pointer; padding: 7px 6px; }
     .stop:hover { color: var(--danger); }
     #file { display: none; }
@@ -62,10 +60,6 @@
   </header>
   <div class="page" id="page-line">读取当前页面…</div>
   <div id="list"></div>
-  <div class="footer">
-    <span class="import" id="reload">从本地文件刷新任务包</span>
-    <button class="stop" id="stop">停止播放</button>
-  </div>
   <div id="status"></div>
   <script src="popup.js"></script>
 </body>
