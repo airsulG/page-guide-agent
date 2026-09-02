@@ -8,11 +8,11 @@
 
 ## 项目运行背景
 
-- 项目一句话承诺：待补充。来源：`.project/01-product/PRODUCT.md`。
-- 目标用户：待补充。来源：`.project/01-product/PRODUCT.md`。
-- 核心价值：待补充。来源：`.project/01-product/PRODUCT.md`。
-- 第一阶段成立标准：待补充。来源：`.project/01-product/PRODUCT.md`。
-- 不做事项：待补充。来源：`.project/01-product/PRODUCT.md`。
+- 项目一句话承诺：在任意网页上通过对话让本地 AI 理解页面结构并直接渲染分步指引；成果沉淀为本地任务文件，越用越准。来源：`.project/01-product/PRODUCT.md`。
+- 目标用户：当前阶段为 Karl 本人；长期面向复杂 Web 工具的普通用户。来源：`.project/01-product/PRODUCT.md`。
+- 核心价值：页面内即时指引替代离开页面查文档；会话内自愈，无人工维护配置。来源：`.project/01-product/PRODUCT.md`。
+- 第一阶段成立标准：AI 对未配置过的复杂页面凭空产出 ≥5 条验证命中的注释指引并渲染（PRD 验收标准 1）。来源：`.project/01-product/page-guide-agent.md`。
+- 不做事项：第一阶段不做 AI 自动点击；不做云端账号；不预置白名单或静态指引库；不做通用爬虫。来源：`.project/01-product/PRODUCT.md`。
 
 ## 产品承诺快照
 
@@ -24,7 +24,7 @@
 
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
-- 当前模块 PRD：暂无。
+- 当前模块 PRD：`.project/01-product/page-guide-agent.md`（页面指引 Agent 核心能力模块；需求定义完成，实现未开始）
 
 ## 禁止漂移项
 
