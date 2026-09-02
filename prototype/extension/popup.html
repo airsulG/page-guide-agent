@@ -4,23 +4,93 @@
   <meta charset="utf-8">
   <title>Page Guide Agent</title>
   <style>
-    body { width: 260px; font: 13px -apple-system, sans-serif; padding: 12px; }
-    #status { color: #666; margin-bottom: 8px; font-size: 12px; }
-    #status.err { color: #dc2626; }
-    .row { display: flex; gap: 6px; margin-bottom: 8px; }
-    .row button { flex: 1; }
+    :root {
+      --bg: #f7f7f8;
+      --surface: #ffffff;
+      --border: #e6e6ea;
+      --text: #17171a;
+      --text-2: #71717a;
+      --accent: #7c3aed;
+      --accent-soft: #f1eafe;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      width: 300px;
+      background: var(--bg);
+      font: 13px/1.45 -apple-system, "SF Pro Text", "PingFang SC", sans-serif;
+      color: var(--text);
+      padding: 14px;
+    }
+    header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .logo { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); position: relative; flex: none; }
+    .logo::after {
+      content: ""; position: absolute; inset: 6px; border: 2px solid #fff; border-radius: 3px;
+    }
+    header h1 { font-size: 14px; font-weight: 600; letter-spacing: -0.2px; }
+    header span { margin-left: auto; font-size: 11px; color: var(--text-2); }
+    .task {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; margin-bottom: 12px;
+    }
+    .task .label { font-size: 11px; color: var(--text-2); margin-bottom: 2px; }
+    .task .name { font-weight: 500; font-size: 13px; }
+    .task .meta { font-size: 11px; color: var(--text-2); margin-top: 4px; }
+    .actions { display: flex; gap: 8px; margin-bottom: 12px; }
+    button {
+      appearance: none; border: 1px solid transparent; border-radius: 8px;
+      font: inherit; font-weight: 500; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      height: 34px; padding: 0 12px;
+      transition: filter .12s ease, background .12s ease;
+    }
+    button:active { filter: brightness(.92); }
+    svg { width: 14px; height: 14px; flex: none; }
+    .primary { flex: 1.4; background: var(--accent); color: #fff; }
+    .secondary { flex: 1; background: var(--surface); border-color: var(--border); color: var(--text); }
+    .ghost { background: transparent; color: var(--text-2); width: 34px; padding: 0; }
+    .ghost:hover { color: var(--danger); background: #fdecec; }
+    .import {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+      color: var(--text-2); font-size: 12px; cursor: pointer;
+    }
+    .import:hover { color: var(--text); border-color: #d4d4da; }
+    #file { display: none; }
+    #status { margin-top: 10px; font-size: 11px; color: var(--text-2); min-height: 15px; }
+    #status.err { color: var(--danger); }
   </style>
 </head>
 <body>
-  <div style="font-weight:600;margin-bottom:8px;">Page Guide Agent</div>
-  <div id="status" style="color:#666;margin-bottom:8px;">未加载指引</div>
-  <div style="display:flex;gap:6px;margin-bottom:8px;">
-    <button id="play" style="flex:1;">▶ 播放</button>
-    <button id="replay" style="flex:1;">↺ 重播</button>
-    <button id="stop" style="flex:1;">■ 停止</button>
+  <header>
+    <div class="logo"></div>
+    <h1>Page Guide Agent</h1>
+    <span>v0.1</span>
+  </header>
+  <div class="task">
+    <div class="label">当前指引</div>
+    <div class="name" id="task-name">加载中…</div>
+    <div class="meta" id="task-meta"></div>
   </div>
-  <label style="display:block;font-size:12px;color:#444;">导入 guide.json（可选，覆盖当前指引）</label>
-  <input id="file" type="file" accept=".json" style="margin-top:4px;width:100%;">
+  <div class="actions">
+    <button class="primary" id="play" title="从第一步开始播放">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3" fill="currentColor" stroke="none"/></svg>
+      播放
+    </button>
+    <button class="secondary" id="replay" title="重新播放当前指引">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      重播
+    </button>
+    <button class="ghost" id="stop" title="停止播放">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+    </button>
+  </div>
+  <label class="import" for="file">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+    导入 guide.json
+  </label>
+  <input id="file" type="file" accept=".json">
+  <div id="status"></div>
   <script src="popup.js"></script>
 </body>
 </html>

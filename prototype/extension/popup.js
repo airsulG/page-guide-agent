@@ -27,7 +27,8 @@ async function sendToActiveTab(message) {
 
 async function updateStatus() {
   const guide = await currentGuide();
-  document.getElementById("status").textContent = `已加载：${guide.task}（${guide.steps.length} 步）`;
+  document.getElementById("task-name").textContent = guide.task;
+  document.getElementById("task-meta").textContent = `${guide.steps.length} 步 · ${guide.pageBinding?.urlPattern || "当前页面"}`;
 }
 
 document.getElementById("play").addEventListener("click", async () => {

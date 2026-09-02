@@ -41,12 +41,20 @@ function pgaPlay(guide) {
   document.body.appendChild(pgaRoot);
   localStorage.setItem("pga_last_guide", JSON.stringify(guide));
   let i = 0;
+  const playBadge = document.createElement("div");
+  playBadge.style.cssText = "position:fixed;top:20px;right:20px;background:rgba(23,23,26,0.88);backdrop-filter:blur(8px);color:#fff;font:12px/1 -apple-system,sans-serif;padding:7px 12px;border-radius:99px;z-index:2147483647;";
+  const badgeText = document.createElement("span");
+  badgeText.textContent = `${Math.min(i + 1, guide.steps.length)} / ${guide.steps.length}`;
+  playBadge.appendChild(badgeText);
+  pgaRoot.appendChild(playBadge);
   const playStep = () => {
-    pgaRoot.innerHTML = "";
+    pgaRoot.querySelectorAll(".pga-step").forEach((n) => n.remove());
     if (i >= guide.steps.length) {
       const done = document.createElement("div");
-      done.style.cssText = "position:fixed;top:64px;right:24px;background:#16a34a;color:#fff;font:13px -apple-system,sans-serif;padding:8px 14px;border-radius:8px;";
+      done.className = "pga-step";
+      done.style.cssText = "position:fixed;top:64px;right:24px;background:rgba(22,163,74,0.95);color:#fff;font:13px -apple-system,sans-serif;padding:9px 14px;border-radius:10px;box-shadow:0 6px 20px rgba(22,163,74,0.3);";
       done.textContent = `重播完成（${guide.steps.length} 步）`;
+      badgeText.textContent = `完成 ${guide.steps.length} / ${guide.steps.length}`;
       pgaRoot.appendChild(done);
       return;
     }
@@ -54,12 +62,21 @@ function pgaPlay(guide) {
     const res = pgaLocate(step);
     if (res) {
       const ring = document.createElement("div");
-      ring.style.cssText = `position:absolute;left:${res.box.x - 6}px;top:${res.box.y - 6}px;width:${res.box.width + 12}px;height:${res.box.height + 12}px;border:2px solid #7c3aed;border-radius:8px;box-shadow:0 0 0 4000px rgba(0,0,0,0.12);`;
+      ring.className = "pga-step";
+      ring.style.cssText = `position:absolute;left:${res.box.x - 6}px;top:${res.box.y - 6}px;width:${res.box.width + 12}px;height:${res.box.height + 12}px;border:2px solid #8b5cf6;border-radius:10px;box-shadow:0 0 0 4000px rgba(0,0,0,0.18), 0 0 24px rgba(139,92,246,0.45);`;
       pgaRoot.appendChild(ring);
       const bubble = document.createElement("div");
-      bubble.style.cssText = `position:absolute;left:${Math.max(8, res.box.x)}px;top:${Math.max(64, res.box.y + res.box.height + 10)}px;max-width:380px;background:#7c3aed;color:#fff;font:13px/1.5 -apple-system,sans-serif;padding:10px 12px;border-radius:10px;`;
-      bubble.textContent = `${i + 1}/${guide.steps.length} ${step.comment}`;
+      bubble.className = "pga-step";
+      bubble.style.cssText = `position:absolute;left:${Math.max(8, res.box.x)}px;top:${Math.max(64, res.box.y + res.box.height + 12)}px;max-width:400px;background:rgba(23,23,26,0.92);backdrop-filter:blur(10px);color:#fafafa;font:13px/1.55 -apple-system,"PingFang SC",sans-serif;padding:12px 14px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.08);`;
+      const stepTag = document.createElement("div");
+      stepTag.style.cssText = "font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#a78bfa;margin-bottom:4px;font-weight:600;";
+      stepTag.textContent = `Step ${i + 1} / ${guide.steps.length}`;
+      bubble.appendChild(stepTag);
+      const body = document.createElement("div");
+      body.textContent = step.comment;
+      bubble.appendChild(body);
       pgaRoot.appendChild(bubble);
+      badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
     } else {
       const badge = document.createElement("div");
       badge.style.cssText = "position:fixed;top:64px;right:24px;background:#dc2626;color:#fff;font:13px -apple-system,sans-serif;padding:8px 14px;border-radius:8px;";
