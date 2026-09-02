@@ -84,13 +84,15 @@ async function sendToActiveTab(message) {
   try {
     return await chrome.tabs.sendMessage(tab.id, message);
   } catch {
-    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["content.js"] });
-    return chrome.tabs.sendMessage(tab.id, message).catch((e) => {
+    try {
+      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["content.js"] });
+      return await chrome.tabs.sendMessage(tab.id, message);
+    } catch (e) {
       const st = document.getElementById("status");
-      st.textContent = `发送失败：${e.message}`;
+      st.textContent = `发送失败：${e.message}（页面类型可能不支持注入，如 Chrome 内部页或商店页）`;
       st.className = "err";
       return null;
-    });
+    }
   }
 }
 
