@@ -1,5 +1,25 @@
 let pgaTimers = [];
 let pgaAdvance = null;
+let pgaState = null; // { guide, i, watcher, missSince, stepEl, stepType, stepValue, done, clicked }
+window.pgaState = () => pgaState;
+
+function pgaLocateTarget(step) {
+  const byStrategy = (s) => {
+    if (!s) return null;
+    try {
+      if (s.strategy === "placeholder") return document.querySelector(`input[placeholder="${s.value}"]`);
+      if (s.strategy === "css") return document.querySelector(s.value);
+      if (s.strategy === "text") {
+        const xp = `//*[normalize-space(text())="${s.value}"]`;
+        return document.evaluate(xp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+      }
+    } catch {}
+    return null;
+  };
+  let el = byStrategy(step.primary);
+  if (!el) el = byStrategy(step.fallback);
+  return el;
+}
 let pgaRoot = null;
 
 function pgaClear() {
@@ -37,6 +57,7 @@ function pgaLocate(step) {
 
 function pgaPlay(guide) {
   pgaClear();
+  pgaState = { guide, i: 0, watcher: null, missSince: 0 };
   pgaRoot = document.createElement("div");
   pgaRoot.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:2147483647;";
   document.body.appendChild(pgaRoot);
@@ -73,12 +94,20 @@ function pgaPlay(guide) {
       done.textContent = `重播完成（${guide.steps.length} 步）`;
       badgeText.textContent = `完成 ${guide.steps.length} / ${guide.steps.length}`;
       nextBtn.remove();
+      if (pgaState) {
+        clearInterval(pgaState.watcher);
+        pgaState = null;
+      }
       pgaRoot.appendChild(done);
       return;
     }
-      const step = guide.steps[i];
-    const res = pgaLocate(step);
-    if (res) {
+    const step = guide.steps[i];
+    const el = pgaLocateTarget(step);
+    if (el) {
+      el.scrollIntoView({ block: "center", behavior: "instant" });
+      const box = el.getBoundingClientRect();
+      const res = { used: el ? "primary" : "fallback", box };
+      pgaState.missSince = 0;
       const ring = document.createElement("div");
       ring.className = "pga-step";
       ring.style.cssText = `position:absolute;left:${res.box.x - 6}px;top:${res.box.y - 6}px;width:${res.box.width + 12}px;height:${res.box.height + 12}px;border:2px solid #8b5cf6;border-radius:10px;box-shadow:0 0 0 4000px rgba(0,0,0,0.18), 0 0 24px rgba(139,92,246,0.45);`;
@@ -95,7 +124,22 @@ function pgaPlay(guide) {
       bubble.appendChild(body);
       pgaRoot.appendChild(bubble);
       badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
+      if (step.completion) {
+        nextBtn.textContent = "等待操作…";
+        nextBtn.style.opacity = "0.6";
+        pgaState.stepEl = el;
+        pgaState.stepType = step.completion.type;
+        pgaState.stepValue = step.completion.valueContains || "";
+        pgaState.done = false;
+        if (!pgaState.watcher) {
+          pgaState.watcher = setInterval(() => pgaCheckCompletion(step), 400);
+        }
+      } else {
+        nextBtn.textContent = "下一步 →";
+        nextBtn.style.opacity = "1";
+      }
     } else {
+      if (!pgaState.missSince) pgaState.missSince = Date.now();
       const badge = document.createElement("div");
       badge.className = "pga-step";
       badge.style.cssText = "position:fixed;top:64px;right:24px;background:#dc2626;color:#fff;font:13px -apple-system,sans-serif;padding:8px 14px;border-radius:8px;";
@@ -107,6 +151,25 @@ function pgaPlay(guide) {
   playStep();
 }
 
+function pgaCheckCompletion(step) {
+  if (!pgaState || pgaState.done) return;
+  const el = pgaState.stepEl;
+  if (!el || !document.contains(el)) return;
+  const type = pgaState.stepType;
+  let done = false;
+  if (type === "input") {
+    done = (el.value || "").trim().length > 0 && (!pgaState.stepValue || el.value.toLowerCase().includes(pgaState.stepValue.toLowerCase()));
+  } else if (type === "click") {
+    done = !!pgaState.clicked;
+  } else if (type === "check") {
+    done = !!el.checked;
+  }
+  if (done) {
+    pgaState.done = true;
+    pgaAdvance();
+  }
+}
+
 document.addEventListener("dblclick", () => {
   const saved = localStorage.getItem("pga_last_guide");
   if (saved) pgaPlay(JSON.parse(saved));
@@ -116,6 +179,20 @@ chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === "PGA_PLAY") pgaPlay(msg.guide);
   if (msg.type === "PGA_STOP") pgaClear();
 });
+
+document.addEventListener("click", (e) => {
+  if (!pgaState || pgaState.done || pgaState.stepType !== "click") return;
+  const target = pgaState.stepEl;
+  if (!target) return;
+  if (target.contains(e.target) || e.target === target) {
+    pgaState.clicked = true;
+  }
+}, true);
+
+document.addEventListener("input", (e) => {
+  if (!pgaState || pgaState.stepType !== "input") return;
+  if (e.target === pgaState.stepEl) pgaCheckCompletion(null);
+}, true);
 
 if (location.hostname.includes("openrouter.ai") && localStorage.getItem("pga_autoplay") === "1") {
   const saved = localStorage.getItem("pga_last_guide");

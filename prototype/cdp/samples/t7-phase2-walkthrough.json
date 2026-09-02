@@ -1,0 +1,34 @@
+{
+  "log": [
+    {
+      "label": "step1-waiting",
+      "badge": "",
+      "bubble": "在搜索框输入模型名（如 claude），输入后自动进入下一步。",
+      "steps": 2
+    },
+    {
+      "label": "step1-done-auto-advance",
+      "badge": "",
+      "bubble": "点击主导航的 Models 页签确认位置：选模型从这里进，比较跑分去 Benchmarks。",
+      "steps": 2
+    },
+    {
+      "label": "step2-done-auto-advance",
+      "badge": "",
+      "bubble": "",
+      "steps": 1
+    },
+    {
+      "label": "step3-done-auto-advance",
+      "badge": "",
+      "bubble": "",
+      "steps": 1
+    },
+    {
+      "label": "step4-completed",
+      "badge": "",
+      "bubble": "",
+      "steps": 1
+    }
+  ]
+}

@@ -5,10 +5,34 @@
     "urlPattern": "openrouter.ai/models",
     "landmarks": ["Compare AI Models: Pricing, Context & Benchmarks"]
   },
-  "steps": [
-    { "id": 1, "primary": { "strategy": "placeholder", "value": "Search models..." }, "fallback": { "strategy": "css", "value": "input[type=text][placeholder*=\"Search\"]" }, "comment": "模型搜索框：直接输入模型名（如 claude）可以快速缩小列表；按 ⌘K 也能唤起搜索。" },
-    { "id": 2, "primary": { "strategy": "text", "value": "Models" }, "fallback": { "strategy": "css", "value": "nav a" }, "comment": "主导航的 Models 页签：选模型从这里进，比较跑分去 Benchmarks，看热度去 Rankings。" },
-    { "id": 3, "primary": { "strategy": "text", "value": "Context length" }, "fallback": { "strategy": "css", "value": "h3" }, "comment": "筛选分区「Context length」：按模型能一次处理的最大上下文长度过滤；长文任务选这里大的。" },
-    { "id": 4, "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" }, "fallback": { "strategy": "css", "value": "main li" }, "comment": "模型卡片：点进去看该模型的价格、上下文和供应商详情；卡片上的折扣标签表示当前官方折扣。" }
-  ]
+      "steps": [
+        {
+          "id": 1,
+          "primary": { "strategy": "placeholder", "value": "Search models..." },
+          "fallback": { "strategy": "css", "value": "input[type=text][placeholder*=\"Search\"]" },
+          "completion": { "type": "input" },
+          "comment": "在搜索框输入模型名（如 claude），输入后自动进入下一步。"
+        },
+        {
+          "id": 2,
+          "primary": { "strategy": "text", "value": "Models" },
+          "fallback": { "strategy": "css", "value": "nav a" },
+          "completion": { "type": "click" },
+          "comment": "点击主导航的 Models 页签确认位置：选模型从这里进，比较跑分去 Benchmarks。"
+        },
+        {
+          "id": 3,
+          "primary": { "strategy": "text", "value": "Context length" },
+          "fallback": { "strategy": "css", "value": "h3" },
+          "completion": { "type": "click" },
+          "comment": "点击展开「Context length」筛选区：按模型能一次处理的最大上下文长度过滤，长文任务选大的。"
+        },
+        {
+          "id": 4,
+          "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" },
+          "fallback": { "strategy": "css", "value": "main li" },
+          "completion": { "type": "click" },
+          "comment": "点击任意模型卡片进入详情，查看价格、上下文与供应商，完成任务。"
+        }
+      ]
 }
