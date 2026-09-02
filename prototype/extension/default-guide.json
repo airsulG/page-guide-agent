@@ -1,0 +1,39 @@
+{
+  "task": "在 OpenRouter 模型列表中找到并比较适合的模型",
+  "pageBinding": {
+    "urlPattern": "openrouter.ai/models",
+    "landmarks": ["Compare AI Models: Pricing, Context & Benchmarks", "Search models..."]
+  },
+  "steps": [
+    {
+      "id": 1,
+      "primary": { "strategy": "placeholder", "value": "Search models..." },
+      "fallback": { "strategy": "css", "value": "input[type=text][placeholder*=\"Search\"]" },
+      "comment": "模型搜索框：直接输入模型名（如 claude）可以快速缩小列表；页面右侧还有同款搜索，两边结果一致。按 ⌘K 也能唤起搜索。"
+    },
+    {
+      "id": 2,
+      "primary": { "strategy": "text", "value": "Models" },
+      "fallback": { "strategy": "css", "value": "nav >> text=Models" },
+      "comment": "主导航的 Models 页签：你当前就在这一页，列表页与 Benchmarks、Rankings 平级；选模型从这里进，比较跑分去 Benchmarks。"
+    },
+    {
+      "id": 3,
+      "primary": { "strategy": "text", "value": "Prompt pricing" },
+      "fallback": { "strategy": "css", "value": "h3:has-text(\"Prompt pricing\")" },
+      "comment": "筛选分区「Prompt pricing」：按每百万 token 的输入价格区间过滤模型；它与下方的 Output pricing 分开，一个管输入成本一个管输出成本，两个都要看才能算总价。"
+    },
+    {
+      "id": 4,
+      "primary": { "strategy": "text", "value": "Context length" },
+      "fallback": { "strategy": "css", "value": "h3:has-text(\"Context length\")" },
+      "comment": "筛选分区「Context length」：按模型能一次处理的最大上下文长度过滤；长文任务选这里大的，注意上下文越大通常价格也越高。"
+    },
+    {
+      "id": 5,
+      "primary": { "strategy": "css", "value": "a[href*=\"/models/\"]" },
+      "fallback": { "strategy": "css", "value": "main li" },
+      "comment": "模型卡片：每个卡片是一个可用模型，点进去看该模型的价格、上下文和供应商详情；卡片上的折扣标签表示当前官方折扣。"
+    }
+  ]
+}

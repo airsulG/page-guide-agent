@@ -56,6 +56,7 @@
 | `[x]` | T4 渲染与验证 | 注释指引注入页面并验证选择器命中 | `prototype/cdp/samples/openrouter-guide-render.png` + `openrouter-guide-verify.json` | 相邻筛选区标签视觉重叠，T5 收口时调注释层间距 |
 | `[x]` | T5 持久化与恢复 | 生成示例任务文件并二次加载渲染 | `t5-reload-verify.json` + `t6-selfheal-verify.json` + 三张截图 | 无 |
 | `[>]` | T6 收口 | 比较结论写回 PRD，任务收口 | PRD 证据区更新记录 | 等 EV2 人工确认后 closeout |
+| `[>]` | T7 Chrome 插件与重播 | MV3 插件：popup 播放/重播/停止；Karl 在真实浏览器亲眼看到指引渲染 | 插件文件 + 加载验证记录 | 插件加载失败记录 blocker |
 
 <<<<<<<<<<<<<<<<<<<< 05 PDOC 执行记录 <<<<<<<<<<<<<<<<<<<<
 
