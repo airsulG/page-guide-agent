@@ -44,7 +44,7 @@ async function refreshGuides() {
   const fromService = await fetchFromService();
   if (fromService) return fromService;
   const st = document.getElementById("status");
-  st.textContent = `文件读取失败（${fromFile.error}），且服务不可用；使用缓存`;
+  st.textContent = `任务目录读取失败（${fromFile.error}）——请确认扩展已开启「允许访问文件网址」`;
   st.className = "err";
   const stored = await chrome.storage.local.get("pga_guides");
   return Array.isArray(stored.pga_guides) && stored.pga_guides.length ? stored.pga_guides : null;
@@ -88,9 +88,14 @@ function renderList(guides, url) {
   const list = document.getElementById("list");
   const matched = guides.filter((g) => matches(g, url));
   const pageLine = document.getElementById("page-line");
+  let host = "";
+  try {
+    host = new URL(url).hostname;
+  } catch {}
+  const hostLine = host ? `当前页面：<b>${host}</b>` : "未识别到当前页面";
   pageLine.innerHTML = matched.length
-    ? `当前页面匹配 <b>${matched.length}</b> 个任务指引`
-    : "当前页面没有匹配的任务指引";
+    ? `${hostLine} · 匹配 <b>${matched.length}</b> 个任务`
+    : `${hostLine} · 无匹配任务`;
   list.innerHTML = "";
   if (!matched.length) {
     const empty = document.createElement("div");
