@@ -8,7 +8,7 @@
 
 ## 模块 PRD
 
-- `01-product/page-guide-agent.md` —— 页面指引 Agent 核心能力模块（产品当前唯一模块，需求定义完成）
+- `01-product/page-guide-agent.md` —— 页面指引 Agent 核心能力模块（产品当前唯一模块，需求初版已记录，关键方案待原型验证）
 
 ## 当前 Task
 
