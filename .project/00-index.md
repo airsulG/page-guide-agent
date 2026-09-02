@@ -8,11 +8,11 @@
 
 ## 模块 PRD
 
-- `01-product/page-guide-agent.md` —— 页面指引 Agent 核心能力模块（产品当前唯一模块，需求初版已记录，关键方案待原型验证）
+- `01-product/page-guide-agent.md` —— 页面指引 Agent 核心能力模块（第一阶段原型验收全部通过；第二阶段 Lesson 知识体系与完成判定未开始）
 
 ## 当前 Task
 
-- `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（T1-T5 完成，T6 收口中；等待 EV2 注释质量人工确认）。
+- `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（五项验收证据齐备，收口中）。
 
 ## 外部材料
 
