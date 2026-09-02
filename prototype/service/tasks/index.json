@@ -1,0 +1,6 @@
+{
+  "tasks": [
+    { "dir": "openrouter-model-compare" },
+    { "dir": "openrouter-cheapest" }
+  ]
+}

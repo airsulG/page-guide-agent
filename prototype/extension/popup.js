@@ -1,15 +1,23 @@
 const DEFAULTS_URL = "default-guides.json";
 const SERVICE_URL = "http://127.0.0.1:8765/guides.json";
-// Agent 管理的任务包固定路径；用户需在扩展详情页开启「允许访问文件网址」
-const GUIDE_FILE_URL = "file:///Users/zhouqi/Desktop/%E5%B7%A5%E4%BD%9C%E5%8C%BA/51-page-guide-agent/prototype/service/guides.json";
+// Agent 管理的任务目录固定路径；用户需在扩展详情页开启「允许访问文件网址」
+const TASKS_BASE_URL = "file:///Users/zhouqi/Desktop/%E5%B7%A5%E4%BD%9C%E5%8C%BA/51-page-guide-agent/prototype/service/tasks";
+const INDEX_URL = `${TASKS_BASE_URL}/index.json`;
 
 async function fetchFromFile() {
   try {
-    const res = await fetch(GUIDE_FILE_URL, { cache: "no-store" });
+    const res = await fetch(INDEX_URL, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const guides = Array.isArray(data) ? data : data.guides || [];
-    if (!guides.length) throw new Error("文件中无任务");
+    const index = await res.json();
+    const guides = await Promise.all(
+      (index.tasks || []).map(async (entry) => {
+        const gRes = await fetch(`${TASKS_BASE_URL}/${entry.dir}/guide.json`, { cache: "no-store" });
+        if (!gRes.ok) throw new Error(`${entry.dir}: HTTP ${gRes.status}`);
+        const guide = await gRes.json();
+        return { ...guide, id: guide.id || entry.dir };
+      })
+    );
+    if (!guides.length) throw new Error("索引中无任务");
     await chrome.storage.local.set({ pga_guides: guides, pga_source: "file" });
     return guides;
   } catch (e) {
