@@ -1,5 +1,21 @@
 const DEFAULTS_URL = "default-guides.json";
 const SERVICE_URL = "http://127.0.0.1:8765/guides.json";
+// Agent 管理的任务包固定路径；用户需在扩展详情页开启「允许访问文件网址」
+const GUIDE_FILE_URL = "file:///Users/zhouqi/Desktop/%E5%B7%A5%E4%BD%9C%E5%8C%BA/51-page-guide-agent/prototype/service/guides.json";
+
+async function fetchFromFile() {
+  try {
+    const res = await fetch(GUIDE_FILE_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const guides = Array.isArray(data) ? data : data.guides || [];
+    if (!guides.length) throw new Error("文件中无任务");
+    await chrome.storage.local.set({ pga_guides: guides, pga_source: "file" });
+    return guides;
+  } catch (e) {
+    return { error: e.message };
+  }
+}
 
 async function fetchFromService() {
   try {
@@ -17,6 +33,18 @@ async function fetchFromService() {
     const stored = await chrome.storage.local.get("pga_guides");
     return Array.isArray(stored.pga_guides) && stored.pga_guides.length ? stored.pga_guides : null;
   }
+}
+
+async function refreshGuides() {
+  const fromFile = await fetchFromFile();
+  if (Array.isArray(fromFile)) return fromFile;
+  const fromService = await fetchFromService();
+  if (Array.isArray(fromService)) return fromService;
+  const st = document.getElementById("status");
+  st.textContent = `文件读取失败（${fromFile.error}），HTTP 服务也不可用；使用本地缓存`;
+  st.className = "err";
+  const stored = await chrome.storage.local.get("pga_guides");
+  return Array.isArray(stored.pga_guides) && stored.pga_guides.length ? stored.pga_guides : null;
 }
 
 function matches(guide, url) {
@@ -100,7 +128,7 @@ document.getElementById("stop").addEventListener("click", async () => {
 });
 
 document.getElementById("reload").addEventListener("click", async () => {
-  const guides = await fetchFromService();
+  const guides = await refreshGuides();
   if (!guides) return;
   const tab = await activeTab();
   renderList(guides, tab?.url || "");
@@ -108,7 +136,7 @@ document.getElementById("reload").addEventListener("click", async () => {
 
 (async () => {
   let [guides, tab] = await Promise.all([loadGuides(), activeTab()]);
-  const fresh = await fetchFromService();
+  const fresh = await refreshGuides();
   if (fresh) guides = fresh;
   renderList(guides, tab?.url || "");
 })();

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "在当前页面渲染 AI 指引：箭头、注释与重播。",
   "permissions": ["activeTab", "scripting", "storage"],
-  "host_permissions": ["http://127.0.0.1:8765/*"],
+  "host_permissions": ["http://127.0.0.1:8765/*", "file:///*"],
   "action": { "default_popup": "popup.html", "default_title": "Page Guide Agent" },
   "content_scripts": [
     { "matches": ["<all_urls>"], "js": ["content.js"], "run_at": "document_idle" }
