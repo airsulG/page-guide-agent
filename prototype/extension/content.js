@@ -94,6 +94,7 @@ function pgaPlay(guide) {
       done.textContent = `重播完成（${guide.steps.length} 步）`;
       badgeText.textContent = `完成 ${guide.steps.length} / ${guide.steps.length}`;
       nextBtn.remove();
+      pgaTimers.push(setTimeout(() => pgaClear(), 4000));
       if (pgaState) {
         clearInterval(pgaState.watcher);
         pgaState = null;
