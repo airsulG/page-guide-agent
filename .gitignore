@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Local AI helpers
+.claude/
+
+# Local environment files
+.env
+.env.local
+
+# Build and cache folders
+build/
+DerivedData/
+.project/build/
