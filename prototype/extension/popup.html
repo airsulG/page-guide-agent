@@ -5,8 +5,8 @@
   <title>Page Guide Agent</title>
   <style>
     :root {
-      --bg: #f7f7f8; --surface: #ffffff; --border: #e6e6ea;
-      --text: #17171a; --text-2: #71717a; --accent: #7c3aed; --danger: #dc2626;
+      --bg: #131316; --surface: #1c1c21; --border: #2c2c33;
+      --text: #f4f4f5; --text-2: #9d9da8; --accent: #8b5cf6; --accent-soft: #a78bfa; --danger: #f87171;
     }
     * { box-sizing: border-box; margin: 0; }
     body {
@@ -24,13 +24,16 @@
     .guide {
       background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
       padding: 10px 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+      transition: border-color .12s ease;
+    }
+    .guide:hover { border-color: #3d3d46; }
     }
     .guide .info { flex: 1; min-width: 0; }
     .guide .name { font-weight: 500; font-size: 13px; }
     .guide .meta { font-size: 11px; color: var(--text-2); margin-top: 2px; }
     .play {
       appearance: none; border: none; border-radius: 8px; cursor: pointer;
-      background: var(--accent); color: #fff; height: 30px; padding: 0 12px;
+      background: var(--accent); color: #fff; height: 30px; padding: 0 14px;
       font: inherit; font-weight: 500; flex: none;
     }
     .play:hover { filter: brightness(1.08); }
@@ -44,6 +47,7 @@
       padding: 7px 10px; text-align: center; color: var(--text-2); font-size: 12px; cursor: pointer;
     }
     .import:hover { color: var(--text); }
+    .stop:hover { color: var(--danger); }
     .stop { background: transparent; border: none; color: var(--text-2); font-size: 12px; cursor: pointer; padding: 7px 6px; }
     .stop:hover { color: var(--danger); }
     #file { display: none; }

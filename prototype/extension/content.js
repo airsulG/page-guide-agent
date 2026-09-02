@@ -67,9 +67,9 @@ function pgaPlay(guide) {
       pgaRoot.appendChild(ring);
       const bubble = document.createElement("div");
       bubble.className = "pga-step";
-      bubble.style.cssText = `position:absolute;left:${Math.max(8, res.box.x)}px;top:${Math.max(64, res.box.y + res.box.height + 12)}px;max-width:400px;background:rgba(23,23,26,0.92);backdrop-filter:blur(10px);color:#fafafa;font:13px/1.55 -apple-system,"PingFang SC",sans-serif;padding:12px 14px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.28);border:1px solid rgba(255,255,255,0.08);`;
+      bubble.style.cssText = `position:absolute;left:${Math.max(8, res.box.x)}px;top:${Math.max(64, res.box.y + res.box.height + 12)}px;max-width:400px;background:#7c3aed;color:#fff;font:13px/1.55 -apple-system,"PingFang SC",sans-serif;padding:12px 14px;border-radius:12px;box-shadow:0 8px 28px rgba(124,58,237,0.4);`;
       const stepTag = document.createElement("div");
-      stepTag.style.cssText = "font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#a78bfa;margin-bottom:4px;font-weight:600;";
+      stepTag.style.cssText = "font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#ddd0ff;margin-bottom:4px;font-weight:600;opacity:.85;";
       stepTag.textContent = `Step ${i + 1} / ${guide.steps.length}`;
       bubble.appendChild(stepTag);
       const body = document.createElement("div");
