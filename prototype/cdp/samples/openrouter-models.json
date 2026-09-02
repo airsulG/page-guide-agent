@@ -1,0 +1,269 @@
+{
+  "url": "https://openrouter.ai/models",
+  "title": "Compare AI Models: Pricing, Context & Benchmarks | OpenRouter",
+  "headings": [
+    {
+      "tag": "h3",
+      "text": "Input modalities"
+    },
+    {
+      "tag": "h3",
+      "text": "Discounted"
+    },
+    {
+      "tag": "h3",
+      "text": "Context length"
+    },
+    {
+      "tag": "h3",
+      "text": "Prompt pricing"
+    },
+    {
+      "tag": "h3",
+      "text": "Series"
+    },
+    {
+      "tag": "h3",
+      "text": "Categories"
+    },
+    {
+      "tag": "h3",
+      "text": "Supported parameters"
+    },
+    {
+      "tag": "h3",
+      "text": "Distillable"
+    },
+    {
+      "tag": "h3",
+      "text": "Zero data retention"
+    },
+    {
+      "tag": "h3",
+      "text": "In-region routing"
+    },
+    {
+      "tag": "h3",
+      "text": "Output pricing"
+    },
+    {
+      "tag": "h3",
+      "text": "Model age"
+    },
+    {
+      "tag": "h3",
+      "text": "Tool calling"
+    },
+    {
+      "tag": "h3",
+      "text": "Inactive models"
+    },
+    {
+      "tag": "h3",
+      "text": "Artificial Analysis"
+    },
+    {
+      "tag": "h3",
+      "text": "Design Arena"
+    },
+    {
+      "tag": "h3",
+      "text": "Providers"
+    },
+    {
+      "tag": "h3",
+      "text": "Model authors"
+    },
+    {
+      "tag": "h1",
+      "text": "Models"
+    },
+    {
+      "tag": "h1",
+      "text": "Models"
+    },
+    {
+      "tag": "h3",
+      "text": "Product"
+    },
+    {
+      "tag": "h3",
+      "text": "Company"
+    },
+    {
+      "tag": "h3",
+      "text": "Developer"
+    },
+    {
+      "tag": "h3",
+      "text": "Connect"
+    },
+    {
+      "tag": "h2",
+      "text": "Verify your email"
+    }
+  ],
+  "controls": {
+    "buttons": [
+      "",
+      "Search⌘K",
+      "Models",
+      "Benchmarks",
+      "Chat",
+      "Rankings",
+      "Apps",
+      "Enterprise",
+      "Docs",
+      "Sign Up",
+      "Input modalities",
+      "Discounted",
+      "Context length",
+      "Prompt pricing",
+      "Series",
+      "Categories",
+      "Supported parameters",
+      "Distillable",
+      "Zero data retention",
+      "In-region routing",
+      "Output pricing",
+      "Model age",
+      "Tool calling",
+      "Inactive models",
+      "Artificial Analysis",
+      "Design Arena",
+      "Providers",
+      "Model authors",
+      "Newest",
+      "All variants",
+      "List",
+      "Table",
+      "All",
+      "Text423",
+      "Image48",
+      "Video28",
+      "Speech18",
+      "Transcription19",
+      "Embeddings37",
+      "Rerank7"
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "placeholder": "Search models...",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "",
+        "placeholder": "",
+        "ariaLabel": ""
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "placeholder": "Search models...",
+        "ariaLabel": ""
+      }
+    ]
+  },
+  "candidateRowCount": 45,
+  "rows": [
+    {
+      "tag": "li",
+      "text": "Google: Gemini 3.8 FlashGemini 3.8 Flash50% off11.4B tokens Gemini 3.8 Flash is Google's most intelligent Flash model wi"
+    },
+    {
+      "tag": "li",
+      "text": "Google: Gemini 3.8 Flash (batch)Gemini 3.8 Flash (batch)50% offBatch variant10.4M tokens Gemini 3.8 Flash is Google's mo"
+    },
+    {
+      "tag": "li",
+      "text": "MiniMax: H3 MaxH3 Max2 hours MiniMax H3 Max is a video-generation model from MiniMax, jointly released with fal.ai. Deri"
+    },
+    {
+      "tag": "li",
+      "text": "Anthropic: Claude Fable 5.1 (batch)Claude Fable 5.1 (batch)Batch variant1.07M tokens Claude Fable 5.1 improves on Claude"
+    },
+    {
+      "tag": "li",
+      "text": "Anthropic: Claude Fable 5.1Claude Fable 5.152.9B tokens Claude Fable 5.1 improves on Claude Fable 5 across the board, wi"
+    },
+    {
+      "tag": "li",
+      "text": "Inception: Mercury 2.5 PreviewMercury 2.5 Preview80% off15.4B tokens Mercury 2.5 is the fastest reasoning LLM, and the l"
+    },
+    {
+      "tag": "li",
+      "text": "IBM: Granite 4.2 8BGranite 4.2 8B1.18B tokens Granite 4.2 8B is a dense reasoning model from IBM. It is suited for mathe"
+    },
+    {
+      "tag": "li",
+      "text": "Tencent: Hy4 previewHy4 preview7.87T tokens Academia (#15)Finance (#21)Health (#29)Legal (#27)Marketing (#20)+5 categori"
+    },
+    {
+      "tag": "li",
+      "text": "Alibaba: Wan 3.0 PrimeWan 3.0 Prime3 hours Wan 3.0 Prime is a fast-mode variant of Wan 3.0 from Alibaba. It supports tex"
+    },
+    {
+      "tag": "li",
+      "text": "Ling 3.0 Flash Fin (free)Ling 3.0 Flash Fin (free)Free variant540B tokens Programming (#43)Ling 3.0 Flash Fin is a finan"
+    },
+    {
+      "tag": "li",
+      "text": "Z.ai: GLM Flash LatestGLM Flash Latest50% offThis model always redirects to the latest model in the GLM Flash family.by "
+    },
+    {
+      "tag": "li",
+      "text": "Qwen: Qwen3.8 FlashQwen3.8 Flash130B tokens Programming (#39)Qwen3.8 Flash is a multimodal reasoning model from Alibaba."
+    }
+  ]
+}

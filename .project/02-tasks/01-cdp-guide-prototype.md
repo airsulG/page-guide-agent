@@ -5,12 +5,12 @@
 | 恢复字段 | 当前状态 |
 |---|---|
 | 任务状态 | `[>]` 正在做 |
-| 当前轮次 / cursor | T1 完成；进入 T2 页面采集 |
-| 最近完成 | T1 技术选型：playwright-core + 本机 Chrome（channel: chrome）+ 临时用户目录持久化上下文 |
-| 最近验证 | `node prototype/cdp/t1-connect.js` 真实唤起 Chrome 并返回 Semrush 标题与 H1（2026-09-02） |
+| 当前轮次 / cursor | T2 完成；进入 T3 指引 Skill 初版 |
+| 最近完成 | T2 页面采集：OpenRouter 模型列表页结构化摘要（标题、25 个筛选分区标题、40 按钮、11 输入框、45 候选行、12 行样本） |
+| 最近验证 | `node prototype/cdp/t2-extract.js` 真实运行，样本存于 `prototype/cdp/samples/openrouter-models.json`（2026-09-02） |
 | 当前阻塞 | 无 |
-| 下一步动作 | T2 页面采集：从真实复杂页面取得结构化 DOM / 语义摘要样本 |
-| 下一步前必须读取 | 本文件 04 的 T2 行、PRD 1.7 组件方案 |
+| 下一步动作 | T3 指引 Skill 初版：基于 OpenRouter 快照产出并验证注释指引 |
+| 下一步前必须读取 | 本文件 04 的 T3 行、`prototype/cdp/samples/openrouter-models.json` |
 | 最后更新 | 2026-09-02 Asia/Shanghai |
 
 <<<<<<<<<<<<<<<<<<<< 01A Objective Decomposition 目标对象定义 <<<<<<<<<<<<<<<<<<<<
@@ -51,7 +51,7 @@
 | 状态 | 任务 | 范围或对象 | 验收证据 | 风险、停止或失败回流 |
 |---|---|---|---|---|
 | `[x]` | T1 技术选型 | CDP 连接方式、Agent 运行环境、原型目录结构 | `prototype/cdp/t1-connect.js` 真实运行输出 | 无 |
-| `[ ]` | T2 页面采集 | 从目标页面取得结构化 DOM / 语义摘要 | 真实页面结构快照样本 | 采集受限时换页面对照，不扩范围 |
+| `[x]` | T2 页面采集 | 从目标页面取得结构化 DOM / 语义摘要 | `prototype/cdp/samples/openrouter-models.json` | 无 |
 | `[ ]` | T3 指引 Skill 初版 | 定义观察、生成、验证、修复工作法 | Skill 文件指导一次真实生成 | 生成质量差先修 Skill，不跳到渲染 |
 | `[ ]` | T4 渲染与验证 | 注释指引注入页面并验证选择器命中 | 渲染截图 + 逐条命中记录 | 命中失败回到 T3 修正定位策略 |
 | `[ ]` | T5 持久化与恢复 | 生成示例任务文件并二次加载渲染 | 文件内容 + 恢复渲染证据 | 两种顶层对象各做一次成本比较 |
@@ -71,6 +71,19 @@
 | 未解决问题 | 复杂页面选型（Semrush 内部页需要登录态，或先用本地高复杂度 mock 页验证管线） |
 | 下一步快照 | T2 页面采集 |
 | Git receipt | pending：docs 已提交；本轮验证代码待下一条提交 |
+
+### 2026-09-02 02:20 Asia/Shanghai｜Session Closeout
+
+| 写回项 | 本轮记录 |
+|---|---|
+| Plan | 用真实复杂页面验证结构化采集 |
+| Do | Karl 指定 OpenRouter 模型页为第一目标；写 `prototype/cdp/t2-extract.js`；修一个属性选择器引号问题 |
+| Observation | 真实 Chrome 中页面加载成功：25 个筛选区标题、40 个按钮、11 个输入控件、45 个模型行；快照 JSON 落盘 |
+| Correct | 采集字段里 checkbox 缺少可读标签，说明下一层结构化摘要需要按“分组标题 → 控件”组织，T3 生成时按此消费 |
+| 当前状态 | 进行中 |
+| 未解决问题 | 无 |
+| 下一步快照 | T3 指引 Skill 初版 |
+| Git receipt | pending：本轮 T2 代码与样本待提交 |
 
 <<<<<<<<<<<<<<<<<<<< 06 停止条件 <<<<<<<<<<<<<<<<<<<<
 
