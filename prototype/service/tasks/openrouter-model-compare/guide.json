@@ -1,6 +1,7 @@
 {
   "id": "openrouter-model-compare",
   "task": "找到并比较适合的模型",
+  "description": "搜索目标模型，用上下文长度和价格筛选缩小范围，最后进模型详情页对比输入/输出单价。",
   "pageBinding": {
     "urlPattern": "openrouter.ai/models",
     "landmarks": ["Compare AI Models: Pricing, Context & Benchmarks"]

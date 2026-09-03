@@ -1,6 +1,7 @@
 {
   "id": "openrouter-cheapest",
   "task": "找到最便宜的可用模型",
+  "description": "依次用输入价、输出价和折扣三个筛选条件压缩范围，再对比卡片单价，找出综合成本最低的模型。",
   "pageBinding": {
     "urlPattern": "openrouter.ai/models",
     "landmarks": ["Prompt pricing"]

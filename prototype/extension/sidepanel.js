@@ -124,10 +124,13 @@ function renderList(guides, url) {
     const name = document.createElement("div");
     name.className = "name";
     name.textContent = guide.task;
+    const desc = document.createElement("div");
+    desc.style.cssText = "font-size:11px;color:var(--text-2);margin-top:2px;line-height:1.4;";
+    desc.textContent = guide.description || "";
     const meta = document.createElement("div");
     meta.className = "meta";
     meta.textContent = `${guide.steps.length} 步`;
-    info.append(name, meta);
+    info.append(name, desc, meta);
     const play = document.createElement("button");
     play.className = "play";
     play.textContent = "播放";
