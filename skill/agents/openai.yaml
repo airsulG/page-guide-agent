@@ -1,0 +1,6 @@
+interface:
+  display_name: "Page Guide Skill"
+  short_description: "为任意网页生成可验证、可播放的任务指引"
+  default_prompt: "Use $page-guide-skill to create a step-by-step page guide for the current webpage."
+policy:
+  allow_implicit_invocation: true
