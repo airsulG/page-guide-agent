@@ -120,14 +120,17 @@ function pgaPlay(guide) {
       stepTag.style.cssText = "font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#ddd0ff;margin-bottom:4px;font-weight:600;opacity:.85;";
       stepTag.textContent = `Step ${i + 1} / ${guide.steps.length}`;
       bubble.appendChild(stepTag);
+      const closeBtn = document.createElement("div");
+      closeBtn.style.cssText = "position:absolute;top:6px;right:8px;width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.75;pointer-events:auto;";
+      closeBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+      closeBtn.addEventListener("mouseenter", () => { closeBtn.style.background = "rgba(255,255,255,0.18)"; closeBtn.style.opacity = "1"; });
+      closeBtn.addEventListener("mouseleave", () => { closeBtn.style.background = "transparent"; closeBtn.style.opacity = "0.75"; });
+      bubble.appendChild(closeBtn);
       const body = document.createElement("div");
       body.textContent = step.comment;
       bubble.appendChild(body);
       const actions = document.createElement("div");
       actions.style.cssText = "display:flex;gap:14px;margin-top:8px;font-size:11px;font-weight:600;pointer-events:auto;white-space:nowrap;align-items:center;";
-      const collapse = document.createElement("span");
-      collapse.style.cursor = "pointer";
-      collapse.textContent = "收起 ▾";
       const detail = document.createElement("span");
       detail.style.cursor = "pointer";
       detail.style.opacity = "0.9";
@@ -137,10 +140,9 @@ function pgaPlay(guide) {
         detail.style.gap = "4px";
         detail.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>深入了解</span>`;
       }
-      actions.append(collapse);
       if (step.lesson) actions.append(detail);
       bubble.appendChild(actions);
-      collapse.addEventListener("click", (e) => {
+      closeBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         bubble.style.display = "none";
         ring.style.display = "none";
