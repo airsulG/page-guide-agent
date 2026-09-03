@@ -57,8 +57,18 @@
   05-prototypes/
 ```
 
+## Skill 维护职责
+
+本产品的指引生成方法论沉淀在扩展 Skill：`/Users/zhouqi/.codex/skill-extensions/tools-bridge/page-guide-skill/`（入口 SKILL.md，schema 与观察方法在 references/）。
+
+- **保持最新**：插件能力（`prototype/extension/content.js` 消费的 guide.json 字段、completion 判定类型、lesson.blocks 结构）发生变化时，同步更新 `references/guide-schema.md` 与 SKILL.md 的生成流程；Skill 落后于前端能力就是失效文档。
+- **同步触发点**：修改 content.js 的字段消费、新增 completion 类型、调整 lesson 渲染、改变任务目录结构时，必须检查并更新 Skill；PRD 新增 R 编号需求涉及指引产物格式时同样处理。
+- **验证要求**：更新后在真实页面生成或修复一次任务作为回归证据；schema 改动必须运行 `quick_validate.py` 确认 Skill 结构合法。
+- 项目内 `prototype/skill/page-guide-skill.md` 是历史初版，已被扩展 Skill 取代，不再维护。
+
 ## 更新规则
 
 - Karl 确认 PRODUCT 长期规则后，检查本文件的产品承诺快照是否需要同步。
 - Karl 开始、切换或完成一个模块后，检查本文件的当前模块 PRD 入口是否需要同步。
+- 修改插件消费合同（content.js / guide.json schema）后，检查 Skill 维护职责区是否需要同步更新。
 - 只同步运行时必须记住的摘要，不把 PRODUCT 或模块 PRD 全文复制进来。
