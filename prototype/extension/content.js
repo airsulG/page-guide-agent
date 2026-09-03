@@ -123,17 +123,47 @@ function pgaPlay(guide) {
       const body = document.createElement("div");
       body.textContent = step.comment;
       bubble.appendChild(body);
+      const actions = document.createElement("div");
+      actions.style.cssText = "display:flex;gap:14px;margin-top:8px;font-size:11px;font-weight:600;pointer-events:auto;";
+      const collapse = document.createElement("span");
+      collapse.style.cursor = "pointer";
+      collapse.textContent = "▽ 收起";
+      const detail = document.createElement("span");
+      detail.style.cursor = "pointer";
+      detail.style.opacity = "0.9";
       if (step.lesson) {
-        const more = document.createElement("div");
-        more.style.cssText = "margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.25);font-size:12px;font-weight:600;cursor:pointer;pointer-events:auto;";
-        more.textContent = "📖 在侧边栏深入了解";
-        more.addEventListener("click", (e) => {
+        detail.textContent = "📖 深入了解";
+      }
+      actions.append(collapse);
+      if (step.lesson) actions.append(detail);
+      bubble.appendChild(actions);
+      collapse.addEventListener("click", (e) => {
+        e.stopPropagation();
+        bubble.style.display = "none";
+        ring.style.display = "none";
+        const mini = document.createElement("div");
+        mini.className = "pga-step";
+        mini.style.cssText = "position:fixed;left:16px;bottom:16px;background:rgba(23,23,26,0.92);backdrop-filter:blur(8px);color:#fff;font:12px -apple-system,sans-serif;padding:8px 12px;border-radius:99px;display:flex;align-items:center;gap:10px;pointer-events:auto;z-index:2147483647;";
+        mini.textContent = `${i + 1}/${guide.steps.length} 已收起`;
+        const expand = document.createElement("span");
+        expand.style.cssText = "color:#a78bfa;font-weight:600;cursor:pointer;";
+        expand.textContent = "展开";
+        expand.addEventListener("click", (e) => {
+          e.stopPropagation();
+          mini.remove();
+          bubble.style.display = "";
+          ring.style.display = "";
+        });
+        mini.appendChild(expand);
+        pgaRoot.appendChild(mini);
+      });
+      if (step.lesson) {
+        detail.addEventListener("click", (e) => {
           e.stopPropagation();
           try {
             chrome.runtime.sendMessage({ type: "PGA_SHOW_LESSON", step: { comment: step.comment, lesson: step.lesson, index: i + 1, total: guide.steps.length } });
           } catch {}
         });
-        bubble.appendChild(more);
       }
       pgaRoot.appendChild(bubble);
       badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
