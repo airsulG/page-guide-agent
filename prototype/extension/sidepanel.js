@@ -172,7 +172,7 @@ chrome.runtime.onMessage.addListener((msg) => {
   const blocksHtml = lesson.blocks.map((b) => {
     if (b.type === "text") return `<p style="margin:0 0 10px;color:var(--text);">${b.content}</p>`;
     if (b.type === "list") return `<ul style="margin:0 0 10px;padding-left:18px;color:var(--text);">${b.items.map((it) => `<li style="margin-bottom:5px;">${it}</li>`).join("")}</ul>`;
-    if (b.type === "tip") return `<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-2);margin-bottom:10px;"><b style="color:var(--text);">💡 要点</b><br>${b.content}</div>`;
+    if (b.type === "tip") return `<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-2);margin-bottom:10px;"><b style="color:var(--text);">要点</b><br>${b.content}</div>`;
     return "";
   }).join("");
   card.innerHTML = `
