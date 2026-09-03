@@ -124,7 +124,7 @@ function pgaPlay(guide) {
       body.textContent = step.comment;
       bubble.appendChild(body);
       const actions = document.createElement("div");
-      actions.style.cssText = "display:flex;gap:14px;margin-top:8px;font-size:11px;font-weight:600;pointer-events:auto;";
+      actions.style.cssText = "display:flex;gap:14px;margin-top:8px;font-size:11px;font-weight:600;pointer-events:auto;white-space:nowrap;align-items:center;";
       const collapse = document.createElement("span");
       collapse.style.cursor = "pointer";
       collapse.textContent = "收起 ▾";
@@ -132,7 +132,10 @@ function pgaPlay(guide) {
       detail.style.cursor = "pointer";
       detail.style.opacity = "0.9";
       if (step.lesson) {
-        detail.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>深入了解`;
+        detail.style.display = "inline-flex";
+        detail.style.alignItems = "center";
+        detail.style.gap = "4px";
+        detail.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>深入了解</span>`;
       }
       actions.append(collapse);
       if (step.lesson) actions.append(detail);
