@@ -72,6 +72,17 @@ function pgaPlay(guide) {
   nextBtn.style.cssText = "appearance:none;border:none;border-radius:99px;background:#8b5cf6;color:#fff;font:12px -apple-system,sans-serif;padding:4px 10px;cursor:pointer;";
   nextBtn.textContent = "下一步 →";
   playBadge.appendChild(nextBtn);
+  const stopBtn = document.createElement("button");
+  stopBtn.style.cssText = "appearance:none;border:none;border-radius:99px;background:rgba(255,255,255,0.14);color:#fff;font:11px -apple-system,sans-serif;padding:4px 9px;cursor:pointer;";
+  stopBtn.textContent = "✕";
+  stopBtn.title = "结束指引";
+  stopBtn.addEventListener("mouseenter", () => { stopBtn.style.background = "#dc2626"; });
+  stopBtn.addEventListener("mouseleave", () => { stopBtn.style.background = "rgba(255,255,255,0.14)"; });
+  playBadge.appendChild(stopBtn);
+  stopBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    pgaClear();
+  });
   pgaRoot.appendChild(playBadge);
 
   const advance = () => {
