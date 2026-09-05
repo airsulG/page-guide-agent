@@ -5,7 +5,15 @@
   "description": "在当前页面渲染 AI 指引：箭头、注释与重播。",
   "permissions": ["activeTab", "scripting", "storage", "sidePanel", "tabs"],
   "host_permissions": ["http://127.0.0.1:8765/*", "file:///*"],
-  "action": { "default_title": "Page Guide Agent" },
+  "action": {
+    "default_title": "Page Guide Agent",
+    "default_icon": {
+      "16": "icons/page-guide-agent-16.png",
+      "32": "icons/page-guide-agent-32.png",
+      "48": "icons/page-guide-agent-48.png",
+      "128": "icons/page-guide-agent-128.png"
+    }
+  },
   "background": { "service_worker": "background.js" },
   "side_panel": { "default_path": "sidepanel.html" },
   "content_scripts": [
