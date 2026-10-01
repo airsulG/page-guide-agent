@@ -8,12 +8,13 @@
 
 ## 模块 PRD
 
-- `01-product/page-guide-agent.md` —— 页面指引 Agent 核心能力模块（第一阶段原型验收全部通过；第二阶段 Lesson 知识体系与完成判定未开始）
+- `01-product/page-guide-agent.md` —— 第一阶段原型已验收；第二阶段已有完成判定与 Lesson 实现，真实插件人工验收未完成。
 
 ## 当前 Task
 
 - `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（五项验收证据齐备，收口中）。
-- `02-tasks/02-phase2-interactive-wizard.md` —— 第二阶段可交互任务向导（未开始；下一步 T1 完成判定协议设计）。
+- `02-tasks/02-phase2-interactive-wizard.md` —— 第二阶段可交互任务向导；T1–T4 已实现，T5 真实插件人工验收与 T6 收口未完成。
+- [03 自主团队](02-tasks/03-project-team.md) —— 两个岗位、完整体验、文件交接与运行方案；尚未建队或启动。
 
 ## 外部材料
 

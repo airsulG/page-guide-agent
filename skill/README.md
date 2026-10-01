@@ -1,6 +1,6 @@
-# Page Guide Skill 项目镜像
+# Page Guide Skill 历史项目镜像
 
-本目录是扩展 Skill `/Users/zhouqi/.codex/skill-extensions/tools-bridge/page-guide-skill/` 的只读镜像，用于项目内版本追踪与审阅。
+本目录保留旧扩展 Skill 的项目镜像，用于历史版本追踪与审阅。2026-10-01 核对时，旧扩展目录仍在，但其 SKILL.md 已不存在；这里的任务意图与浏览器入口描述也不同于当前通用方法。
 
-- **权威源是扩展目录**：修改 Skill 在权威源进行，随后把文件复制回本目录保持同步（AGENTS.md「Skill 维护职责」区已写明同步纪律）。
-- 本目录内容不直接被 Codex 发现或执行；运行时只消费扩展目录。
+- 当前页面任务发现使用 [LEARN02](</Users/zhouqi/.codex/skills/LEARN/LEARN02-发现网页中的可完成任务/SKILL.md>)；指引生成与消费者合同使用 [LEARN03](</Users/zhouqi/.codex/skills/LEARN/LEARN03-生成网页任务指引/SKILL.md>)。
+- 本目录不作为当前方法入口，不要求继续复制通用 Skill；修改消费者时按项目 AGENTS 核对当前合同与实际加载。

@@ -7,7 +7,8 @@ execution_mode: interactive
 ## 看板
 
 - [x] 01-cdp-guide-prototype.md：第一阶段原型验证（已完成，五项验收证据齐备）。
-- [>] 02-phase2-interactive-wizard.md：第二阶段可交互任务向导；下一步 T1 完成判定协议设计。
+- [?] 02-phase2-interactive-wizard.md：T1–T4 已实现，等待真实插件人工验收；T6 收口未完成。
+- [>] [03-project-team.md](03-project-team.md)：自主团队定义已形成；创建、试跑和定时启动尚未执行。
 
 ## Checkbox 语义
 

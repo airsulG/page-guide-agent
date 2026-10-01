@@ -28,7 +28,13 @@
 
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
-- 当前模块 PRD：`.project/01-product/page-guide-agent.md`（页面指引 Agent 核心能力模块；第一阶段原型验收全部通过，第二阶段未开始）
+- 当前模块 PRD：`.project/01-product/page-guide-agent.md`（第一阶段原型已验收；第二阶段已有完成判定与 Lesson 实现，真实插件人工验收未完成）。
+
+## TEAM 入口
+
+设计、创建或接续自主团队时，读取 [团队定义与建设任务](.project/02-tasks/03-project-team.md)。当前只有方案，尚未建立 `.TEAM` 控制工作树或定时运行。普通问答不自动启动团队。
+
+团队目标是从完整体验选择新能力，在隔离分支自主开发并报告；候选不自动改写已接受产品承诺。创建后由执行者在本区登记真实控制目录与入口。候选插件必须核对实际加载目录与任务来源，不能在 TEAM 工作树测试时仍读取 main 的任务包。
 
 ## 禁止漂移项
 
@@ -59,12 +65,12 @@
 
 ## Skill 维护职责
 
-本产品的指引生成方法论沉淀在扩展 Skill：`/Users/zhouqi/.codex/skill-extensions/tools-bridge/page-guide-skill/`（入口 SKILL.md，schema 与观察方法在 references/）。
+当前页面任务发现使用 [LEARN02](</Users/zhouqi/.codex/skills/LEARN/LEARN02-发现网页中的可完成任务/SKILL.md>)，指引生成使用 [LEARN03](</Users/zhouqi/.codex/skills/LEARN/LEARN03-生成网页任务指引/SKILL.md>)，合同见其 `references/guide-schema.md`。旧扩展目录的 SKILL.md 已不存在；项目 `skill/` 与 `prototype/skill/page-guide-skill.md` 保留为历史参考，不作为运行入口。
 
-- **保持最新**：插件能力（`prototype/extension/content.js` 消费的 guide.json 字段、completion 判定类型、lesson.blocks 结构）发生变化时，同步更新 `references/guide-schema.md` 与 SKILL.md 的生成流程；Skill 落后于前端能力就是失效文档。
-- **同步触发点**：修改 content.js 的字段消费、新增 completion 类型、调整 lesson 渲染、改变任务目录结构时，必须检查并更新 Skill；PRD 新增 R 编号需求涉及指引产物格式时同样处理。
+- **保持最新**：插件能力（`prototype/extension/content.js` 消费的 guide.json 字段、completion 判定类型、lesson.blocks 结构）发生变化时，核对 LEARN03 的 `references/guide-schema.md` 与生成流程；有全局 Skill 维护授权时同批更新，否则保存准确的合同变化交接。
+- **同步触发点**：修改 content.js 的字段消费、新增 completion 类型、调整 lesson 渲染、改变任务目录结构时，必须检查当前方法并记录必要变更；PRD 新增 R 编号需求涉及指引产物格式时同样处理。全局方法的实际修改遵守上一项授权范围。
 - **验证要求**：更新后在真实页面生成或修复一次任务作为回归证据；schema 改动必须运行 `quick_validate.py` 确认 Skill 结构合法。
-- 项目内 `prototype/skill/page-guide-skill.md` 是历史初版，已被扩展 Skill 取代，不再维护。
+- TEAM 候选阶段的本地消费合同与检查结果保存在角色方法和原 Task，不复制通用 Skill 正文，不自行改写全局方法。
 
 ## 更新规则
 
