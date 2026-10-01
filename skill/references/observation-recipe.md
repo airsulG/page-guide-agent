@@ -1,5 +1,7 @@
 # 页面观察方法（playwright-core + 本机 Chrome）
 
+> 旧项目镜像的历史方法，下面的独立 Chrome、固定 profile 与事件模拟不作为当前默认。当前浏览器选择、登录态与页面观察按 [LEARN02 的页面观察方法](</Users/zhouqi/.codex/skills/LEARN/LEARN02-发现网页中的可完成任务/references/observation-recipe.md>) 执行；用户指定内置浏览器时不自行改用外部 Chrome。
+
 已验证的最小连接方式（macOS，Chrome 正式版）：
 
 ```js

@@ -8,13 +8,14 @@
 
 ## 模块 PRD
 
-- `01-product/page-guide-agent.md` —— 第一阶段原型已验收；第二阶段已有完成判定与 Lesson 实现，真实插件人工验收未完成。
+- `01-product/page-guide-agent.md` —— 对话驱动与无独立插件前端已确认；内置浏览器标注体验尚未实现，旧原型证据保留。
 
 ## 当前 Task
 
 - `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（五项验收证据齐备，收口中）。
-- `02-tasks/02-phase2-interactive-wizard.md` —— 第二阶段可交互任务向导；T1–T4 已实现，T5 真实插件人工验收与 T6 收口未完成。
+- `02-tasks/02-phase2-interactive-wizard.md` —— 历史第二阶段向导；T1–T4 已实现，T5/T6 未验收，目标已被新方向替代。
 - [03 自主团队](02-tasks/03-project-team.md) —— Leader 与两个独立岗位会话、完整体验及文件交接；建设工作树已建立，正在按新结构调整，定时尚未启动。
+- [04 对话驱动的网页标注](02-tasks/04-conversation-driven-annotations.md) —— 本次文档与技能维护、检查结果及后续实现缺口；仅文档与技能获授权。
 
 ## 外部材料
 

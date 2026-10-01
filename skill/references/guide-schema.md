@@ -1,5 +1,7 @@
 # guide.json Schema
 
+> 旧 Chrome 播放器的历史格式，不是当前实时标注协议。只在明确兼容需求时参考；当前维护入口是 [LEARN03 兼容合同](</Users/zhouqi/.codex/skills/LEARN/LEARN03-生成网页任务指引/references/guide-schema.md>)。默认帮助不要求 steps、lesson 或独立播放入口。
+
 真实消费者：Page Guide Agent 插件（`prototype/extension/content.js`）。改字段前先确认插件支持。
 
 ```json

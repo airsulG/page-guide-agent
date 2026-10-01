@@ -7,8 +7,9 @@ execution_mode: interactive
 ## 看板
 
 - [x] 01-cdp-guide-prototype.md：第一阶段原型验证（已完成，五项验收证据齐备）。
-- [?] 02-phase2-interactive-wizard.md：T1–T4 已实现，等待真实插件人工验收；T6 收口未完成。
+- [x] 02-phase2-interactive-wizard.md：旧目标已被对话驱动方向替代；T1–T4 实现保留，T5/T6 未验收，不记作通过。
 - [>] [03-project-team.md](03-project-team.md)：建设对话转为 Leader；两个业务岗位改用独立会话，建设工作树正在调整与试跑，定时未启动。
+- [x] [04-conversation-driven-annotations.md](04-conversation-driven-annotations.md)：产品定义、导航与 LEARN02/03 已更新和检查，保存本地提交；运行实现另需授权。
 
 ## Checkbox 语义
 

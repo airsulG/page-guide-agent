@@ -1,6 +1,6 @@
 interface:
-  display_name: "Page Guide Skill"
-  short_description: "为任意网页生成可验证、可播放的任务指引"
-  default_prompt: "Use $page-guide-skill to create a step-by-step page guide for the current webpage."
+  display_name: "Page Guide Skill · 历史镜像"
+  short_description: "仅追溯旧 Chrome 播放器合同，当前方法使用 LEARN02/03"
+  default_prompt: "当前网页理解与对话标注请使用 $learn02 或 $learn03；本文件仅供旧 Chrome 原型追溯。"
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

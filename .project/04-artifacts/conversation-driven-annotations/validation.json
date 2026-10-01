@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-01",
+  "environment": "isolated headless Chrome, controlled local HTML, unchanged content.js injected with runtime message stub",
+  "scope": "legacy compatibility and method checks; not real extension, not Codex built-in browser or new protocol",
+  "consumer_commit": "dd828ce",
+  "consumer_sha256": "21b166173d9372379af06beca37e7b95ecfc2e7c551bc171e136dc69774d9a40",
+  "checks": [
+    {
+      "name": "page identity",
+      "passed": true
+    },
+    {
+      "name": "unique target",
+      "passed": true
+    },
+    {
+      "name": "no lesson by default",
+      "passed": true
+    },
+    {
+      "name": "legacy annotation rendered",
+      "passed": true
+    },
+    {
+      "name": "annotation corresponds to element",
+      "passed": true
+    },
+    {
+      "name": "stale target reports expired",
+      "passed": true
+    },
+    {
+      "name": "stale target has no misleading ring",
+      "passed": true
+    },
+    {
+      "name": "reobserved target is unique",
+      "passed": true
+    },
+    {
+      "name": "repaired saved guide renders",
+      "passed": true
+    },
+    {
+      "name": "legacy stop removes visible annotation",
+      "passed": true
+    },
+    {
+      "name": "ambiguous text detected before annotation",
+      "passed": true,
+      "detail": "Do not generate or send an ambiguous selector."
+    },
+    {
+      "name": "skill has workflow LEARN02-发现网页中的可完成任务",
+      "passed": true
+    },
+    {
+      "name": "mermaid SVG LEARN02-发现网页中的可完成任务",
+      "passed": true
+    },
+    {
+      "name": "skill has workflow LEARN03-生成网页任务指引",
+      "passed": true
+    },
+    {
+      "name": "mermaid SVG LEARN03-生成网页任务指引",
+      "passed": true
+    }
+  ],
+  "diagrams": [
+    {
+      "skill": "LEARN02-发现网页中的可完成任务",
+      "output": "learn02-workflow.svg",
+      "rendered": true
+    },
+    {
+      "skill": "LEARN03-生成网页任务指引",
+      "output": "learn03-workflow.svg",
+      "rendered": true
+    }
+  ]
+}
