@@ -2,7 +2,9 @@
 
 本合同对应 `src/contract.mjs` 与内容脚本。六项工具只处理标注；`text` 是标注文字，不填写表单。数组表示同一批标注，不是自动播放步骤。
 
-当前产品暂定编号常驻、hover 显示对象名称，在对话中按编号提供定义、例子和比较；标注不拦截鼠标与键盘，输入框仍能点击和输入。不增加点击展开、悬停详细解释或更多入口。现有 `text: "④ 被引用页面"` 只会常驻显示名称与编号，尚不支持所要求的 hover 呈现；下面是现有接口示例，不是新呈现已经实现。本合同没有 number 或 details 字段，后续实现须同步实际 schema 与消费者。
+当前产品暂定编号常驻、hover 显示对象名称，在对话中按编号提供定义、例子和比较。使用 `type: "marker"`、`number: 4`、`text: "被引用页面"`；number 是1～99的整数，text 是1～80字符的单行对象名称，不含编号或解释。其他类型不接受 number，没有 details 字段。不增加点击展开、悬停详细解释或更多入口。
+
+marker 是不接收鼠标事件的覆盖层：22像素小编号常驻，原目标悬停或键盘聚焦时显示名称及淡色覆盖，移开且离焦后隐藏。名称尽量放在目标外侧，不盖输入文字；点击、输入和焦点仍由原网页控件处理。定位、滚动、更新、清理与失效检查沿用原方法。
 
 | 工具 | 输入与实际结果 |
 |---|---|
@@ -17,7 +19,7 @@
 
 `target` 必须且只能提供一个定位方式：CSS `css`、精确叶节点文字 `text`、关联 label 或 aria-label `label`。`frame_path` 是依次进入的同源 iframe CSS 数组，`shadow_path` 是开放 Shadow DOM 宿主数组，每种最多四层。先进入所有 iframe，再进入 Shadow DOM；本版不支持二者交错。跨源 iframe、关闭的 Shadow DOM、iframe 或其祖先有变换时返回不支持；目标被 frame 边界裁切时返回不可见，先在 frame 内滚动到完整目标。目标需唯一且在视口可见，工具不会代替用户滚动。
 
-每批 1～20 项，ID 唯一。`type` 支持 highlight、arrow、callout、combined，默认组合；文字最长 1000 字符。`placement` 为 top/right/bottom/left，默认 bottom；`offset` 的 x/y 为 CSS 像素，范围 -1000～1000，它移动提示与箭头，目标框仍贴合元素。纯箭头无文字时默认从目标上方 55 像素指向目标。`color` 可选，格式为六位十六进制色值。
+每批 1～20 项，ID 唯一。`type` 支持 marker、highlight、arrow、callout、combined；旧调用仍默认 combined，当前轻量指引明确传 marker。旧类型文字最长1000字符。`placement` 为 top/right/bottom/left，默认 bottom；marker 沿对应目标边缘放编号，top/bottom 靠右侧，offset 的 x/y 移动编号，名称跟随并收回视口，淡色覆盖始终贴合目标。旧类型的 offset 移动提示与箭头，目标框仍贴合元素。offset 为 CSS 像素，范围 -1000～1000。纯箭头无文字时默认从目标上方55像素指向目标。`color` 可选，格式为六位十六进制色值。
 
 同时解释关键词和比较按钮的参数示例：
 
@@ -26,13 +28,13 @@
   "page_id": "使用 page_guide_pages 刚返回的句柄",
   "session_id": "当前 Codex 会话 ID",
   "annotations": [
-    {"id": "keyword", "target": {"label": "关键词"}, "type": "callout", "text": "① 关键词", "placement": "bottom", "offset": {"x": 20, "y": 12}},
-    {"id": "compare", "target": {"css": "#compare"}, "type": "callout", "text": "② 比较选项"}
+    {"id": "keyword", "target": {"label": "关键词"}, "type": "marker", "number": 1, "text": "关键词", "placement": "top"},
+    {"id": "compare", "target": {"css": "#compare"}, "type": "marker", "number": 2, "text": "比较选项", "placement": "top"}
   ]
 }
 ```
 
-成功返回 `ok`、ID、匹配数、`target_box`、最终 `callout_box`、颜色、文档 ID 和构建版本。桥接或页面错误在 MCP 返回 `isError: true` 与具体文字；动态失效在 status 单项的 `ok: false` 中报告。常见错误为 TARGET_NOT_FOUND、TARGET_AMBIGUOUS、TARGET_NOT_VISIBLE、TARGET_OUTSIDE_VIEWPORT、UNSUPPORTED_SCOPE、STALE_PAGE 和 EXTENSION_DISCONNECTED。
+成功返回 `ok`、ID、匹配数、`target_box`、最终 `callout_box`、颜色、文档 ID 和构建版本；marker 还返回 number、marker_box 和 name_visible。callout_box 是名称预留位置，是否实际显示看 name_visible；status 会重新检查当前位置与状态。桥接或页面错误在 MCP 返回 `isError: true` 与具体文字；动态失效在 status 单项的 `ok: false` 中报告。常见错误为 TARGET_NOT_FOUND、TARGET_AMBIGUOUS、TARGET_NOT_VISIBLE、TARGET_OUTSIDE_VIEWPORT、UNSUPPORTED_SCOPE、STALE_PAGE 和 EXTENSION_DISCONNECTED。
 
 新批次有一个目标验证失败时，本次修改全部拒绝，旧标注保留，不取第一个匹配。后续布局变化可分别使某些标注失效，status 逐项反馈。提示用 textContent 显示，不执行 HTML；覆盖层不接收鼠标事件，保留正常输入与按钮操作。
 

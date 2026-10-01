@@ -1,0 +1,304 @@
+{
+  "date": "2026-10-02",
+  "extension": {
+    "version": "0.2.0",
+    "revision": "2ae9dd5371b9eee9",
+    "directory": "prototype/extension/"
+  },
+  "transport": "MCP SDK through scripts/call.mjs; actual paired in-app extension",
+  "semrush": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "visibility-score",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 419.23046875,
+          "y": 330.3828125,
+          "width": 25.1640625,
+          "height": 24.5
+        },
+        "marker_box": {
+          "x": 443.39453125,
+          "y": 312.3828125,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 471.39453125,
+          "y": 308.984375,
+          "width": 69.0234375,
+          "height": 28.796875
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "brand-mentions",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 636.984375,
+          "y": 284.765625,
+          "width": 53.484375,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 687.46875,
+          "y": 267.765625,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 715.46875,
+          "y": 264.3671875,
+          "width": 42,
+          "height": 28.796875
+        },
+        "number": 2,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "domain-citations",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 751.6875,
+          "y": 284.765625,
+          "width": 60.2421875,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 808.9296875,
+          "y": 267.765625,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 836.9296875,
+          "y": 264.3671875,
+          "width": 42,
+          "height": 28.796875
+        },
+        "number": 3,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "cited-pages",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 889.6484375,
+          "y": 284.765625,
+          "width": 59.65625,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 946.3046875,
+          "y": 267.765625,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 974.3046875,
+          "y": 264.3671875,
+          "width": 78,
+          "height": 28.796875
+        },
+        "number": 4,
+        "color": "#8b5cf6",
+        "name_visible": false
+      }
+    ],
+    "document_id": "0faecff5-4e3d-4871-92e3-dd57457ddcc9",
+    "revision": "2ae9dd5371b9eee9"
+  },
+  "fixtureScrolled": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "input-marker",
+        "ok": false,
+        "error": "TARGET_OUTSIDE_VIEWPORT: 请先观察或滚动到目标"
+      },
+      {
+        "id": "button-marker",
+        "ok": false,
+        "error": "TARGET_OUTSIDE_VIEWPORT: 请先观察或滚动到目标"
+      },
+      {
+        "id": "shadow-marker",
+        "ok": false,
+        "error": "TARGET_OUTSIDE_VIEWPORT: 请先观察或滚动到目标"
+      },
+      {
+        "id": "frame-marker",
+        "ok": false,
+        "error": "TARGET_OUTSIDE_VIEWPORT: 请先观察或滚动到目标"
+      }
+    ],
+    "document_id": "6bebf297-173e-4245-b677-ace0b1231352"
+  },
+  "fixtureRestored": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "input-marker",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 112,
+          "y": 207.3671875,
+          "width": 221.5,
+          "height": 49.1953125
+        },
+        "marker_box": {
+          "x": 322.5,
+          "y": 196.3671875,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 350.5,
+          "y": 192.96875,
+          "width": 54,
+          "height": 28.796875
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "button-marker",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 61,
+          "y": 280.5625,
+          "width": 102,
+          "height": 49.1953125
+        },
+        "marker_box": {
+          "x": 152,
+          "y": 269.5625,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 180,
+          "y": 266.1640625,
+          "width": 66,
+          "height": 28.796875
+        },
+        "number": 2,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "shadow-marker",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 139.296875,
+          "y": 532.1484375,
+          "width": 147,
+          "height": 21.5
+        },
+        "marker_box": {
+          "x": 275.296875,
+          "y": 521.1484375,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 303.296875,
+          "y": 517.75,
+          "width": 91.15625,
+          "height": 28.796875
+        },
+        "number": 3,
+        "color": "#8b5cf6",
+        "name_visible": false
+      },
+      {
+        "id": "frame-marker",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 133.90625,
+          "y": 566.34375,
+          "width": 147,
+          "height": 21.5
+        },
+        "marker_box": {
+          "x": 269.90625,
+          "y": 555.34375,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 297.90625,
+          "y": 551.9453125,
+          "width": 81.4296875,
+          "height": 28.796875
+        },
+        "number": 4,
+        "color": "#8b5cf6",
+        "name_visible": false
+      }
+    ],
+    "document_id": "6bebf297-173e-4245-b677-ace0b1231352"
+  },
+  "fixtureUpdated": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "button-marker",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 40,
+          "y": 465.953125,
+          "width": 136,
+          "height": 49.1953125
+        },
+        "marker_box": {
+          "x": 165,
+          "y": 454.953125,
+          "width": 22,
+          "height": 22
+        },
+        "callout_box": {
+          "x": 193,
+          "y": 451.5546875,
+          "width": 66,
+          "height": 28.796875
+        },
+        "number": 2,
+        "color": "#8b5cf6",
+        "name_visible": false
+      }
+    ],
+    "document_id": "6bebf297-173e-4245-b677-ace0b1231352",
+    "revision": "2ae9dd5371b9eee9"
+  },
+  "fixtureCleared": {
+    "ok": true,
+    "cleared": [
+      "input-marker",
+      "button-marker",
+      "shadow-marker",
+      "frame-marker"
+    ],
+    "remaining": 0
+  },
+  "screenshots": [
+    "input-focus.png",
+    "semrush-default.png",
+    "semrush-hover.png"
+  ]
+}

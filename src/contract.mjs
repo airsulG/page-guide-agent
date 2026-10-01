@@ -13,12 +13,18 @@ const target = z.object({
 const offset = z.object({x:z.number().min(-1000).max(1000).default(0),y:z.number().min(-1000).max(1000).default(0)}).strict();
 export const annotationSchema = z.object({
   id, target,
-  type: z.enum(['highlight','arrow','callout','combined']).default('combined'),
+  type: z.enum(['marker','highlight','arrow','callout','combined']).default('combined'),
+  number: z.number().int().min(1).max(99).optional(),
   text: z.string().max(1000).default(''),
   placement: z.enum(['top','right','bottom','left']).default('bottom'),
   offset: offset.default({x:0,y:0}),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional()
-}).strict();
+}).strict().superRefine((a,ctx)=>{
+  if(a.type==='marker'){
+    if(a.number===undefined)ctx.addIssue({code:z.ZodIssueCode.custom,path:['number'],message:'marker requires a number'});
+    if(!a.text.trim()||a.text.length>80||/[\r\n]/.test(a.text))ctx.addIssue({code:z.ZodIssueCode.custom,path:['text'],message:'marker text must be a single object name of 1-80 characters'});
+  }else if(a.number!==undefined)ctx.addIssue({code:z.ZodIssueCode.custom,path:['number'],message:'number is only supported for marker'});
+});
 const annotations=z.array(annotationSchema).min(1).max(20).refine(a=>new Set(a.map(x=>x.id)).size===a.length,'Duplicate annotation ID');
 const page={page_id:z.string().min(1).max(4096)};
 const session={...page,session_id:id};
@@ -33,7 +39,7 @@ export const schemas={
 const descriptions={
   page_guide_pages:'列出真实已配对扩展与可用页面；使用返回的页面句柄，不能猜 tab ID。',
   page_guide_inspect:'核对指定 DOM 目标是否唯一、可见，并返回真实几何；不修改业务网页。',
-  page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。text 是注释文字，不填写表单。',
+  page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。轻量指引用 type: marker、number 和对象名称 text，编号常驻，悬停或聚焦目标显示名称，不拦截原操作。',
   page_guide_update:'按 ID 更新已有标注，完整提供新的目标、形式、文字和偏移。',
   page_guide_clear:'撤下指定会话的全部或部分标注；不会清理其他会话。',
   page_guide_status:'取得当前会话各标注的真实状态，包括目标失效或位置变化。'

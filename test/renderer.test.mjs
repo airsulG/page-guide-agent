@@ -50,3 +50,43 @@ test('iframe target is rejected when transformed by an ancestor or clipped by it
     assert.throws(inspect,/TARGET_NOT_VISIBLE/);
   }finally{dom.window.close();}
 });
+test('markers reveal names on target hover, retain hover through layout refresh and preserve input',()=>{
+  const {dom,run}=renderer();try{
+    const w=dom.window,input=w.document.querySelector('#a');
+    const args=parseCall('page_guide_annotate',{page_id:'p',session_id:'one',annotations:[{id:'m',target:{css:'#a'},type:'marker',number:4,text:'参数名称'}]});
+    run('page_guide_annotate',args);
+    const root=w.document.querySelector('[data-page-guide-root]'),shadow=root.shadowRoot;
+    assert.equal(shadow.querySelector('.badge').textContent,'4');
+    assert.equal(shadow.querySelector('.name').dataset.active,'false');
+    assert.equal(shadow.querySelector('svg,.ring'),null);
+    assert.equal(root.style.pointerEvents,'none');
+    input.dispatchEvent(new w.Event('pointerenter'));
+    assert.equal(shadow.querySelector('.name').dataset.active,'true');
+    input.getBoundingClientRect=()=>({x:300,y:200,width:160,height:40});
+    const state=run('page_guide_status',{session_id:'one'}).annotations[0];
+    assert.equal(state.target_box.x,300);assert.equal(state.name_visible,true);
+    assert.equal(shadow.querySelector('.name').dataset.active,'true');
+    input.dispatchEvent(new w.Event('pointerleave'));
+    assert.equal(shadow.querySelector('.name').dataset.active,'false');
+    input.focus();input.value='仍然可以输入';input.dispatchEvent(new w.Event('input',{bubbles:true}));
+    assert.equal(w.document.activeElement,input);assert.equal(input.value,'仍然可以输入');
+    assert.equal(shadow.querySelector('.name').dataset.active,'true');
+    input.blur();assert.equal(shadow.querySelector('.name').dataset.active,'false');
+    run('page_guide_clear',{session_id:'one'});
+    input.dispatchEvent(new w.Event('pointerenter'));assert.equal(w.document.querySelector('[data-page-guide-root]'),null);
+  }finally{dom.window.close();}
+});
+test('marker update detaches old targets and removal withdraws badge and name',()=>{
+  const {dom,run}=renderer();try{
+    const w=dom.window,old=w.document.querySelector('#a');
+    const make=target=>parseCall('page_guide_annotate',{page_id:'p',session_id:'one',annotations:[{id:'m',target,type:'marker',number:2,text:'名称'}]});
+    run('page_guide_annotate',make({css:'#a'}));
+    const button=w.document.querySelector('.duplicate');button.id='next';
+    run('page_guide_update',make({css:'#next'}));
+    const shadow=w.document.querySelector('[data-page-guide-root]').shadowRoot;
+    old.dispatchEvent(new w.Event('pointerenter'));assert.equal(shadow.querySelector('.name').dataset.active,'false');
+    button.dispatchEvent(new w.Event('pointerenter'));assert.equal(shadow.querySelector('.name').dataset.active,'true');
+    button.remove();assert.equal(run('page_guide_status',{session_id:'one'}).annotations[0].ok,false);
+    assert.equal(shadow.querySelector('.badge,.name,.wash'),null);
+  }finally{dom.window.close();}
+});

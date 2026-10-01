@@ -19,3 +19,10 @@ test('page handles retain instance, tab, document and URL',()=>{
   assert.throws(()=>decodePage('bad'),/INVALID_PAGE_HANDLE/);
   assert.throws(()=>decodePage(pageId({...page,url:'chrome://extensions'})));
 });
+test('markers require an explicit number and a short single-line object name',()=>{
+  const marker={id:'m',target:{css:'#a'},type:'marker',number:4,text:'被引用页面'};
+  assert.equal(parseCall('page_guide_annotate',{...input,annotations:[marker]}).annotations[0].number,4);
+  for(const change of [{number:undefined},{number:0},{number:100},{number:1.5},{text:''},{text:'定义\n更多'},{text:'字'.repeat(81)},{type:'arrow'}]){
+    assert.throws(()=>parseCall('page_guide_annotate',{...input,annotations:[{...marker,...change}]}));
+  }
+});

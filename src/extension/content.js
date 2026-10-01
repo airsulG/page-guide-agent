@@ -70,7 +70,7 @@
     host.style.cssText='position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
     shadow=host.attachShadow({mode:'open'});
     const style=document.createElement('style');
-    style.textContent=':host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}';
+    style.textContent=':host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:22px;height:22px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 11px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:6px 9px;border-radius:6px;background:#fff;color:#263044;box-shadow:0 2px 12px #18203324;font:500 12px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none;visibility:hidden}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:0;pointer-events:none}.name[data-active="true"]{visibility:visible}.wash[data-active="true"]{opacity:.08}';
     shadow.append(style);document.documentElement.append(host);
     window.addEventListener('scroll',schedule,true);window.addEventListener('resize',schedule);
     observer=new MutationObserver(schedule);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
@@ -91,9 +91,65 @@
     node.style.setProperty('--color',item.spec.color||DEFAULT_COLOR);
     shadow.append(node);item.nodes.push(node);return node;
   }
+  function unbindTarget(item){
+    if(item.binding)for(const [event,handler]of Object.entries(item.binding.handlers))item.binding.element.removeEventListener(event,handler);
+    item.binding=null;item.hovered=false;item.focused=false;
+  }
+  function dispose(item){
+    unbindTarget(item);item.nodes.forEach(n=>n.remove());item.nodes=[];
+  }
+  function showName(item){
+    const active=Boolean(item.hovered||item.focused);
+    for(const node of item.nodes)if(node.classList.contains('name')||node.classList.contains('wash'))node.dataset.active=String(active);
+    if(item.result)item.result.name_visible=active;
+  }
+  function bindTarget(item,element){
+    if(item.binding?.element===element)return;
+    unbindTarget(item);
+    item.hovered=element.matches(':hover');
+    const focused=()=>element.contains(element.getRootNode().activeElement);
+    item.focused=focused();
+    const handlers={
+      pointerenter:()=>{item.hovered=true;showName(item);},
+      pointerleave:()=>{item.hovered=false;showName(item);},
+      focusin:()=>{item.focused=true;showName(item);},
+      focusout:event=>{item.focused=element.contains(event.relatedTarget);showName(item);}
+    };
+    for(const [event,handler]of Object.entries(handlers))element.addEventListener(event,handler,{passive:true});
+    item.binding={element,handlers};
+  }
+  function drawMarker(item,located){
+    const a=item.spec,b=located.box;
+    bindTarget(item,located.element);
+    const wash=createNode('div','wash',item);
+    Object.assign(wash.style,{left:b.x+'px',top:b.y+'px',width:b.width+'px',height:b.height+'px'});
+    wash.setAttribute('aria-hidden','true');
+    const badge=createNode('div','badge',item);badge.textContent=String(a.number);
+    badge.setAttribute('role','note');badge.setAttribute('aria-label',a.number+' '+a.text);
+    const clamp=(v,size,limit)=>Math.max(4,Math.min(v,limit-size-4));
+    let x=b.x+b.width-11,y=b.y-11;
+    if(a.placement==='bottom')y=b.y+b.height-11;
+    if(a.placement==='left'){x=b.x-11;y=b.y+(b.height-22)/2;}
+    if(a.placement==='right'){x=b.x+b.width-11;y=b.y+(b.height-22)/2;}
+    x=clamp(x+(a.offset?.x||0),22,innerWidth);y=clamp(y+(a.offset?.y||0),22,innerHeight);
+    Object.assign(badge.style,{left:x+'px',top:y+'px'});
+    const name=createNode('div','name',item);name.textContent=a.text;name.setAttribute('aria-hidden','true');
+    const size=name.getBoundingClientRect();
+    const nx=clamp(x+28,size.width,innerWidth);
+    let ny=y+(22-size.height)/2;
+    // Keep the name outside the target so typing stays visually readable too.
+    if(nx<b.x+b.width&&nx+size.width>b.x&&ny<b.y+b.height&&ny+size.height>b.y)ny=b.y-size.height-8;
+    if(ny<4)ny=b.y+b.height+8;
+    ny=clamp(ny,size.height,innerHeight);
+    Object.assign(name.style,{left:nx+'px',top:ny+'px'});
+    item.result={id:a.id,ok:true,match_count:1,target_box:b,marker_box:{x,y,width:22,height:22},callout_box:{x:nx,y:ny,width:size.width,height:size.height},number:a.number,color:a.color||DEFAULT_COLOR,name_visible:false};
+    showName(item);
+  }
   function draw(item,located){
     item.nodes.forEach(n=>n.remove());item.nodes=[];
     const a=item.spec,b=located.box,color=a.color||DEFAULT_COLOR;
+    if(a.type==='marker'){drawMarker(item,located);return;}
+    unbindTarget(item);
     if(a.type==='highlight'||a.type==='combined'){
       const ring=createNode('div','ring',item);
       Object.assign(ring.style,{left:b.x-4+'px',top:b.y-4+'px',width:b.width+8+'px',height:b.height+8+'px'});
@@ -130,7 +186,7 @@
     const current=new Set();
     for(const group of sessions.values())for(const item of group.values()){
       try{const located=locate(item.spec.target);draw(item,located);current.add(located.element);if(!observed.has(located.element)){resize?.observe(located.element);observed.add(located.element);}}
-      catch(e){item.nodes.forEach(n=>n.remove());item.nodes=[];item.result={id:item.spec.id,ok:false,error:e.message};}
+      catch(e){dispose(item);item.result={id:item.spec.id,ok:false,error:e.message};}
     }
     for(const element of observed)if(!current.has(element)){resize?.unobserve(element);observed.delete(element);}
   }
@@ -145,16 +201,16 @@
     if(command==='page_guide_status'){refresh();return {ok:true,annotations:[...group.values()].map(i=>i.result),document_id:documentId};}
     if(command==='page_guide_clear'){
       const ids=args.ids||[...group.keys()],cleared=[];
-      for(const id of ids){const item=group.get(id);if(item){item.nodes.forEach(n=>n.remove());group.delete(id);cleared.push(id);}}
+      for(const id of ids){const item=group.get(id);if(item){dispose(item);group.delete(id);cleared.push(id);}}
       if(!group.size)sessions.delete(args.session_id);stopIfEmpty();return {ok:true,cleared,remaining:group.size};
     }
     if(!['page_guide_annotate','page_guide_update'].includes(command))throw error('UNKNOWN_COMMAND',command);
     if(command==='page_guide_update'&&args.annotations.some(a=>!group.has(a.id)))throw error('ANNOTATION_NOT_FOUND','更新 ID 必须已经存在');
     const staged=args.annotations.map(spec=>({spec,located:locate(spec.target)})); // Validate the entire batch before changing the old group.
     ensureRoot();
-    if(command==='page_guide_annotate'&&args.replace)for(const item of group.values())item.nodes.forEach(n=>n.remove());
+    if(command==='page_guide_annotate'&&args.replace)for(const item of group.values())dispose(item);
     if(command==='page_guide_annotate'&&args.replace)group.clear();
-    for(const {spec,located} of staged){group.get(spec.id)?.nodes.forEach(n=>n.remove());const item={spec,nodes:[],result:null};group.set(spec.id,item);draw(item,located);}
+    for(const {spec,located} of staged){const old=group.get(spec.id);if(old)dispose(old);const item={spec,nodes:[],result:null};group.set(spec.id,item);draw(item,located);}
     sessions.set(args.session_id,group);refresh();
     return {ok:true,annotations:staged.map(({spec})=>group.get(spec.id).result),document_id:documentId,revision:globalThis.PGA_VERSION?.revision};
   }
