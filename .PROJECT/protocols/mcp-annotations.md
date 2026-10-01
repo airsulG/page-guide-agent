@@ -2,9 +2,9 @@
 
 本合同对应 `src/contract.mjs` 与内容脚本。六项工具只处理标注；`text` 是标注文字，不填写表单。数组表示同一批标注，不是自动播放步骤。
 
-当前产品暂定编号常驻、hover 显示对象名称，在对话中按编号提供定义、例子和比较。使用 `type: "marker"`、`number: 4`、`text: "被引用页面"`；number 是1～99的整数，text 是1～80字符的单行对象名称，不含编号或解释。其他类型不接受 number，没有 details 字段。不增加点击展开、悬停详细解释或更多入口。
+当前产品暂定编号与对象名称常驻，不使用悬停或聚焦触发显示，在对话中按编号提供定义、例子和比较。使用 `type: "marker"`、`number: 4`、`text: "被引用页面"`；number 是1～99的整数，text 是1～80字符的单行对象名称，不含编号或解释。其他类型不接受 number，没有 details 字段。不增加点击展开、悬停详细解释或更多入口。
 
-marker 是不接收鼠标事件的覆盖层：32像素圆编号常驻，原目标悬停或键盘聚焦时显示名称及淡色覆盖，移开且离焦后隐藏。名称使用与编号一致的 color 主题色底、白色文字，字号14像素；名称尽量放在目标外侧，不盖输入文字。点击、输入和焦点仍由原网页控件处理。定位、滚动、更新、清理与失效检查沿用原方法。
+marker 是不接收鼠标事件的覆盖层：32像素圆编号、对象名称和8%透明度的淡色覆盖常驻，不在目标上添加悬停或焦点监听。名称使用与编号一致的 color 主题色底、白色文字，字号14像素；名称尽量放在目标外侧，不盖输入文字。多项常驻时检查名称是否互相重叠或遮挡网页信息，必要时调整 placement 与 offset。点击、输入和焦点仍由原网页控件处理。定位、滚动、更新、清理与失效检查沿用原方法。
 
 | 工具 | 输入与实际结果 |
 |---|---|
@@ -34,7 +34,7 @@ marker 是不接收鼠标事件的覆盖层：32像素圆编号常驻，原目�
 }
 ```
 
-成功返回 `ok`、ID、匹配数、`target_box`、最终 `callout_box`、颜色、文档 ID 和构建版本；marker 还返回 number、marker_box 和 name_visible。callout_box 是名称预留位置，是否实际显示看 name_visible；status 会重新检查当前位置与状态。桥接或页面错误在 MCP 返回 `isError: true` 与具体文字；动态失效在 status 单项的 `ok: false` 中报告。常见错误为 TARGET_NOT_FOUND、TARGET_AMBIGUOUS、TARGET_NOT_VISIBLE、TARGET_OUTSIDE_VIEWPORT、UNSUPPORTED_SCOPE、STALE_PAGE 和 EXTENSION_DISCONNECTED。
+成功返回 `ok`、ID、匹配数、`target_box`、最终 `callout_box`、颜色、文档 ID 和构建版本；marker 还返回 number、marker_box 和 name_visible。callout_box 是名称实际位置，有效 marker 的 name_visible 为 true；status 会重新检查当前位置与状态，目标失效时撤下节点并报告。桥接或页面错误在 MCP 返回 `isError: true` 与具体文字；动态失效在 status 单项的 `ok: false` 中报告。常见错误为 TARGET_NOT_FOUND、TARGET_AMBIGUOUS、TARGET_NOT_VISIBLE、TARGET_OUTSIDE_VIEWPORT、UNSUPPORTED_SCOPE、STALE_PAGE 和 EXTENSION_DISCONNECTED。
 
 新批次有一个目标验证失败时，本次修改全部拒绝，旧标注保留，不取第一个匹配。后续布局变化可分别使某些标注失效，status 逐项反馈。提示用 textContent 显示，不执行 HTML；覆盖层不接收鼠标事件，保留正常输入与按钮操作。
 

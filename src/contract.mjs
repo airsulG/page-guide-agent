@@ -39,7 +39,7 @@ export const schemas={
 const descriptions={
   page_guide_pages:'列出真实已配对扩展与可用页面；使用返回的页面句柄，不能猜 tab ID。',
   page_guide_inspect:'核对指定 DOM 目标是否唯一、可见，并返回真实几何；不修改业务网页。',
-  page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。轻量指引用 type: marker、number 和对象名称 text，编号常驻，悬停或聚焦目标显示名称，不拦截原操作。',
+  page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。轻量指引用 type: marker、number 和对象名称 text，编号与名称常驻，不使用悬停触发，不拦截原操作。',
   page_guide_update:'按 ID 更新已有标注，完整提供新的目标、形式、文字和偏移。',
   page_guide_clear:'撤下指定会话的全部或部分标注；不会清理其他会话。',
   page_guide_status:'取得当前会话各标注的真实状态，包括目标失效或位置变化。'

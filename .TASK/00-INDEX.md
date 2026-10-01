@@ -14,7 +14,7 @@ execution_mode: interactive
 - [x] [06-extension-development-tools.md](06-extension-development-tools.md)：官方开发工具检查通过；Karl 手动加载后，旧扩展在内置浏览器测试页真实绘制并撤下标注。对话调用另需实现。
 
 - [x] [07-mcp-page-annotations.md](07-mcp-page-annotations.md)：MCP、开发更新和真实扩展检查完成；11 项自动检查通过。当前原生会话工具发现与复杂网页多轮体验留作后续验收。
-- [x] [08-expandable-annotation-details.md](08-expandable-annotation-details.md)：marker 小编号常驻、hover/聚焦显示名称已实现；14项检查与真实扩展输入、Semrush 悬停通过，协议和技能已同步，原点击展开方案暂不实施。
+- [x] [08-expandable-annotation-details.md](08-expandable-annotation-details.md)：marker 编号与名称常驻，已移除悬停/焦点触发；14项检查、真实扩展输入与 Semrush 呈现通过，协议和技能已同步，原点击展开方案暂不实施。
 
 ## Checkbox 语义
 

@@ -71,7 +71,7 @@
     host.style.cssText='position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
     shadow=host.attachShadow({mode:'open'});
     const style=document.createElement('style');
-    style.textContent=`:host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:${MARKER_SIZE}px;height:${MARKER_SIZE}px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 15px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:8px 12px;border-radius:8px;background:var(--color);color:white;box-shadow:0 3px 12px #18203326;font:500 14px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none;visibility:hidden}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:0;pointer-events:none}.name[data-active="true"]{visibility:visible}.wash[data-active="true"]{opacity:.08}`;
+    style.textContent=`:host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:${MARKER_SIZE}px;height:${MARKER_SIZE}px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 15px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:8px 12px;border-radius:8px;background:var(--color);color:white;box-shadow:0 3px 12px #18203326;font:500 14px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:.08;pointer-events:none}`;
     shadow.append(style);document.documentElement.append(host);
     window.addEventListener('scroll',schedule,true);window.addEventListener('resize',schedule);
     observer=new MutationObserver(schedule);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
@@ -92,36 +92,11 @@
     node.style.setProperty('--color',item.spec.color||DEFAULT_COLOR);
     shadow.append(node);item.nodes.push(node);return node;
   }
-  function unbindTarget(item){
-    if(item.binding)for(const [event,handler]of Object.entries(item.binding.handlers))item.binding.element.removeEventListener(event,handler);
-    item.binding=null;item.hovered=false;item.focused=false;
-  }
   function dispose(item){
-    unbindTarget(item);item.nodes.forEach(n=>n.remove());item.nodes=[];
-  }
-  function showName(item){
-    const active=Boolean(item.hovered||item.focused);
-    for(const node of item.nodes)if(node.classList.contains('name')||node.classList.contains('wash'))node.dataset.active=String(active);
-    if(item.result)item.result.name_visible=active;
-  }
-  function bindTarget(item,element){
-    if(item.binding?.element===element)return;
-    unbindTarget(item);
-    item.hovered=element.matches(':hover');
-    const focused=()=>element.contains(element.getRootNode().activeElement);
-    item.focused=focused();
-    const handlers={
-      pointerenter:()=>{item.hovered=true;showName(item);},
-      pointerleave:()=>{item.hovered=false;showName(item);},
-      focusin:()=>{item.focused=true;showName(item);},
-      focusout:event=>{item.focused=element.contains(event.relatedTarget);showName(item);}
-    };
-    for(const [event,handler]of Object.entries(handlers))element.addEventListener(event,handler,{passive:true});
-    item.binding={element,handlers};
+    item.nodes.forEach(n=>n.remove());item.nodes=[];
   }
   function drawMarker(item,located){
     const a=item.spec,b=located.box;
-    bindTarget(item,located.element);
     const wash=createNode('div','wash',item);
     Object.assign(wash.style,{left:b.x+'px',top:b.y+'px',width:b.width+'px',height:b.height+'px'});
     wash.setAttribute('aria-hidden','true');
@@ -143,14 +118,12 @@
     if(ny<4)ny=b.y+b.height+8;
     ny=clamp(ny,size.height,innerHeight);
     Object.assign(name.style,{left:nx+'px',top:ny+'px'});
-    item.result={id:a.id,ok:true,match_count:1,target_box:b,marker_box:{x,y,width:MARKER_SIZE,height:MARKER_SIZE},callout_box:{x:nx,y:ny,width:size.width,height:size.height},number:a.number,color:a.color||DEFAULT_COLOR,name_visible:false};
-    showName(item);
+    item.result={id:a.id,ok:true,match_count:1,target_box:b,marker_box:{x,y,width:MARKER_SIZE,height:MARKER_SIZE},callout_box:{x:nx,y:ny,width:size.width,height:size.height},number:a.number,color:a.color||DEFAULT_COLOR,name_visible:true};
   }
   function draw(item,located){
     item.nodes.forEach(n=>n.remove());item.nodes=[];
     const a=item.spec,b=located.box,color=a.color||DEFAULT_COLOR;
     if(a.type==='marker'){drawMarker(item,located);return;}
-    unbindTarget(item);
     if(a.type==='highlight'||a.type==='combined'){
       const ring=createNode('div','ring',item);
       Object.assign(ring.style,{left:b.x-4+'px',top:b.y-4+'px',width:b.width+8+'px',height:b.height+8+'px'});

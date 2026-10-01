@@ -1,0 +1,175 @@
+{
+  "arguments": {
+    "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NTg4LCJkb2N1bWVudF9pZCI6IjY3ODg0YWNkLTQ4YzYtNDA4Ny1hMmZiLTIyNjgxOGM4Y2YxNSIsInVybCI6Imh0dHBzOi8vemguc2VtcnVzaC5jb20vYWktc2VvL292ZXJ2aWV3Lz9xPXdhcmJ5cGFya2VyLmNvbSZjb21wYXJlV2l0aD16ZW5uaW9wdGljYWwuY29tJTdDZXllYnV5ZGlyZWN0LmNvbSU3Q2dsYXNzZXN1c2EuY29tJTdDZmlybW9vLmNvbSJ9",
+    "session_id": "01a0f7c9-a7c9-7201-9546-579e54c6549b",
+    "annotations": [
+      {
+        "id": "visibility-score",
+        "target": {
+          "text": "26"
+        },
+        "type": "marker",
+        "number": 1,
+        "text": "AI 可见度",
+        "placement": "top",
+        "offset": {
+          "x": 10,
+          "y": -7
+        }
+      },
+      {
+        "id": "brand-mentions",
+        "target": {
+          "text": "1.7万"
+        },
+        "type": "marker",
+        "number": 2,
+        "text": "提及",
+        "placement": "top",
+        "offset": {
+          "x": -38,
+          "y": -106
+        }
+      },
+      {
+        "id": "domain-citations",
+        "target": {
+          "text": "3.8万"
+        },
+        "type": "marker",
+        "number": 3,
+        "text": "引用",
+        "placement": "top",
+        "offset": {
+          "x": -44,
+          "y": -106
+        }
+      },
+      {
+        "id": "cited-pages",
+        "target": {
+          "text": "9529"
+        },
+        "type": "marker",
+        "number": 4,
+        "text": "被引用页面",
+        "placement": "top",
+        "offset": {
+          "x": -43,
+          "y": -106
+        }
+      }
+    ]
+  },
+  "result": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "visibility-score",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 419.23046875,
+          "y": 330.3828125,
+          "width": 25.1640625,
+          "height": 24.5
+        },
+        "marker_box": {
+          "x": 438.39453125,
+          "y": 307.3828125,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 478.39453125,
+          "y": 305.5859375,
+          "width": 83.0703125,
+          "height": 35.59375
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": true
+      },
+      {
+        "id": "brand-mentions",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 636.984375,
+          "y": 284.765625,
+          "width": 53.484375,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 636.46875,
+          "y": 162.765625,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 676.46875,
+          "y": 160.96875,
+          "width": 52,
+          "height": 35.59375
+        },
+        "number": 2,
+        "color": "#8b5cf6",
+        "name_visible": true
+      },
+      {
+        "id": "domain-citations",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 751.6875,
+          "y": 284.765625,
+          "width": 60.2421875,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 751.9296875,
+          "y": 162.765625,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 791.9296875,
+          "y": 160.96875,
+          "width": 52,
+          "height": 35.59375
+        },
+        "number": 3,
+        "color": "#8b5cf6",
+        "name_visible": true
+      },
+      {
+        "id": "cited-pages",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 889.6484375,
+          "y": 284.765625,
+          "width": 59.65625,
+          "height": 29.5
+        },
+        "marker_box": {
+          "x": 890.3046875,
+          "y": 162.765625,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 930.3046875,
+          "y": 160.96875,
+          "width": 94,
+          "height": 35.59375
+        },
+        "number": 4,
+        "color": "#8b5cf6",
+        "name_visible": true
+      }
+    ],
+    "document_id": "67884acd-48c6-4087-a2fb-226818c8cf15",
+    "revision": "5933691f68a5875e"
+  }
+}
