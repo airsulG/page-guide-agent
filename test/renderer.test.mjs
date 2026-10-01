@@ -35,3 +35,18 @@ test('stale documents rejected and removed target is withdrawn with error status
     assert.equal(dom.window.document.querySelector('[data-page-guide-root]').shadowRoot.querySelector('.ring'),null);
   }finally{dom.window.close();}
 });
+test('iframe target is rejected when transformed by an ancestor or clipped by its viewport',()=>{
+  const {dom,run}=renderer();try{
+    const container=dom.window.document.createElement('div'),frame=dom.window.document.createElement('iframe');
+    container.append(frame);dom.window.document.body.append(container);
+    frame.id='frame';frame.contentDocument.body.innerHTML='<input id="inside">';
+    for(const key of ['clientWidth','clientHeight'])Object.defineProperty(frame,key,{value:300});
+    const input=frame.contentDocument.querySelector('#inside');
+    input.getBoundingClientRect=()=>({x:20,y:20,width:150,height:40});
+    const inspect=()=>run('page_guide_inspect',{target:{frame_path:['#frame'],css:'#inside'}});
+    assert.equal(inspect().ok,true);
+    container.style.transform='scale(2)';assert.throws(inspect,/UNSUPPORTED_SCOPE/);
+    container.style.transform='none';input.getBoundingClientRect=()=>({x:280,y:20,width:150,height:40});
+    assert.throws(inspect,/TARGET_NOT_VISIBLE/);
+  }finally{dom.window.close();}
+});

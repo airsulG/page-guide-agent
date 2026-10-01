@@ -1,4 +1,4 @@
-globalThis.PGA_VERSION={"revision":"ba5726e8fa720b99"};
+globalThis.PGA_VERSION={"revision":"fce576ac325ef9d7"};
 (() => {
   'use strict';
   if(globalThis.PGA_RENDERER) return;
@@ -22,14 +22,19 @@ globalThis.PGA_VERSION={"revision":"ba5726e8fa720b99"};
   }
   function locate(target){
     let scope=document,dx=0,dy=0;
+    const frameClips=[];
     try{
       for(const selector of target.frame_path||[]){
         const frame=unique(scope,selector);
         if(frame.tagName!=='IFRAME')throw error('INVALID_SCOPE','frame_path 必须指向 iframe');
-        if(getComputedStyle(frame).transform!=='none')throw error('UNSUPPORTED_SCOPE','变换后的 iframe 暂不支持');
+        for(let ancestor=frame;ancestor;ancestor=ancestor.parentElement){
+          const style=ancestor.ownerDocument.defaultView.getComputedStyle(ancestor);
+          if(['transform','translate','rotate','scale'].some(key=>style[key]&&style[key]!=='none')||(style.zoom&&!['1','normal'].includes(style.zoom)))throw error('UNSUPPORTED_SCOPE','iframe 或其祖先有变换，暂不支持');
+        }
         const box=frame.getBoundingClientRect();
         if(box.width<=0||box.height<=0||frame.checkVisibility?.()===false)throw error('TARGET_NOT_VISIBLE','iframe 隐藏');
         dx+=box.x+frame.clientLeft;dy+=box.y+frame.clientTop;
+        frameClips.push({x:dx,y:dy,width:frame.clientWidth,height:frame.clientHeight});
         try{scope=frame.contentDocument;if(!scope)throw new Error();}catch{throw error('UNSUPPORTED_SCOPE','跨源 iframe 暂不支持');}
         watchScope(scope);
       }
@@ -55,6 +60,7 @@ globalThis.PGA_VERSION={"revision":"ba5726e8fa720b99"};
       const box={x:r.x+dx,y:r.y+dy,width:r.width,height:r.height};
       if(!element.checkVisibility?.({checkOpacity:true,checkVisibilityCSS:true})&&element.checkVisibility)throw error('TARGET_NOT_VISIBLE','目标隐藏');
       if(style.visibility==='hidden'||style.display==='none'||r.width<=0||r.height<=0)throw error('TARGET_NOT_VISIBLE','目标没有可见边界');
+      if(frameClips.some(clip=>box.x<clip.x-1||box.y<clip.y-1||box.x+box.width>clip.x+clip.width+1||box.y+box.height>clip.y+clip.height+1))throw error('TARGET_NOT_VISIBLE','目标被 iframe 边界裁切，请先在 frame 内滚动到完整目标');
       if(box.x+box.width<=0||box.y+box.height<=0||box.x>=innerWidth||box.y>=innerHeight)throw error('TARGET_OUTSIDE_VIEWPORT','请先观察或滚动到目标');
       return {element,box,match_count:1,visible:true};
     }catch(e){if(e.code)throw e;throw error('INVALID_TARGET',e.message);}
