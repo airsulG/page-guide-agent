@@ -1,0 +1,187 @@
+{
+  "page": {
+    "tab_id": 125214598,
+    "url": "http://127.0.0.1:8767/fixture",
+    "title": "Page Guide MCP 测试页",
+    "document_id": "b64d9289-7f82-457a-8a52-209b8491afa3",
+    "revision": "5933691f68a5875e",
+    "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NTk4LCJkb2N1bWVudF9pZCI6ImI2NGQ5Mjg5LTdmODItNDU3YS04YTUyLTIwOWI4NDkxYWZhMyIsInVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6ODc2Ny9maXh0dXJlIn0"
+  },
+  "args": {
+    "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NTk4LCJkb2N1bWVudF9pZCI6ImI2NGQ5Mjg5LTdmODItNDU3YS04YTUyLTIwOWI4NDkxYWZhMyIsInVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6ODc2Ny9maXh0dXJlIn0",
+    "session_id": "01a0f7c9-a7c9-7201-9546-579e54c6549b",
+    "annotations": [
+      {
+        "id": "skill-keyword",
+        "target": {
+          "label": "关键词"
+        },
+        "type": "marker",
+        "number": 1,
+        "text": "关键词输入框",
+        "placement": "top",
+        "offset": {
+          "x": 10,
+          "y": -10
+        }
+      },
+      {
+        "id": "skill-compare",
+        "target": {
+          "css": "#compare"
+        },
+        "type": "marker",
+        "number": 2,
+        "text": "比较选项",
+        "placement": "top",
+        "offset": {
+          "x": 15,
+          "y": -10
+        }
+      }
+    ]
+  },
+  "annotate": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "skill-keyword",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 112,
+          "y": 207.3671875,
+          "width": 221.5,
+          "height": 49.1953125
+        },
+        "marker_box": {
+          "x": 327.5,
+          "y": 181.3671875,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 367.5,
+          "y": 179.5703125,
+          "width": 108,
+          "height": 35.59375
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": true
+      },
+      {
+        "id": "skill-compare",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 61,
+          "y": 280.5625,
+          "width": 102,
+          "height": 49.1953125
+        },
+        "marker_box": {
+          "x": 162,
+          "y": 254.5625,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 202,
+          "y": 252.765625,
+          "width": 80,
+          "height": 35.59375
+        },
+        "number": 2,
+        "color": "#8b5cf6",
+        "name_visible": true
+      }
+    ],
+    "document_id": "b64d9289-7f82-457a-8a52-209b8491afa3",
+    "revision": "5933691f68a5875e"
+  },
+  "resultInspect": {
+    "ok": true,
+    "match_count": 1,
+    "visible": true,
+    "target_box": {
+      "x": 61,
+      "y": 358.7578125,
+      "width": 758,
+      "height": 27.1953125
+    },
+    "document_id": "b64d9289-7f82-457a-8a52-209b8491afa3"
+  },
+  "replace": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "skill-result",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 61,
+          "y": 358.7578125,
+          "width": 758,
+          "height": 27.1953125
+        },
+        "marker_box": {
+          "x": 803,
+          "y": 330.7578125,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 843,
+          "y": 328.9609375,
+          "width": 80,
+          "height": 35.59375
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": true
+      }
+    ],
+    "document_id": "b64d9289-7f82-457a-8a52-209b8491afa3",
+    "revision": "5933691f68a5875e"
+  },
+  "status": {
+    "ok": true,
+    "annotations": [
+      {
+        "id": "skill-result",
+        "ok": true,
+        "match_count": 1,
+        "target_box": {
+          "x": 61,
+          "y": 358.7578125,
+          "width": 758,
+          "height": 27.1953125
+        },
+        "marker_box": {
+          "x": 803,
+          "y": 330.7578125,
+          "width": 32,
+          "height": 32
+        },
+        "callout_box": {
+          "x": 843,
+          "y": 328.9609375,
+          "width": 80,
+          "height": 35.59375
+        },
+        "number": 1,
+        "color": "#8b5cf6",
+        "name_visible": true
+      }
+    ],
+    "document_id": "b64d9289-7f82-457a-8a52-209b8491afa3"
+  },
+  "clear": {
+    "ok": true,
+    "cleared": [
+      "skill-result"
+    ],
+    "remaining": 0
+  }
+}

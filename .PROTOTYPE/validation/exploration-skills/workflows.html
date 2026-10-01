@@ -1,0 +1,73 @@
+<!doctype html><meta charset="utf-8"><title>探索方法工作图检查</title><style>body{font:16px system-ui;margin:24px;background:#f6f6fa}section{padding:20px;background:white;margin:20px 0}.mermaid svg{max-width:100%;height:auto}</style><h1>探索方法工作图检查</h1><p>文档验证材料，不是产品前端或业务结果。</p><p id="status">正在渲染</p><section><h2>WEBTASK01 主动设计探索</h2><pre class="mermaid">flowchart TD
+    A[理解需求兴趣与参考网址的用途] --&gt; B{本次需要哪种帮助}
+    B --&gt;|目标或宽泛兴趣| T{目标是否已具体}
+    T --&gt;|已具体| C[从最终产物反推待解决问题]
+    T --&gt;|只有大概方向| U[提出可调整起点阶段产物与成功标准]
+    U --&gt; C
+    C --&gt; P[调查工具并编排路径步骤与结果交接]
+    P --&gt; D[讲清整体方案与当前可开始的动作]
+    D --&gt; V{需要完整方案文档吗}
+    V --&gt;|需要| R[主代理起草并由独立代理审查]
+    R --&gt;|需要修订| P
+    R --&gt;|问题解决| E{需要网页工具吗}
+    V --&gt;|不需要| E
+    E --&gt;|需要| F[在指定浏览器核对目标页面]
+    F --&gt; G{需要登录吗}
+    G --&gt;|需要| H[请用户登录并重新观察]
+    G --&gt;|不需要| I[核对目标所需的真实能力]
+    H --&gt; I
+    I --&gt;|工具合适| J[接续 WEBTASK02 执行路径并带回结果]
+    J --&gt;|发现改变方案| P
+    J --&gt;|体验使方向更明确| U
+    I --&gt;|能力不符或权限不足| C
+    E --&gt;|不需要| K[接续相应方法完成目标]
+    B --&gt;|局部问题或明确探索页面| L[观察相关区域并回答当前问题]
+    L --&gt;|需要指向对象| J
+    L --&gt;|已讲明白| M[按需保存有用资料并结束]
+    J --&gt;|对话方案已可接续| M
+    K --&gt; M
+</pre></section><section><h2>WEBTASK02 引导与标注</h2><pre class="mermaid">flowchart TD
+    A[沿用任务或探索的阶段成果工具分工与产物依赖] --&gt; B{是否明确维护旧 guide}
+    B --&gt;|是| C[读取兼容合同与当前消费者]
+    C --&gt; D[修复原文件并实际检查兼容结果]
+    B --&gt;|否| E[在指定浏览器进入或复用网站]
+    E --&gt; F{需要登录吗}
+    F --&gt;|需要| G[请用户登录并重新观察]
+    F --&gt;|不需要| H[观察目标所需的真实页面]
+    G --&gt; H
+    H --&gt; I[规划阶段与当前步骤的完成条件]
+    I --&gt; J[核对并标出当前操作或讲解依据]
+    J --&gt; K[在对话中解释目的操作与预期结果]
+    K --&gt; L[操作后重新观察并替换或撤下旧标注]
+    L --&gt; M{本步结果是否成立}
+    M --&gt;|失败或证据不足| X[判断失败原因与剩余路径的依赖]
+    X --&gt;|页面或定位可修复| H
+    X --&gt;|当前报告受限但其他路径可继续| P
+    X --&gt;|影响整体方案| Q
+    M --&gt;|成立且仍有调查工作| P[交接产物并选择下一路径或工具]
+    P --&gt;|继续同一网站| I
+    P --&gt;|需要另一网站| E
+    P --&gt;|发现改变整体方案| Q[接续 WEBTASK01 调整受影响路径]
+    Q --&gt; E
+    M --&gt;|调查结果足以交付| R{需要完整报告或计划吗}
+    R --&gt;|需要| S[主代理成稿独立审查并修订复查]
+    S --&gt;|发现证据缺口| P
+    S --&gt;|问题解决| N[核对阶段成果清理保存并讨论下一方向]
+    R --&gt;|不需要| N
+    K --&gt;|局部问题已讲明白| N
+    D --&gt; N
+</pre></section><section><h2>SEO 扩展调查路径</h2><pre class="mermaid">flowchart TD
+    A[沿用探索记录与反馈确定本轮范围和产物] --&gt; B[路径一 Semrush 从种子找候选]
+    A --&gt; C[路径二 Google 找网站再由 Semrush 反查]
+    B --&gt; D[合并候选并保留词来源和市场]
+    C --&gt; D
+    D --&gt; E[路径三 Trends 检查增长和季节]
+    D --&gt; F[路径四 Google 检查意图和内容缺口]
+    E --&gt;|出现新词| B
+    F --&gt;|发现相关网站| C
+    E --&gt; G[路径五 合并证据制定首批页面与建站建议]
+    F --&gt; G
+    G --&gt; H{是否足以作决定}
+    H --&gt;|缺少关键证据| D
+    H --&gt;|可以决定| I[交付建议理由与未解决项]
+</pre></section><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";mermaid.initialize({startOnLoad:false,securityLevel:"strict"});try{await mermaid.run({querySelector:".mermaid"});document.querySelector("#status").textContent="三张工作图已渲染"}catch(e){document.querySelector("#status").textContent="失败："+e.message}</script>

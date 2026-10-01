@@ -1,6 +1,6 @@
 # 从“我想找 SEO 新词，准备建站”开始：探索体验示例
 
-这是按 Karl 已认可的 [MEME PVP 探索示例](04-meme-pvp-exploration.md)写法修订的 SEO 场景，等待 Karl 阅读与反馈，尚未写入 WEBTASK 的可调用方法。起点只有“想找新词、准备建站”，没有已确定的市场、语言、领域或网站。下面的种植题材与候选词用于展示协作过程；没有实际登录研究工具、查询这些词或取得建站结论。
+这是按 Karl 已认可的 [MEME PVP 探索示例](04-meme-pvp-exploration.md)写法修订的 SEO 场景。Karl 已确认并要求更新技能；本稿作为维护来源保留，当前运行正文见 [技能中的 SEO 示例](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK01-理解需求并选择工具/references/seo-site-opportunity-walkthrough.md>)。起点只有“想找新词、准备建站”，没有已确定的市场、语言、领域或网站。下面的种植题材与候选词用于展示协作过程；没有实际登录研究工具、查询这些词或取得建站结论。
 
 各段的“想法”说明选择下一步的简短理由；“会说的话”让你看到实际怎样交流；“具体动作”说明谁操作、取得什么，以及结果怎样影响后续。这三个部分用于呈稿，不要求执行时把每句话都按标题说出来。
 
@@ -136,4 +136,4 @@
 
 截至 2026-10-02，写作时查阅 [Semrush Keyword Magic Tool 官方说明](https://www.semrush.com/kb/617-keyword-magic-tool-manual)，用于核对种子词、国家数据库、相关表达与指标；[Google Trends 数据说明](https://support.google.com/trends/answer/4365533?hl=en-GB)，用于核对相对热度、抽样与数据不足的解释；[Google 实用内容说明](https://developers.google.com/search/docs/fundamentals/creating-helpful-content?hl=zh-cn)，用于检查页面是否真正帮助读者。
 
-这些资料支持工具与内容方法，不是这个候选的业务证据。当前未执行 SEO 调查。本稿等待 Karl 核对探索起点、话术、步骤交接和最后得到的东西；反馈与确认后，再用两个示例修改 WEBTASK 的运行方法。
+这些资料支持工具与内容方法，不是这个候选的业务证据。当前未执行 SEO 调查。本稿与具体标注补充已确认并用于更新 WEBTASK，修改与检查记录见 [原 Task](../04-conversation-driven-annotations.md)。
