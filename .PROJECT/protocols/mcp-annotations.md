@@ -1,6 +1,8 @@
 # MCP 页面标注协议
 
-本合同对应 `src/contract.mjs` 与内容脚本。六项工具只处理标注；`text` 是给用户看的短提示，不填写表单。数组表示同一批标注，不是自动播放步骤。
+本合同对应 `src/contract.mjs` 与内容脚本。六项工具只处理标注；`text` 是标注文字，不填写表单。数组表示同一批标注，不是自动播放步骤。
+
+当前产品暂定网页标注只显示对象名称与编号，例如 `text: "④ 被引用页面"`；在对话中用④提供定义、例子和比较。不增加点击展开、悬停详情或更多入口。编号直接写入现有 text，下面的类型与长度描述实际接口能力，不要求教学时叠加所有形式；本合同没有 number 或 details 字段。
 
 | 工具 | 输入与实际结果 |
 |---|---|
@@ -24,8 +26,8 @@
   "page_id": "使用 page_guide_pages 刚返回的句柄",
   "session_id": "当前 Codex 会话 ID",
   "annotations": [
-    {"id": "keyword", "target": {"label": "关键词"}, "type": "combined", "text": "在这里输入要比较的关键词", "placement": "bottom", "offset": {"x": 20, "y": 12}},
-    {"id": "compare", "target": {"css": "#compare"}, "type": "highlight"}
+    {"id": "keyword", "target": {"label": "关键词"}, "type": "callout", "text": "① 关键词", "placement": "bottom", "offset": {"x": 20, "y": 12}},
+    {"id": "compare", "target": {"css": "#compare"}, "type": "callout", "text": "② 比较选项"}
   ]
 }
 ```
