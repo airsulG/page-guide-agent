@@ -21,15 +21,15 @@
 - Codex 对话是唯一使用入口，主要场景是对话、内置浏览器、用户操作与即时标注共同发生；局部提问不必先变成完整任务。
 - 插件没有独立产品前端，只提供预先定义的定位、绘制、更新、撤下与结果反馈能力；内容与下一次指示由当前对话决定。
 - 完整解释、知识、Mermaid 与图片留在对话，使用当前可用工具；页面只有指向真实对象的标注和必要短提示。
-- 支持范围由实际浏览器观察与注入能力决定。旧扩展已在内置浏览器受控 HTTP 页面完成真实绘制与撤下检查；当前对话调用、复杂网页与连续更新仍待验证，证据见 Task 06。
-- 本地资料帮助后续对话接续和复用；旧 guide.json、任务索引、Side Panel 与 Lesson 是历史原型合同，代码尚未迁移。
+- 支持范围由实际浏览器观察与注入能力决定。0.2.0 已在内置浏览器用真实 MCP SDK 完成批量标注、更新、清理与开发自动更新，也在官方文档页绘制并撤下；当前原生会话工具发现和复杂网页多轮体验仍待验证，证据见 Task 07。
+- 本地资料帮助后续对话接续和复用；旧 guide.json、任务索引、Side Panel 与 Lesson 是历史合同。当前扩展输出已改为 MCP 标注，无侧栏声明，真实验收见 Task 07。
 
 ## 当前模块入口
 
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
-- 当前模块 PRD：`.PROJECT/modules/page-guide-agent.md`（已确认对话驱动、无独立插件前端；新运行体验未实现。旧原型证据保留）。
-- 产品定义与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；官方开发工具与旧扩展兼容检查已完成，见 `.TASK/06-extension-development-tools.md`。新产品实现尚未授权，对话通信仍待实现。
+- 当前模块 PRD：`.PROJECT/modules/page-guide-agent.md`（对话驱动、无独立插件前端；MCP 与开发更新已实现并通过真实扩展检查，完整多轮体验仍需验收）。
+- 2026-10-02 已授权 MCP 标注与开发自动更新，计划和真实验证记录见 `.TASK/07-mcp-page-annotations.md`；产品定义与旧兼容证据分别见 Task 04、06。
 
 ## TEAM 入口
 
@@ -62,7 +62,7 @@ EVAL.md                           已确认的核心结果标准
 .PROJECT/
   00-INDEX.md                     长期文档索引
   01-PRODUCT.md                   产品承诺、愿景与最终体验
-  02-ARCHITECTURE.md              现有原型职责及新接入缺口
+  02-ARCHITECTURE.md              MCP、扩展、构建与历史原型职责
   04-DEVELOPMENT.md               环境、运行、检查与生成文件说明
   modules/page-guide-agent.md     模块行为、详细验收与历史原型证据
 .TASK/
@@ -72,9 +72,11 @@ EVAL.md                           已确认的核心结果标准
   surface-tutorials/              既有软件说明演示与原始观察
   validation/                    既有方法验证截图、图形与报告
   legacy-workspace/               冻结的旧目录说明，不作当前依据
-prototype/                       保持原路径的旧 Chrome 插件、CDP 脚本与任务包
+src/、scripts/、test/             当前 MCP 和扩展源码、构建与检查
+prototype/extension/             已加载开发版的生成文件；旧 sidepanel 不再引用
+prototype/cdp/、service/          历史脚本与任务包
 skill/                           历史 Skill 镜像，当前方法仍用 LEARN02/03
-package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
+package.json、package-lock.json   锁定依赖与 test、guide:dev/build/mcp/call/serve
 ```
 
 长期正文只在 `.PROJECT/` 维护；任务沿用本地 Markdown，编号不变，每项只维护 `.TASK/` 中的一个文件。已有演示与验证材料在 `.PROTOTYPE/` 保存，执行者在新增或变更材料时更新引用；不要把任务、报告或缓存塞进长期规则目录。原型源码仍在 `prototype/`，路径受已安装插件和旧脚本依赖，本次没有移动。
@@ -85,7 +87,7 @@ package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 
 ## 开发时自动更新扩展
 
-开发更新按下面的流程实现，不要求使用 Plasmo。当前原型还没有这套机制；实现后要在 Codex 内置浏览器实际检查，再记为可用。
+开发更新按下面的流程运行，不要求使用 Plasmo。实现入口见 `.PROJECT/04-DEVELOPMENT.md`；内置浏览器真实检查状态以 Task 07 为准。
 
 1. **监听源码并准备新文件。** 开发服务监听变化，把检查通过的文件写入已加载的开发版扩展目录。普通 JS 可以直接准备文件，使用 TS 后再接编译；全部文件准备成功后才通知扩展，失败时保留上一版，不触发重载。
 2. **通知扩展重新加载。** 开发版后台通过本机 WebSocket 接收更新通知，保存本次指定的测试标签页，再调用 `chrome.runtime.reload()`。
@@ -98,7 +100,7 @@ package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 验收时修改一处标注颜色并保存源码，确认内置浏览器中的真实扩展自动更新、指定测试页自动刷新并显示新颜色，其他标签页保持原样；记录实际加载目录、版本与结果。
 
 <!-- ACTIVE_TASK_START -->
-当前任务：MCP 页面标注与开发自动更新，见 `.TASK/07-mcp-page-annotations.md`。Karl 已授权计划与实施；TEAM 运行任务仍在独立控制工作树。
+最近完成：MCP 页面标注与开发自动更新，见 `.TASK/07-mcp-page-annotations.md`。后续先确认原生 MCP 工具发现，再按新授权验证复杂网页完整多轮体验；TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责

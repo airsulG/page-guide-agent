@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-02",
+  "task": ".TASK/07-mcp-page-annotations.md",
+  "source_commit": "6160913",
+  "extension_version": "0.2.0",
+  "installed_directory": "prototype/extension/",
+  "development_revision": "fce576ac325ef9d7",
+  "production_revision": "33b7b17f391638ac",
+  "browser": "Codex In-app Browser",
+  "transport": "SDK stdio MCP -> loopback bridge -> installed extension",
+  "test_page": "http://127.0.0.1:8767/fixture",
+  "final_document_id": "8d1a16fa-ee71-4f71-840a-49aa859eaeea",
+  "automated_tests": {"command": "npm test", "passed": 11, "failed": 0},
+  "evidence": [
+    {"file": "final-rendered.jpg", "revision": "fce576ac325ef9d7", "result": "最终版本两个主标注恢复；frame 测试会话已清理"},
+    {"file": "batch-rendered.jpg", "result": "两个目标的框、箭头与提示同时显示"},
+    {"file": "updated-and-input.jpg", "result": "x 偏移增加 30 像素，正常输入与按钮操作仍可用"},
+    {"file": "target-removed.jpg", "result": "移除比较按钮后撤下其标注并返回 TARGET_NOT_FOUND"},
+    {"file": "auto-reload-red.jpg", "revision": "aed39906ac027f97", "result": "保存红色源码后扩展与指定测试页自动更新"},
+    {"file": "auto-reload-restored.jpg", "revision": "ba5726e8fa720b99", "result": "恢复紫色自动生效；另一测试页输入保留"},
+    {"file": "resized-viewport.jpg", "result": "600×720 实际视口中提示收回到右边缘内"},
+    {"file": "frame-rendered.jpg", "revision": "fce576ac325ef9d7", "result": "最终版本同源 frame 输入框标注成功"},
+    {"file": "public-page-rendered.jpg", "url": "https://developer.chrome.com/docs/extensions/ai/build-with-ai?hl=zh-CN", "result": "实际官方网页唯一 h1 高亮"},
+    {"file": "public-page-cleared.jpg", "result": "清理后页面标注根节点消失"},
+    {"file": "plan-diagram.png", "result": "计划 Mermaid 实际渲染：1 个 SVG、10 个节点、11 条边"}
+  ],
+  "additional_checks": [
+    "歧义目标匹配 2 个被拒绝，旧标注保留",
+    "第二会话清理不影响主会话；开放 Shadow DOM 标注成功",
+    "旧文档句柄返回 STALE_PAGE",
+    "滚动离开视口撤下，返回后恢复",
+    "源码语法错误保留旧输出，修复为相同版本不重载",
+    "服务停止约 95 秒后重启，扩展自行重连且文档不变",
+    "正式实际产物排除开发重载与快照入口",
+    "Codex 配置 TOML 解析通过，codex mcp list 显示 enabled"
+  ],
+  "not_verified": [
+    "当前 Codex 会话的原生工具列表尚未发现六项新工具",
+    "复杂业务网页完整多轮帮助与本地持久复用",
+    "worker 实际进入休眠后的恢复；本次只直接验证服务停止后的重连",
+    "正式产物另行安装到浏览器"
+  ]
+}

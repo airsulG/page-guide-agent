@@ -1,27 +1,47 @@
 # 架构与当前实现
 
-产品的已确认方向见 [产品总纲](01-PRODUCT.md)和[模块规格](modules/page-guide-agent.md)。本文件说明源码当前职责与新方向的技术缺口，不指定尚未验证的标注 API。
+产品方向见 [产品总纲](01-PRODUCT.md)和[模块规格](modules/page-guide-agent.md)。本文件说明 MCP 标注实现与历史材料的职责，实际验收状态见 [Task 07](../.TASK/07-mcp-page-annotations.md)。
+
+## 对话到页面的实际实现
+
+Codex 使用 stdio MCP 适配器；适配器把校验过的参数发送到本机桥接服务。扩展后台主动连接桥接，再把指令送给指定标签页的内容脚本。内容脚本只定位、绘制和返回结果，不点击或填写业务网页。MCP 是调用方式，参数仍使用 JSON；没有预先播放的教程文件。
+
+| 文件 | 负责什么 |
+|---|---|
+| `src/contract.mjs` | 六项工具 schema、默认值、数组限制与页面句柄；适配器和桥接都校验参数 |
+| `src/mcp.mjs` | SDK stdio 初始化、工具发现和调用，把页面错误返回 `isError` |
+| `src/bridge.mjs` | 只监听 127.0.0.1，校验本机密钥、Host 与扩展 Origin，关联请求、超时和断开 |
+| `src/extension/background.js` | 浏览器实例身份、页面枚举、消息转发、WebSocket 心跳与 alarms 重连 |
+| `src/extension/content.js` | 唯一目标检查、同批绘制、更新、清理，以及布局变化后的重新定位 |
+| `src/extension/dev-reload.js` | 仅开发版：接版本通知、保存测试页、重载扩展、刷新并恢复测试标注 |
+| `scripts/build.mjs`、`dev.mjs` | 完整校验后生成文件；开发监听成功版本，正式服务不监听或自动刷新 |
+
+精确合同和示例见 [MCP 标注协议](protocols/mcp-annotations.md)。`page_id` 绑定实例、tab、文档 UUID 和 URL；跳转、重载或断开后重新取得句柄，在途请求不自动重放。`session_id` 由调用方使用当前会话 ID 提供，默认只清理该组；它防止误清理，不是多用户权限系统。
+
+一批最多 20 项，所有新目标唯一且可见才修改；不存在、不唯一或错误范围会返回错误并保留旧批次。位置由真实边界和偏移计算，短提示在视口边缘收回。滚动、尺寸或 DOM 变化后重新定位，目标失效则撤下并在状态中报告。支持明确指定的同源 iframe 与开放 Shadow DOM；跨源和关闭的范围拒绝处理。
+
+本机连接信息在 `.page-guide/connection.json`，生成的 `config.js` 含密钥，两者都忽略，不提交。产品 WebSocket 与重连保留在正式版；源码监听、`runtime.reload()`、测试页快照与恢复只在开发版启用。正式产物使用 `build/extension/`，开发产物继续使用已加载的 `prototype/extension/`。
 
 ## 现有 Chrome 原型
 
 | 部分 | 当前职责与入口 | 使用限制 |
 |---|---|---|
 | Side Panel | `prototype/extension/sidepanel.js` 发现旧 guide 任务并发送播放、推进和停止指令 | 这是历史播放器，独立前端已退出产品方向 |
-| 页面内容脚本 | `prototype/extension/content.js` 消费 guide 步骤，定位、渲染、完成判定和旧 Lesson | 旧兼容合同见 [LEARN03 合同](</Users/zhouqi/.codex/skills/LEARN/LEARN03-生成网页任务指引/references/guide-schema.md>)；不是新通信协议 |
-| 扩展配置与后台 | `prototype/extension/manifest.json`、`background.js` 登记权限、内容脚本与侧栏行为 | 已验证旧扩展在内置浏览器测试页绘制与撤下；没有新对话接口 |
-| 本地任务包 | `prototype/service/tasks/index.json` 与每个任务的 `guide.json` | 当前侧栏以 main 的绝对 file URL 读此目录；不是工程工作任务 |
+| 历史内容脚本 | 0.1.0 消费 guide、completion 与 Lesson；版本保存在 Git 历史 | 同路径的当前文件已由 MCP 源码生成，不再播放 guide |
+| 当前扩展目录 | `prototype/extension/manifest.json`、`background.js`、`content.js` 是构建输出 | manifest 已撤掉侧栏和 file 访问，旧 sidepanel 文件保留但不引用 |
+| 本地任务包 | `prototype/service/tasks/index.json` 与每个任务的 `guide.json` | 旧侧栏曾通过 file URL 读取；当前 MCP 不读取，不是工程工作任务 |
 | CDP 验证脚本 | `prototype/cdp/t1-connect.js` 至 `t7-phase2-walkthrough.js` | 启动独立 Chrome，脚本可改写 samples 或 guide；证据范围见原 Task |
 | 当前方法 | 通用 LEARN02/03 负责对话内网页理解与标注方法 | 项目 `skill/` 和 `prototype/skill/` 只作历史参考 |
 
-旧播放通常由侧栏读取任务目录，再向标签页内容脚本发送消息。代码保留 completion 与 lesson 的兼容行为；这一调用过程及本地格式不决定新产品必须如何使用。旧任务包、CDP 样本和原 Task 的身份保持不变，文档迁移不搬程序目录。
+旧播放由侧栏读取任务目录，再向内容脚本发消息。旧任务包、CDP 样本和原 Task 保留；旧 CDP 脚本依赖旧代码，不能证明新 MCP 标注通过。追溯旧实现时读取 Git 版本，不覆盖当前加载目录。
 
 ## 新体验的职责与缺口
 
 已接受的分工是：Codex 对话理解问题并解释，内置浏览器呈现网页供用户操作，插件提供定位、绘制、更新、撤下和结果反馈，本地资料支持必要接续。每次指示必须核对当前网页与真实目标；观察到页面变化后再继续。
 
-Karl 手动安装后，旧扩展的内容脚本在内置浏览器受控 HTTP 页面真实绘制并撤下了标注。对话命令与结果传递、会话与标签页归属、持续更新均尚未验证。当前没有已接受的新消息名、JSON schema 或通信实现。后续先调查真实可用工具，再在 [模块规格](modules/page-guide-agent.md) 的要求下确定接口；不能直接把旧 PGA_PLAY 当成新能力已实现。
+旧扩展真实绘制证据见 Task 06。本次实际安装的 0.2.0 已通过真实 SDK 调用和内置浏览器观察，结果在 Task 07；自动检查另验证协议、错误行为、frame 限制和开发恢复。原生 Codex 工具发现与复杂网页多轮体验尚需检查。
 
-官方扩展开发 Skill 已安装，DevTools MCP 已启用扩展管理工具并完成工具发现检查。这些属于开发环境能力，没有建立 Codex 对话与内置浏览器插件之间的命令通道。自动化 URL 策略禁止打开扩展管理页，Karl 已手动加载并完成上述兼容检查。开发工具用法见 [开发说明](04-DEVELOPMENT.md)，实际证据见 [Task 06](../.TASK/06-extension-development-tools.md)。
+官方扩展开发 Skill 已安装，DevTools MCP 已启用扩展管理工具并完成工具发现检查。这些属于开发环境能力；当前命令通道由本项目 MCP 与配对扩展提供。自动化 URL 策略禁止打开扩展管理页，Karl 已手动加载并完成新后台首次重载。开发工具用法见 [开发说明](04-DEVELOPMENT.md)，实际证据见 Task 06、07。
 
 ## 文档、任务与证据
 

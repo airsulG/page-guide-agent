@@ -56,6 +56,8 @@ Karl 希望直接在 Codex 对话中发送参数：定位真实 DOM，选择高�
 ├── test/
 │   ├── bridge.test.mjs            [新增] 配对、请求归属、超时和断开
 │   ├── contract.test.mjs          [新增] 参数、数组、错误与会话约束
+│   ├── renderer.test.mjs、reload.test.mjs [新增] DOM、会话、frame 限制与开发恢复
+│   ├── build.test.mjs             [新增] 正式产物与构建失败保留
 │   └── fixture.html               [新增] 专门测试 DOM、滚动、歧义和正常输入
 ├── prototype/extension/
 │   ├── manifest.json              [修改] 移除侧栏声明，加载新的内容与后台
@@ -65,12 +67,17 @@ Karl 希望直接在 Codex 对话中发送参数：定位真实 DOM，选择高�
 ├── package.json、package-lock.json [修改] MCP、WebSocket、验证依赖与命令
 ├── .PROJECT/02-ARCHITECTURE.md      [修改] 实际合同与职责
 ├── .PROJECT/04-DEVELOPMENT.md       [修改] 启动、重载、目录与测试规则
+├── .PROJECT/protocols/mcp-annotations.md [新增] 当前参数、返回和限制
 ├── .PROJECT/modules/page-guide-agent.md [修改] 实现与验收差距
+├── README.md、.PROTOTYPE/README.md [修改] 当前启动与证据入口
+├── .PROTOTYPE/validation/mcp/      [新增] 实际截图、工作图和版本记录
 ├── AGENTS.md、.TASK/00-INDEX.md     [修改] 当前任务和真实运行入口
 └── .TASK/07-mcp-page-annotations.md [本文件] 计划、实施、授权与证据
 ```
 
 Codex 外部配置只增加本项目 stdio MCP 条目，保留其他配置。源码与生成文件要有明确对应；每轮生成前完整校验，不直接修改输出目录作为正常开发办法。
+
+沿用 Karl 此前“更新相关文档和技能”的授权，同批更新全局 LEARN03 主文及 `references/mcp-annotations.md`，说明先观察、取得页面句柄、检查目标、调用与验证实际结果。中文说明、机器 schema 保留原字段；旧 guide 合同只用于历史兼容。
 
 ## 实施顺序与恢复
 
@@ -102,7 +109,10 @@ flowchart TD
 负责计划、全部实现、浏览器验证、提交与记录
     |
     +-- /root/mcp_runtime_research：gpt-6-luna / high [已完成，只读]
-        核对 SDK 参数验证与 MV3 重载/恢复条件
+    |   核对 SDK 参数验证与 MV3 重载/恢复条件
+    |
+    +-- /root/review_mcp_skill：gpt-6.1-sol / 推理设置未取得 [已完成，只读]
+        独立检查 LEARN03 新旧内容、调用合同与中文表达
     |
     v
 同一主 Agent：核对关键来源并更新本文件的结果
@@ -112,32 +122,45 @@ flowchart TD
 
 | 检查 | 操作与应有结果 | 当前状态 |
 |---|---|---|
-| MCP 协议 | 用 SDK 初始化、列工具、执行真实工具；参数错误与未连接返回可理解错误 | 待执行 |
-| 批量与精确定位 | 两个实际目标同时标注；同名多个目标拒绝，合法旧标注保留 | 待执行 |
-| 页面与会话归属 | 错页、旧文档、其他会话清理被拒绝或不影响现有标注 | 待执行 |
-| 偏移与动态布局 | 改偏移、滚动、改变尺寸、移除目标，观察真实标注跟随或撤下 | 待执行 |
-| 网页正常操作 | 输入、按钮和滚动仍由用户操作；无侧栏与播放器入口 | 待执行 |
-| 开发自动更新 | 保存颜色变化后不手动刷新，真实扩展显示新色；恢复原色同样自动生效 | 待执行 |
-| 失败与重启 | 错误源码不发布；重复通知不循环；服务重启后自动恢复连接 | 待执行 |
-| 正式产物 | 实际文件不含开发重载脚本和开发入口；产品 MCP 通信保留 | 待执行 |
-| 真实网页 | 在一个可读取网页用 MCP 标出对象并清理，不执行业务写入 | 待执行 |
+| MCP 协议 | 用 SDK 初始化、列工具、执行真实工具；参数错误与未连接返回可理解错误 | 通过：六项工具；服务停止时返回 BRIDGE_UNAVAILABLE |
+| 批量与精确定位 | 两个实际目标同时标注；同名多个目标拒绝，合法旧标注保留 | 通过：关键词与比较按钮；重复目标匹配 2 个被拒绝；同源 frame 和开放 Shadow DOM 也通过 |
+| 页面与会话归属 | 错页、旧文档、其他会话清理被拒绝或不影响现有标注 | 通过：旧文档 STALE_PAGE；清理第二会话不影响第一会话 |
+| 偏移与动态布局 | 改偏移、滚动、改变尺寸、移除目标，观察真实标注跟随或撤下 | 通过：x 偏移增加 30，提示也移动 30；离开视口撤下、返回恢复；600×720 视口提示收回；移除按钮后报告失败 |
+| 网页正常操作 | 输入、按钮和滚动仍由用户操作；无侧栏与播放器入口 | 通过：通过浏览器正常输入、比较与展开；manifest 无侧栏 |
+| 开发自动更新 | 保存颜色变化后不手动刷新，真实扩展显示新色；恢复原色同样自动生效 | 通过：紫→红→紫自动生效、文档 UUID 改变、标注恢复；另一页输入保留 |
+| 失败与重启 | 错误源码不发布；重复通知不循环；服务重启后自动恢复连接 | 通过：语法错误与恢复同版本均不重载；服务停止约 95 秒后重启自动连接，页面文档不变 |
+| 正式产物 | 实际文件不含开发重载脚本和开发入口；产品 MCP 通信保留 | 通过：实际生成目录与自动文件检查；最终正式版本 33b7b17f391638ac |
+| 真实网页 | 在一个可读取网页用 MCP 标出对象并清理，不执行业务写入 | 通过：Chrome 官方扩展 AI 文档 h1，高亮后清理，页面标注根节点消失 |
 
 模拟传输只验证服务行为，不能替代真实插件。必要的首次手动重载不计入自动更新验收；本轮工具调用走真实 MCP 协议，若当前 Codex 原生工具列表未刷新，准确记录 SDK 客户端调用与会话工具发现的区别。
 
-## 当前进展与下一步
+## 当前进展、版本与证据
 
-计划已保存为 `18ec6e0`；合同、桥接、stdio 适配器、扩展定位绘制、后台、开发重载、构建与监听已实现。安装锁定依赖后 audit 为 0；`npm test` 的 10 项检查全部通过。正式目录实际生成成功，版本 `118a3d77a681d518`，未引用开发重载脚本、测试页快照或侧栏；开发目录保持 `prototype/extension/`。
+本次 MCP 和开发更新的实现与上述九项检查已完成。计划提交为 `18ec6e0`，实现为 `4bc03a6`，离线错误提示为 `c5da4ac`，frame 限制补齐为 `6160913`；均在 main 本地保存。最终实际安装版本为 0.2.0，目录仍是 `prototype/extension/`，开发构建 `fce576ac325ef9d7`，正式构建 `33b7b17f391638ac`。`npm test` 最终 11 项全部通过；依赖安装 audit 为 0。
 
-`npm run guide:dev` 正在本机端口 8767 运行。真实 SDK 已初始化并发现六项工具；页面列表返回 `connected: 0`，说明新后台还没连接。已在 `/Users/zhouqi/.codex/config.toml` 增加 `page-guide-agent`，保留其他服务；TOML 解析通过。当前 Codex 原生工具列表仍无这六项，不把 SDK 发现说成原生会话发现。
+Karl 完成首次重载后，真实扩展实例 `043301e2-6e1f-43c5-8e77-ec45dd04944b` 已连接。SDK 通过 stdio MCP → 桥接 → 安装扩展调用六项工具，浏览器观察验证实际 DOM、截图与正常操作；没有直接注入扩展源码或用模拟 Chrome API 替代安装验收。测试页是 `http://127.0.0.1:8767/fixture`，最终文档为 `8d1a16fa-ee71-4f71-840a-49aa859eaeea`。
 
-已请求 Karl 在原扩展卡上手动 ↻ 一次，看到 0.2.0 后回复；内置浏览器测试页已打开。等待的是新后台实际加载，不是再次申请实现授权。收到连接后继续真实批量、更新、清理、正常操作、颜色自动更新、服务重启与真实网页验证；本 Task 尚未完成。
+截图与版本说明在 [验收目录记录](../.PROTOTYPE/validation/mcp/validation.json)。[批量标注](../.PROTOTYPE/validation/mcp/batch-rendered.jpg)、[偏移与正常输入](../.PROTOTYPE/validation/mcp/updated-and-input.jpg)、[移除目标](../.PROTOTYPE/validation/mcp/target-removed.jpg)、[自动红色更新](../.PROTOTYPE/validation/mcp/auto-reload-red.jpg)、[恢复紫色](../.PROTOTYPE/validation/mcp/auto-reload-restored.jpg)、[缩小视口](../.PROTOTYPE/validation/mcp/resized-viewport.jpg)、[同源 frame](../.PROTOTYPE/validation/mcp/frame-rendered.jpg)、[真实网页高亮](../.PROTOTYPE/validation/mcp/public-page-rendered.jpg)与[清理](../.PROTOTYPE/validation/mcp/public-page-cleared.jpg)对应具体操作。工作图已实际渲染，见 [计划图](../.PROTOTYPE/validation/mcp/plan-diagram.png)。
+
+颜色验收在开发版本 `ba5726e8fa720b99` → `aed39906ac027f97` → `ba5726e8fa720b99` 完成，输入因测试页刷新清空；另一个测试标签页的输入保留。制造一次源码语法错误后，构建拒绝、输出和文档不变；删除错误后因版本相同也没有重复重载。随后补齐 frame 的变换祖先与裁切检查，增加回归并在最终版本重新标出普通同源 frame，两个主标注也自动恢复。
+
+开发服务停止约 95 秒后重启，SDK 从 BRIDGE_UNAVAILABLE 恢复到 connected: 1，文档 UUID 未变，未手动重载。此检查证明服务恢复后的自行重连，没有直接确认 worker 已进入休眠。正式产物剥离开发重载与快照，正式浏览器目录另行安装没有执行。
+
+已在 `/Users/zhouqi/.codex/config.toml` 增加 `page-guide-agent`，保留其他服务；TOML 解析和 `codex mcp list` enabled 检查通过。当前对话的原生工具列表尚无这六项，实际证据来自真实 SDK 客户端。下一次自然开始的对话或 MCP 服务重新加载后，应先确认原生工具发现，再走一次所问网页的完整多轮帮助。复杂业务网页多轮体验、本地持久复用仍属于产品后续验收，不记成此次基础能力已经全部证明。
+
+`npm run guide:dev` 保持在本机 8767 运行，最终测试页保留两个标注供 Karl 查看；临时真实网页与辅助标签页已清理，原有标签页未改动。
+
+收尾检查：11 份入口与正文的 89 个本地链接均存在，验收 JSON 可解析且 11 个图像文件齐全；Git diff 无空白错误。辅助图形服务已停止，临时视口覆盖已恢复。正文和截图同批保存本地提交，不操作远端。
 
 SDK 调查已收回。官方 1.31.0 的低层 Server 不替工具执行 inputSchema 校验，因此适配器和桥接都调用 Zod parse；storage.local 及 alarm 的恢复条件已进入实现。来源：[SDK Server](https://github.com/modelcontextprotocol/typescript-sdk/blob/1.31.0/src/server/index.ts)、[Chrome storage](https://developer.chrome.com/docs/extensions/reference/api/storage)、[生命周期](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle)。子代理没有验证内置浏览器，主 Agent 的源码与自动检查也不替代安装验收。
 
-实施检查中发现中文项目路径使 URL pathname 保持百分号编码，导致 build CLI 未进入；已改用 fileURLToPath，重新运行正式构建，确认实际输出目录和版本。自动测试覆盖模拟传输、DOM 算法与重载状态；真实扩展仍待上述首次加载。
+实施检查中发现中文项目路径使 URL pathname 保持百分号编码，导致 build CLI 未进入；已改用 fileURLToPath，重新运行正式构建，确认实际输出目录和版本。自动测试覆盖模拟传输、DOM 算法与重载状态；安装验收另用实际 SDK 和内置浏览器完成。
+
+LEARN03 与 MCP 方法资源已通过结构验证及独立审查，没有重要问题；技能仓库提交为 `6c72b69d`，原有其他未提交修改保留。主 Agent 已核对调查与审查结论，并完成上述真实标注验证。
 
 ## 重要变化
 
 - 2026-10-01：接受对话驱动与无独立插件前端；旧扩展兼容检查通过。
 - 2026-10-01：开发自动更新流程写入 AGENTS，尚未实现。
 - 2026-10-02：Karl 接受 MCP 参数调用方向并授权创建计划后实施；本计划保存当前范围和待执行验收。
+- 2026-10-02：MCP、自动更新和真实页面标注检查完成；补齐 frame 变换与裁切限制。当前原生会话工具发现仍未刷新，后续完整体验验收继续保留。

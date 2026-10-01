@@ -13,9 +13,9 @@ execution_mode: interactive
 - [x] [05-workspace-migration.md](05-workspace-migration.md)：文件结构、入口与引用迁移完成，内容保留及实际材料检查通过；TEAM 控制工作树未移动。
 - [x] [06-extension-development-tools.md](06-extension-development-tools.md)：官方开发工具检查通过；Karl 手动加载后，旧扩展在内置浏览器测试页真实绘制并撤下标注。对话调用另需实现。
 
-## Checkbox 语义
-- [>] [07-mcp-page-annotations.md](07-mcp-page-annotations.md)：已授权 MCP 标注与开发自动更新，计划已保存，正在实施。
+- [x] [07-mcp-page-annotations.md](07-mcp-page-annotations.md)：MCP、开发更新和真实扩展检查完成；11 项自动检查通过。当前原生会话工具发现与复杂网页多轮体验留作后续验收。
 
+## Checkbox 语义
 
 ```text
 [ ] 未开始
