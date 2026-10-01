@@ -1,6 +1,6 @@
 interface:
   display_name: "Page Guide Skill · 历史镜像"
-  short_description: "仅追溯旧 Chrome 播放器合同，当前方法使用 LEARN02/03"
-  default_prompt: "当前网页理解与对话标注请使用 $learn02 或 $learn03；本文件仅供旧 Chrome 原型追溯。"
+  short_description: "仅追溯旧 Chrome 播放器合同，当前方法使用 WEBTASK01/02"
+  default_prompt: "当前网页理解与对话标注请使用 $webtask01 或 $webtask02；本文件仅供旧 Chrome 原型追溯。"
 policy:
   allow_implicit_invocation: false

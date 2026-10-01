@@ -1,6 +1,6 @@
 ---
 name: page-guide-skill
-description: 历史项目镜像，仅用于追溯旧 Chrome 播放器的指引生成方法，不作为当前运行入口。网页理解与对话标注分别使用 LEARN02 和 LEARN03。
+description: 历史项目镜像，仅用于追溯旧 Chrome 播放器的指引生成方法，不作为当前运行入口。网页理解与对话标注分别使用 WEBTASK01 和 WEBTASK02。
 ---
 
 # Page Guide Skill
