@@ -41,6 +41,7 @@ flowchart TD
 - MCP 协议检查返回五个扩展管理工具，缺失数为 0；工具实例在检查后关闭，没有启动或安装浏览器扩展。
 - 工作图已在允许访问的本地 HTTP 页面使用现有 Mermaid 实际渲染，读回为七个节点、六条连线；已检查中文截图，检查页及临时服务随后关闭。
 - 技能仓库本地提交：`bead17b7`。提交只包含两个新增 Skill 目录；保留其他工作原有修改。Git 空白检查报告了官方文件自带的行尾空格，因本次完整保留上游文件而未改写，不记作空白检查通过。
+- 项目本地提交：`aceb7fe`，保存开发说明、架构与模块差距、Task 06、导航和检查 JSON；提交后项目工作区与暂存区干净。外部配置的实际变化是 `/Users/zhouqi/.codex/config.toml` 中新增一个启动参数，不在项目 Git 内。
 - 项目静态检查通过：七份 Markdown 的围栏与 51 个本地链接、相应章节、检查 JSON 及 `git diff --check`；实际 diff 未包含原型代码、guide、package 或 TEAM 修改。结构与运行结果见 [检查记录](../.PROTOTYPE/validation/developer-tools/validation.json)。
 
 ## 当前状态与接续
