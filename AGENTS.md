@@ -100,7 +100,7 @@ package.json、package-lock.json   锁定依赖与 test、guide:dev/build/mcp/ca
 验收时修改一处标注颜色并保存源码，确认内置浏览器中的真实扩展自动更新、指定测试页自动刷新并显示新颜色，其他标签页保持原样；记录实际加载目录、版本与结果。
 
 <!-- ACTIVE_TASK_START -->
-最近完成：MCP 页面标注与开发自动更新，见 `.TASK/07-mcp-page-annotations.md`。后续先确认原生 MCP 工具发现，再按新授权验证复杂网页完整多轮体验；TEAM 运行任务仍在独立控制工作树。
+最近完成 MCP 与开发更新，见 `.TASK/07-mcp-page-annotations.md`。Semrush 实际教学提出编号标注点击展开详细注解，方案见 `.TASK/08-expandable-annotation-details.md`，当前待 Karl 确认；交互尚未实现。TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责
