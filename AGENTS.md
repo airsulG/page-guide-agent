@@ -21,7 +21,7 @@
 - Codex 对话是唯一使用入口，主要场景是对话、内置浏览器、用户操作与即时标注共同发生；局部提问不必先变成完整任务。
 - 插件没有独立产品前端，只提供预先定义的定位、绘制、更新、撤下与结果反馈能力；内容与下一次指示由当前对话决定。
 - 完整解释、知识、Mermaid 与图片留在对话，使用当前可用工具；页面只有指向真实对象的标注和必要短提示。
-- 支持范围由实际浏览器观察与注入能力决定。内置浏览器能否运行现有 Chrome 扩展、怎样连接当前对话仍待验证，不以旧 Chrome 证据冒充。
+- 支持范围由实际浏览器观察与注入能力决定。旧扩展已在内置浏览器受控 HTTP 页面完成真实绘制与撤下检查；当前对话调用、复杂网页与连续更新仍待验证，证据见 Task 06。
 - 本地资料帮助后续对话接续和复用；旧 guide.json、任务索引、Side Panel 与 Lesson 是历史原型合同，代码尚未迁移。
 
 ## 当前模块入口
@@ -29,7 +29,7 @@
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
 - 当前模块 PRD：`.PROJECT/modules/page-guide-agent.md`（已确认对话驱动、无独立插件前端；新运行体验未实现。旧原型证据保留）。
-- 产品定义与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；官方开发工具与接入条件检查见 `.TASK/06-extension-development-tools.md`。新产品实现尚未授权，内置浏览器实际加载与通信仍待验证。
+- 产品定义与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；官方开发工具与旧扩展兼容检查已完成，见 `.TASK/06-extension-development-tools.md`。新产品实现尚未授权，对话通信仍待实现。
 
 ## TEAM 入口
 
@@ -84,8 +84,7 @@ package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 当前 main 的普通文档维护在本地保存，验证后只提交本次内容；本仓库没有远端，不创建 Issue、PR 或推送。TEAM 仍使用它已有的隔离分支与控制工作树，具体范围见 Task 03；不能从 main 切换或覆盖其运行状态。插件安装、代码整合和发布不由文档迁移授权。
 
 <!-- ACTIVE_TASK_START -->
-当前工作区任务：
-- 官方扩展开发工具与内置浏览器接入检查：`.TASK/06-extension-development-tools.md`；TEAM 运行任务仍在独立控制工作树。
+当前工作区没有已授权且未完成的实施任务。开发工具与兼容检查已记录于 `.TASK/06-extension-development-tools.md`；TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责

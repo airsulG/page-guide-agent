@@ -23,7 +23,7 @@ npx --yes modern-web-guidance@latest retrieve position-aware-tooltips
 
 构建由 Agent 执行项目实际的构建命令；当前原型没有构建脚本，加载目录仍是 `prototype/extension/`。DevTools MCP 的加载工具接收未打包目录绝对路径，后续修改可以重载扩展并刷新目标网页，再检查内容脚本和标注。工具默认操作自身连接的 Chrome，不能直接认作 Codex 内置浏览器；连接方式与版本条件以执行时的帮助为准。
 
-当前 Computer Use 的 URL 策略禁止自动访问 `chrome://extensions/`，并明确禁止绕过。需要 Karl 在内置浏览器的扩展设置中手动加载，再在允许访问的 HTTP/HTTPS 页面核对插件运行。实际加载前辨认目录和 manifest 权限；现有插件仍有 Side Panel、全部网页内容脚本匹配和本地 file 访问声明，不应把它记成新产品版本。完整边界和下一步见 Task 06。
+当前 Computer Use 的 URL 策略禁止自动访问 `chrome://extensions/`，并明确禁止绕过。Karl 已手动加载 Page Guide Agent 0.1.0，随后在内置浏览器的本机 HTTP 测试页完成真实内容脚本绘制与撤下检查。检查页只保存旧格式指引，通过实际双击触发插件重播，没有注入绘制代码或模拟扩展 API；页面、截图和结果见 Task 06。现有插件仍有 Side Panel、全部网页内容脚本匹配和本地 file 访问声明，对话直接调用还需实现。
 
 ## 现有运行入口
 

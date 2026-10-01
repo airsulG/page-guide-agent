@@ -11,7 +11,7 @@ execution_mode: interactive
 - [>] [03-project-team.md](03-project-team.md)：建设对话转为 Leader；两个业务岗位改用独立会话，建设工作树正在调整与试跑，定时未启动。
 - [x] [04-conversation-driven-annotations.md](04-conversation-driven-annotations.md)：产品定义、导航与 LEARN02/03 已更新和检查，保存本地提交；运行实现另需授权。
 - [x] [05-workspace-migration.md](05-workspace-migration.md)：文件结构、入口与引用迁移完成，内容保留及实际材料检查通过；TEAM 控制工作树未移动。
-- [?] [06-extension-development-tools.md](06-extension-development-tools.md)：官方 Skill、CLI 检索与 MCP 扩展工具检查通过；内置浏览器加载页被安全策略拦截，等 Karl 手动加载后继续验证。
+- [x] [06-extension-development-tools.md](06-extension-development-tools.md)：官方开发工具检查通过；Karl 手动加载后，旧扩展在内置浏览器测试页真实绘制并撤下标注。对话调用另需实现。
 
 ## Checkbox 语义
 

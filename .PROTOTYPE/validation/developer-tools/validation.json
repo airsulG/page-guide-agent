@@ -1,6 +1,6 @@
 {
   "date": "2026-10-01 Asia/Shanghai",
-  "scope": "official developer skills and MCP tool discovery; no browser extension installation or product acceptance",
+  "scope": "official developer skills, MCP tool discovery and real legacy extension compatibility in Codex in-app browser; new conversation product not accepted",
   "skills": {
     "repository": "GoogleChrome/modern-web-guidance",
     "source_commit": "84ae7251ee919239d5ea85aef25897983f26601e",
@@ -34,10 +34,38 @@
     "navigation": "rejected by browser URL policy",
     "reason": "only HTTP/HTTPS allowed; policy expressly prohibits workarounds",
     "workaround_attempted": false,
-    "extension_installed": false,
+    "extension_installed": true,
+    "installation_actor": "Karl manually loaded; user screenshot shows Page Guide Agent 0.1.0 enabled",
+    "automatic_loading_verified": false,
     "manual_loading_required": true,
-    "product_runtime_verified": false
+    "product_runtime_verified": false,
+    "legacy_compatibility": {
+      "tab_id": "6",
+      "url": "http://127.0.0.1:51405/extension-probe.html",
+      "fixture": "extension-probe.html",
+      "fixture_contains_renderer_or_extension_api_mock": false,
+      "extension_source_injected": false,
+      "trigger": "real double click; original installed content script reads pga_last_guide",
+      "target_selector": "#probe-target",
+      "target_count": 1,
+      "annotation_elements_rendered": 2,
+      "end_buttons_rendered": 1,
+      "target_rect": {"x": 69, "y": 347.71875, "width": 330, "height": 47.59375},
+      "highlight_rect": {"x": 63, "y": 341.71875, "width": 346, "height": 63.59375},
+      "visible_target_correct": true,
+      "rendered_screenshot": "extension-probe-rendered.jpg",
+      "stop_action": "clicked original extension end button",
+      "annotation_elements_after_stop": 0,
+      "end_buttons_after_stop": 0,
+      "fixture_cleanup_status": "本页测试数据已清理",
+      "cleared_screenshot": "extension-probe-cleared.jpg",
+      "test_tab_closed": true,
+      "temporary_server_stopped": true,
+      "conversation_command_channel": "not implemented; existing entries are double click and extension runtime messages",
+      "real_complex_website_and_continuous_updates_verified": false
+    }
   },
   "task_workflow": {"mermaid_rendered": true, "nodes": 7, "edges": 6, "visible_status": "工作图渲染成功"},
-  "project_static": {"markdown_files": 7, "local_links_checked": 51, "heading_targets_checked": true, "json_valid": true, "diff_check": "passed", "product_code_changed": false}
+  "project_static": {"markdown_files": 7, "local_links_checked": 51, "heading_targets_checked": true, "json_valid": true, "diff_check": "passed", "product_code_changed": false},
+  "compatibility_followup_static": {"markdown_files": 7, "local_links_checked": 44, "missing_links": 0, "fences_balanced": true, "json_valid": true, "diff_check": "passed", "product_code_changed": false, "new_files": ["extension-probe.html", "extension-probe-rendered.jpg", "extension-probe-cleared.jpg"]}
 }

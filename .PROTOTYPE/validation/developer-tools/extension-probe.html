@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>Page Guide 插件运行检查</title>
+<style>
+body{font:16px/1.6 system-ui,"PingFang SC",sans-serif;margin:40px;background:#f5f6f8;color:#17202c}
+main{max-width:760px;background:white;border:1px solid #d7dce4;border-radius:16px;padding:28px}
+h1{font-size:25px;margin-top:0}button,input{font:inherit;padding:10px 14px;border:1px solid #aeb8c8;border-radius:8px}button{cursor:pointer;background:#edf1f8}input{display:block;margin-top:8px;width:300px}label{display:block;margin:32px 0}.note{color:#536074}#status{font-weight:600}
+</style>
+<main>
+<h1>Page Guide 插件运行检查</h1>
+<p class="note">这是旧 Chrome 原型的兼容性测试页。页面只保存一条测试指引，不包含标注绘制代码，也不模拟扩展 API。</p>
+<button id="prepare">准备本页测试指引</button>
+<p id="status">尚未准备测试指引</p>
+<label for="probe-target">测试输入框<input id="probe-target" placeholder="这里不填写真实账号或密码"></label>
+<button id="replay">双击这里，触发旧插件重播</button>
+<p class="note">插件正常运行时，应框出“测试输入框”，显示“真实扩展运行检查：这条标注应指向测试输入框”，并出现插件自身的结束按钮。</p>
+<button id="cleanup">清理本页测试数据</button>
+</main>
+<script>
+document.querySelector('#prepare').addEventListener('click', () => {
+  localStorage.setItem('pga_last_guide', JSON.stringify({
+    id:'in-app-extension-probe', name:'内置浏览器插件兼容检查',
+    steps:[{id:1,primary:{strategy:'css',value:'#probe-target'},comment:'真实扩展运行检查：这条标注应指向测试输入框'}]
+  }));
+  document.querySelector('#status').textContent='测试指引已保存，等待真实插件读取';
+});
+document.querySelector('#cleanup').addEventListener('click', () => {
+  localStorage.removeItem('pga_last_guide');
+  document.querySelector('#status').textContent='本页测试数据已清理';
+});
+</script>
+</html>

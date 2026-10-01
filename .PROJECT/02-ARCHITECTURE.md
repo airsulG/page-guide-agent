@@ -8,7 +8,7 @@
 |---|---|---|
 | Side Panel | `prototype/extension/sidepanel.js` 发现旧 guide 任务并发送播放、推进和停止指令 | 这是历史播放器，独立前端已退出产品方向 |
 | 页面内容脚本 | `prototype/extension/content.js` 消费 guide 步骤，定位、渲染、完成判定和旧 Lesson | 旧兼容合同见 [LEARN03 合同](</Users/zhouqi/.codex/skills/LEARN/LEARN03-生成网页任务指引/references/guide-schema.md>)；不是新通信协议 |
-| 扩展配置与后台 | `prototype/extension/manifest.json`、`background.js` 登记权限、内容脚本与侧栏行为 | 现有 Chrome 安装不证明 Codex 内置浏览器可运行 |
+| 扩展配置与后台 | `prototype/extension/manifest.json`、`background.js` 登记权限、内容脚本与侧栏行为 | 已验证旧扩展在内置浏览器测试页绘制与撤下；没有新对话接口 |
 | 本地任务包 | `prototype/service/tasks/index.json` 与每个任务的 `guide.json` | 当前侧栏以 main 的绝对 file URL 读此目录；不是工程工作任务 |
 | CDP 验证脚本 | `prototype/cdp/t1-connect.js` 至 `t7-phase2-walkthrough.js` | 启动独立 Chrome，脚本可改写 samples 或 guide；证据范围见原 Task |
 | 当前方法 | 通用 LEARN02/03 负责对话内网页理解与标注方法 | 项目 `skill/` 和 `prototype/skill/` 只作历史参考 |
@@ -19,9 +19,9 @@
 
 已接受的分工是：Codex 对话理解问题并解释，内置浏览器呈现网页供用户操作，插件提供定位、绘制、更新、撤下和结果反馈，本地资料支持必要接续。每次指示必须核对当前网页与真实目标；观察到页面变化后再继续。
 
-内置浏览器的扩展安装或注入、命令与结果传递、会话与标签页归属、持续更新和清理均尚未验证。当前没有已接受的新消息名、JSON schema 或通信实现。后续先调查真实可用工具，再在 [模块规格](modules/page-guide-agent.md) 的要求下确定接口；不能直接把旧 PGA_PLAY 当成新能力已实现。
+Karl 手动安装后，旧扩展的内容脚本在内置浏览器受控 HTTP 页面真实绘制并撤下了标注。对话命令与结果传递、会话与标签页归属、持续更新均尚未验证。当前没有已接受的新消息名、JSON schema 或通信实现。后续先调查真实可用工具，再在 [模块规格](modules/page-guide-agent.md) 的要求下确定接口；不能直接把旧 PGA_PLAY 当成新能力已实现。
 
-官方扩展开发 Skill 已安装，DevTools MCP 已启用扩展管理工具并完成工具发现检查。这些属于开发环境能力，没有建立 Codex 对话与内置浏览器插件之间的命令通道。内置浏览器的扩展管理页被自动化 URL 策略拦截，实际加载需 Karl 手动操作；后续在 HTTP/HTTPS 页面验证内容脚本与通信。开发工具用法见 [开发说明](04-DEVELOPMENT.md)，实际证据见 [Task 06](../.TASK/06-extension-development-tools.md)。
+官方扩展开发 Skill 已安装，DevTools MCP 已启用扩展管理工具并完成工具发现检查。这些属于开发环境能力，没有建立 Codex 对话与内置浏览器插件之间的命令通道。自动化 URL 策略禁止打开扩展管理页，Karl 已手动加载并完成上述兼容检查。开发工具用法见 [开发说明](04-DEVELOPMENT.md)，实际证据见 [Task 06](../.TASK/06-extension-development-tools.md)。
 
 ## 文档、任务与证据
 
