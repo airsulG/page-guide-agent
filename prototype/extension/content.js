@@ -1,259 +1,161 @@
-let pgaTimers = [];
-let pgaAdvance = null;
-let pgaState = null; // { guide, i, watcher, missSince, stepEl, stepType, stepValue, done, clicked }
-window.pgaState = () => pgaState;
-
-function pgaLocateTarget(step) {
-  const byStrategy = (s) => {
-    if (!s) return null;
-    try {
-      if (s.strategy === "placeholder") return document.querySelector(`input[placeholder="${s.value}"]`);
-      if (s.strategy === "css") return document.querySelector(s.value);
-      if (s.strategy === "text") {
-        const xp = `//*[normalize-space(text())="${s.value}"]`;
-        return document.evaluate(xp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-      }
-    } catch {}
-    return null;
-  };
-  let el = byStrategy(step.primary);
-  if (!el) el = byStrategy(step.fallback);
-  return el;
-}
-let pgaRoot = null;
-
-function pgaClear() {
-  pgaTimers.forEach(clearTimeout);
-  pgaTimers = [];
-  if (pgaRoot) {
-    pgaRoot.remove();
-    pgaRoot = null;
+globalThis.PGA_VERSION={"revision":"ba5726e8fa720b99"};
+(() => {
+  'use strict';
+  if(globalThis.PGA_RENDERER) return;
+  const documentId=crypto.randomUUID();
+  const sessions=new Map();
+  const DEFAULT_COLOR='#8b5cf6';
+  let host,shadow,raf=0,observer,resize;
+  const observed=new Set(),scopes=new Map();
+  function watchScope(scope){
+    if(!host||scopes.has(scope)||scope===document)return;
+    const mutation=new MutationObserver(schedule);
+    mutation.observe(scope,{subtree:true,childList:true,attributes:true,characterData:true});
+    scope.addEventListener('scroll',schedule,true);scopes.set(scope,mutation);
   }
-}
-
-function pgaLocate(step) {
-  const byStrategy = (s) => {
-    if (!s) return null;
-    try {
-      if (s.strategy === "placeholder") return document.querySelector(`input[placeholder="${s.value}"]`);
-      if (s.strategy === "css") return document.querySelector(s.value);
-      if (s.strategy === "text") {
-        const xp = `//*[normalize-space(text())="${s.value}"]`;
-        return document.evaluate(xp, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-      }
-    } catch {}
-    return null;
-  };
-  let el = byStrategy(step.primary);
-  let used = "primary";
-  if (!el) {
-    el = byStrategy(step.fallback);
-    used = "fallback";
+  const error=(code,detail)=>Object.assign(new Error(code+': '+detail),{code});
+  const rect=r=>({x:r.x,y:r.y,width:r.width,height:r.height});
+  function unique(scope,css){
+    const found=[...scope.querySelectorAll(css)].filter(el=>!el.closest('[data-page-guide-root]'));
+    if(found.length!==1)throw error(found.length?'TARGET_AMBIGUOUS':'TARGET_NOT_FOUND',css+' 匹配 '+found.length+' 个元素');
+    return found[0];
   }
-  if (!el) return null;
-  el.scrollIntoView({ block: "center", behavior: "instant" });
-  return { used, box: el.getBoundingClientRect() };
-}
-
-function pgaPlay(guide) {
-  pgaClear();
-  pgaState = { guide, i: 0, watcher: null, missSince: 0 };
-  pgaRoot = document.createElement("div");
-  pgaRoot.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:2147483647;";
-  document.body.appendChild(pgaRoot);
-  localStorage.setItem("pga_last_guide", JSON.stringify(guide));
-  let i = 0;
-  const playBadge = document.createElement("div");
-  playBadge.style.cssText = "position:fixed;top:20px;right:20px;background:rgba(23,23,26,0.88);backdrop-filter:blur(8px);color:#fff;font:12px/1 -apple-system,sans-serif;padding:7px 8px 7px 14px;border-radius:99px;z-index:2147483647;display:flex;align-items:center;gap:8px;pointer-events:auto;";
-  const badgeText = document.createElement("span");
-  badgeText.textContent = `${Math.min(i + 1, guide.steps.length)} / ${guide.steps.length}`;
-  playBadge.appendChild(badgeText);
-  const nextBtn = document.createElement("button");
-  nextBtn.style.cssText = "appearance:none;border:none;border-radius:99px;background:#8b5cf6;color:#fff;font:12px -apple-system,sans-serif;padding:4px 10px;cursor:pointer;";
-  nextBtn.textContent = "下一步 →";
-  playBadge.appendChild(nextBtn);
-  const stopBtn = document.createElement("button");
-  stopBtn.style.cssText = "appearance:none;border:none;border-radius:99px;background:rgba(255,255,255,0.14);color:#fff;font:11px -apple-system,sans-serif;padding:4px 9px;cursor:pointer;";
-  stopBtn.textContent = "✕";
-  stopBtn.title = "结束指引";
-  stopBtn.addEventListener("mouseenter", () => { stopBtn.style.background = "#dc2626"; });
-  stopBtn.addEventListener("mouseleave", () => { stopBtn.style.background = "rgba(255,255,255,0.14)"; });
-  playBadge.appendChild(stopBtn);
-  stopBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    pgaClear();
-  });
-  pgaRoot.appendChild(playBadge);
-
-  const advance = () => {
-    if (i >= guide.steps.length) return;
-    i += 1;
-    playStep();
-  };
-  pgaAdvance = advance;
-  nextBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    advance();
-  });
-
-  const playStep = () => {
-    pgaRoot.querySelectorAll(".pga-step").forEach((n) => n.remove());
-    if (i >= guide.steps.length) {
-      const done = document.createElement("div");
-      done.className = "pga-step";
-      done.style.cssText = "position:fixed;top:64px;right:24px;background:rgba(22,163,74,0.95);color:#fff;font:13px -apple-system,sans-serif;padding:9px 14px;border-radius:10px;box-shadow:0 6px 20px rgba(22,163,74,0.3);";
-      done.textContent = `重播完成（${guide.steps.length} 步）`;
-      badgeText.textContent = `完成 ${guide.steps.length} / ${guide.steps.length}`;
-      nextBtn.remove();
-      pgaTimers.push(setTimeout(() => pgaClear(), 4000));
-      if (pgaState) {
-        clearInterval(pgaState.watcher);
-        pgaState = null;
+  function locate(target){
+    let scope=document,dx=0,dy=0;
+    try{
+      for(const selector of target.frame_path||[]){
+        const frame=unique(scope,selector);
+        if(frame.tagName!=='IFRAME')throw error('INVALID_SCOPE','frame_path 必须指向 iframe');
+        if(getComputedStyle(frame).transform!=='none')throw error('UNSUPPORTED_SCOPE','变换后的 iframe 暂不支持');
+        const box=frame.getBoundingClientRect();
+        if(box.width<=0||box.height<=0||frame.checkVisibility?.()===false)throw error('TARGET_NOT_VISIBLE','iframe 隐藏');
+        dx+=box.x+frame.clientLeft;dy+=box.y+frame.clientTop;
+        try{scope=frame.contentDocument;if(!scope)throw new Error();}catch{throw error('UNSUPPORTED_SCOPE','跨源 iframe 暂不支持');}
+        watchScope(scope);
       }
-      pgaRoot.appendChild(done);
-      return;
+      for(const selector of target.shadow_path||[]){
+        const element=unique(scope,selector);
+        if(!element.shadowRoot)throw error('UNSUPPORTED_SCOPE','目标没有开放 Shadow DOM');
+        scope=element.shadowRoot;
+        watchScope(scope);
+      }
+      let candidates;
+      if(target.css)candidates=[...scope.querySelectorAll(target.css)];
+      else if(target.label){
+        candidates=[...scope.querySelectorAll('label')].filter(e=>e.textContent.trim()===target.label).map(e=>e.control||e.querySelector('input,select,textarea')).filter(Boolean);
+        candidates.push(...[...scope.querySelectorAll('[aria-label]')].filter(e=>e.getAttribute('aria-label')===target.label));
+        candidates=[...new Set(candidates)];
+      }else{
+        const elements=[...scope.querySelectorAll('*')].filter(e=>!e.closest('[data-page-guide-root]'));
+        candidates=elements.filter(e=>e.textContent.trim()===target.text&&![...e.children].some(c=>c.textContent.trim()===target.text));
+      }
+      candidates=candidates.filter(e=>!e.closest('[data-page-guide-root]'));
+      if(candidates.length!==1)throw error(candidates.length?'TARGET_AMBIGUOUS':'TARGET_NOT_FOUND','匹配 '+candidates.length+' 个元素');
+      const element=candidates[0],r=element.getBoundingClientRect(),style=element.ownerDocument.defaultView.getComputedStyle(element);
+      const box={x:r.x+dx,y:r.y+dy,width:r.width,height:r.height};
+      if(!element.checkVisibility?.({checkOpacity:true,checkVisibilityCSS:true})&&element.checkVisibility)throw error('TARGET_NOT_VISIBLE','目标隐藏');
+      if(style.visibility==='hidden'||style.display==='none'||r.width<=0||r.height<=0)throw error('TARGET_NOT_VISIBLE','目标没有可见边界');
+      if(box.x+box.width<=0||box.y+box.height<=0||box.x>=innerWidth||box.y>=innerHeight)throw error('TARGET_OUTSIDE_VIEWPORT','请先观察或滚动到目标');
+      return {element,box,match_count:1,visible:true};
+    }catch(e){if(e.code)throw e;throw error('INVALID_TARGET',e.message);}
+  }
+  function ensureRoot(){
+    if(host)return;
+    host=document.createElement('div');host.dataset.pageGuideRoot='0.2.0';
+    host.style.cssText='position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
+    shadow=host.attachShadow({mode:'open'});
+    const style=document.createElement('style');
+    style.textContent=':host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}';
+    shadow.append(style);document.documentElement.append(host);
+    window.addEventListener('scroll',schedule,true);window.addEventListener('resize',schedule);
+    observer=new MutationObserver(schedule);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
+    resize=new ResizeObserver(schedule);
+  }
+  function schedule(){
+    if(!raf&&host)raf=requestAnimationFrame(()=>{raf=0;refresh();});
+  }
+  function stopIfEmpty(){
+    if([...sessions.values()].some(s=>s.size))return;
+    if(raf)cancelAnimationFrame(raf);raf=0;
+    observer?.disconnect();resize?.disconnect();window.removeEventListener('scroll',schedule,true);window.removeEventListener('resize',schedule);
+    observed.clear();for(const [scope,mutation]of scopes){mutation.disconnect();scope.removeEventListener('scroll',schedule,true);}scopes.clear();
+    host?.remove();host=null;shadow=null;
+  }
+  function createNode(tag,cls,item){
+    const node=document.createElement(tag);node.className=cls;node.dataset.annotationId=item.spec.id;
+    node.style.setProperty('--color',item.spec.color||DEFAULT_COLOR);
+    shadow.append(node);item.nodes.push(node);return node;
+  }
+  function draw(item,located){
+    item.nodes.forEach(n=>n.remove());item.nodes=[];
+    const a=item.spec,b=located.box,color=a.color||DEFAULT_COLOR;
+    if(a.type==='highlight'||a.type==='combined'){
+      const ring=createNode('div','ring',item);
+      Object.assign(ring.style,{left:b.x-4+'px',top:b.y-4+'px',width:b.width+8+'px',height:b.height+8+'px'});
     }
-    const step = guide.steps[i];
-    const el = pgaLocateTarget(step);
-    if (el) {
-      el.scrollIntoView({ block: "center", behavior: "instant" });
-      const box = el.getBoundingClientRect();
-      const res = { used: el ? "primary" : "fallback", box };
-      pgaState.missSince = 0;
-      const ring = document.createElement("div");
-      ring.className = "pga-step";
-      ring.style.cssText = `position:absolute;left:${res.box.x - 6}px;top:${res.box.y - 6}px;width:${res.box.width + 12}px;height:${res.box.height + 12}px;border:2px solid #8b5cf6;border-radius:10px;box-shadow:0 0 0 4000px rgba(0,0,0,0.18), 0 0 24px rgba(139,92,246,0.45);`;
-      pgaRoot.appendChild(ring);
-      const bubble = document.createElement("div");
-      bubble.className = "pga-step";
-      bubble.style.cssText = `position:absolute;left:${Math.max(8, res.box.x)}px;top:${Math.max(64, res.box.y + res.box.height + 12)}px;max-width:400px;background:#7c3aed;color:#fff;font:13px/1.55 -apple-system,"PingFang SC",sans-serif;padding:12px 14px;border-radius:12px;box-shadow:0 8px 28px rgba(124,58,237,0.4);`;
-      const stepTag = document.createElement("div");
-      stepTag.style.cssText = "font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#ddd0ff;margin-bottom:4px;font-weight:600;opacity:.85;";
-      stepTag.textContent = `Step ${i + 1} / ${guide.steps.length}`;
-      bubble.appendChild(stepTag);
-      const closeBtn = document.createElement("div");
-      closeBtn.style.cssText = "position:absolute;top:6px;right:8px;width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.75;pointer-events:auto;";
-      closeBtn.innerHTML = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
-      closeBtn.addEventListener("mouseenter", () => { closeBtn.style.background = "rgba(255,255,255,0.18)"; closeBtn.style.opacity = "1"; });
-      closeBtn.addEventListener("mouseleave", () => { closeBtn.style.background = "transparent"; closeBtn.style.opacity = "0.75"; });
-      bubble.appendChild(closeBtn);
-      const body = document.createElement("div");
-      body.textContent = step.comment;
-      bubble.appendChild(body);
-      const actions = document.createElement("div");
-      actions.style.cssText = "display:flex;gap:14px;margin-top:8px;font-size:11px;font-weight:600;pointer-events:auto;white-space:nowrap;align-items:center;";
-      const detail = document.createElement("span");
-      detail.style.cursor = "pointer";
-      detail.style.opacity = "0.9";
-      if (step.lesson) {
-        detail.style.display = "inline-flex";
-        detail.style.alignItems = "center";
-        detail.style.gap = "4px";
-        detail.innerHTML = `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>深入了解</span>`;
-      }
-      if (step.lesson) actions.append(detail);
-      bubble.appendChild(actions);
-      closeBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        bubble.style.display = "none";
-        ring.style.display = "none";
-        const mini = document.createElement("div");
-        mini.className = "pga-step";
-        mini.style.cssText = "position:fixed;left:16px;bottom:16px;background:rgba(23,23,26,0.92);backdrop-filter:blur(8px);color:#fff;font:12px -apple-system,sans-serif;padding:8px 12px;border-radius:99px;display:flex;align-items:center;gap:10px;pointer-events:auto;z-index:2147483647;";
-        mini.textContent = `${i + 1}/${guide.steps.length} 已收起`;
-        const expand = document.createElement("span");
-        expand.style.cssText = "color:#a78bfa;font-weight:600;cursor:pointer;";
-        expand.textContent = "展开";
-        expand.addEventListener("click", (e) => {
-          e.stopPropagation();
-          mini.remove();
-          bubble.style.display = "";
-          ring.style.display = "";
-        });
-        mini.appendChild(expand);
-        pgaRoot.appendChild(mini);
-      });
-      if (step.lesson) {
-        detail.addEventListener("click", (e) => {
-          e.stopPropagation();
-          try {
-            chrome.runtime.sendMessage({ type: "PGA_SHOW_LESSON", step: { comment: step.comment, lesson: step.lesson, index: i + 1, total: guide.steps.length } });
-          } catch {}
-        });
-      }
-      pgaRoot.appendChild(bubble);
-      badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
-      if (step.completion) {
-        nextBtn.textContent = "等待操作…";
-        nextBtn.style.opacity = "0.6";
-        pgaState.stepEl = el;
-        pgaState.stepType = step.completion.type;
-        pgaState.stepValue = step.completion.valueContains || "";
-        pgaState.done = false;
-        if (!pgaState.watcher) {
-          pgaState.watcher = setInterval(() => pgaCheckCompletion(step), 400);
-        }
-      } else {
-        nextBtn.textContent = "下一步 →";
-        nextBtn.style.opacity = "1";
-      }
-    } else {
-      if (!pgaState.missSince) pgaState.missSince = Date.now();
-      const badge = document.createElement("div");
-      badge.className = "pga-step";
-      badge.style.cssText = "position:fixed;top:64px;right:24px;background:#dc2626;color:#fff;font:13px -apple-system,sans-serif;padding:8px 14px;border-radius:8px;";
-      badge.textContent = `#${step.id} 指引过期：页面已改版，无法自动定位`;
-      pgaRoot.appendChild(badge);
+    let bubbleBox;
+    if(a.type==='callout'||a.type==='combined'||(a.type==='arrow'&&a.text)){
+      const bubble=createNode('div','callout',item);bubble.textContent=a.text;bubble.setAttribute('role','note');
+      const size=bubble.getBoundingClientRect(),gap=14;
+      let x=b.x,y=b.y+b.height+gap;
+      if(a.placement==='top')y=b.y-size.height-gap;
+      if(a.placement==='right'){x=b.x+b.width+gap;y=b.y+(b.height-size.height)/2;}
+      if(a.placement==='left'){x=b.x-size.width-gap;y=b.y+(b.height-size.height)/2;}
+      x+=a.offset?.x||0;y+=a.offset?.y||0;
+      x=Math.max(8,Math.min(x,innerWidth-size.width-8));y=Math.max(8,Math.min(y,innerHeight-size.height-8));
+      Object.assign(bubble.style,{left:x+'px',top:y+'px'});
+      bubbleBox={x,y,width:size.width,height:size.height};
     }
-    badgeText.textContent = `${i + 1} / ${guide.steps.length}`;
-  };
-  playStep();
-}
-
-function pgaCheckCompletion(step) {
-  if (!pgaState || pgaState.done) return;
-  const el = pgaState.stepEl;
-  if (!el || !document.contains(el)) return;
-  const type = pgaState.stepType;
-  let done = false;
-  if (type === "input") {
-    done = (el.value || "").trim().length > 0 && (!pgaState.stepValue || el.value.toLowerCase().includes(pgaState.stepValue.toLowerCase()));
-  } else if (type === "click") {
-    done = !!pgaState.clicked;
-  } else if (type === "check") {
-    done = !!el.checked;
+    if(a.type==='arrow'||a.type==='combined'){
+      const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),line=document.createElementNS(ns,'line'),head=document.createElementNS(ns,'path');
+      let end={x:b.x+b.width/2,y:b.y};
+      if(a.placement==='bottom')end.y=b.y+b.height;
+      if(a.placement==='right')end={x:b.x+b.width,y:b.y+b.height/2};
+      if(a.placement==='left')end={x:b.x,y:b.y+b.height/2};
+      const start=bubbleBox?{x:bubbleBox.x+bubbleBox.width/2,y:bubbleBox.y+bubbleBox.height/2}:{x:end.x+(a.offset?.x||0),y:end.y+(a.offset?.y||-55)};
+      const angle=Math.atan2(end.y-start.y,end.x-start.x),length=9;
+      line.setAttribute('x1',start.x);line.setAttribute('y1',start.y);line.setAttribute('x2',end.x);line.setAttribute('y2',end.y);line.setAttribute('stroke',color);line.setAttribute('stroke-width','2');
+      const p1={x:end.x-length*Math.cos(angle-.5),y:end.y-length*Math.sin(angle-.5)},p2={x:end.x-length*Math.cos(angle+.5),y:end.y-length*Math.sin(angle+.5)};
+      head.setAttribute('d','M'+p1.x+' '+p1.y+' L'+end.x+' '+end.y+' L'+p2.x+' '+p2.y);head.setAttribute('fill','none');head.setAttribute('stroke',color);head.setAttribute('stroke-width','2');
+      svg.dataset.annotationId=a.id;svg.append(line,head);shadow.prepend(svg);item.nodes.push(svg);
+    }
+    item.result={id:a.id,ok:true,match_count:1,target_box:b,callout_box:bubbleBox||null,color};
   }
-  if (done) {
-    pgaState.done = true;
-    pgaAdvance();
+  function refresh(){
+    const current=new Set();
+    for(const group of sessions.values())for(const item of group.values()){
+      try{const located=locate(item.spec.target);draw(item,located);current.add(located.element);if(!observed.has(located.element)){resize?.observe(located.element);observed.add(located.element);}}
+      catch(e){item.nodes.forEach(n=>n.remove());item.nodes=[];item.result={id:item.spec.id,ok:false,error:e.message};}
+    }
+    for(const element of observed)if(!current.has(element)){resize?.unobserve(element);observed.delete(element);}
   }
-}
-
-document.addEventListener("dblclick", () => {
-  const saved = localStorage.getItem("pga_last_guide");
-  if (saved) pgaPlay(JSON.parse(saved));
-});
-
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "PGA_PLAY") pgaPlay(msg.guide);
-  if (msg.type === "PGA_STOP") pgaClear();
-});
-
-document.addEventListener("click", (e) => {
-  if (!pgaState || pgaState.done || pgaState.stepType !== "click") return;
-  const target = pgaState.stepEl;
-  if (!target) return;
-  if (target.contains(e.target) || e.target === target) {
-    pgaState.clicked = true;
+  function execute(command,args={}){
+    if(args.page&&(args.page.document_id!==documentId||args.page.url!==location.href))throw error('STALE_PAGE','文档或 URL 已改变，请重新观察');
+    if(command==='status')return {document_id:documentId,url:location.href,revision:globalThis.PGA_VERSION?.revision};
+    /* DEVELOPMENT_ONLY_START */
+    if(command==='dev_snapshot')return {sessions:[...sessions].map(([session_id,group])=>({session_id,annotations:[...group.values()].map(i=>i.spec)}))};
+    /* DEVELOPMENT_ONLY_END */
+    if(command==='page_guide_inspect'){const located=locate(args.target);return {ok:true,match_count:1,visible:true,target_box:located.box,document_id:documentId};}
+    const group=sessions.get(args.session_id)||new Map();
+    if(command==='page_guide_status'){refresh();return {ok:true,annotations:[...group.values()].map(i=>i.result),document_id:documentId};}
+    if(command==='page_guide_clear'){
+      const ids=args.ids||[...group.keys()],cleared=[];
+      for(const id of ids){const item=group.get(id);if(item){item.nodes.forEach(n=>n.remove());group.delete(id);cleared.push(id);}}
+      if(!group.size)sessions.delete(args.session_id);stopIfEmpty();return {ok:true,cleared,remaining:group.size};
+    }
+    if(!['page_guide_annotate','page_guide_update'].includes(command))throw error('UNKNOWN_COMMAND',command);
+    if(command==='page_guide_update'&&args.annotations.some(a=>!group.has(a.id)))throw error('ANNOTATION_NOT_FOUND','更新 ID 必须已经存在');
+    const staged=args.annotations.map(spec=>({spec,located:locate(spec.target)})); // Validate the entire batch before changing the old group.
+    ensureRoot();
+    if(command==='page_guide_annotate'&&args.replace)for(const item of group.values())item.nodes.forEach(n=>n.remove());
+    if(command==='page_guide_annotate'&&args.replace)group.clear();
+    for(const {spec,located} of staged){group.get(spec.id)?.nodes.forEach(n=>n.remove());const item={spec,nodes:[],result:null};group.set(spec.id,item);draw(item,located);}
+    sessions.set(args.session_id,group);refresh();
+    return {ok:true,annotations:staged.map(({spec})=>group.get(spec.id).result),document_id:documentId,revision:globalThis.PGA_VERSION?.revision};
   }
-}, true);
-
-document.addEventListener("input", (e) => {
-  if (!pgaState || pgaState.stepType !== "input") return;
-  if (e.target === pgaState.stepEl) pgaCheckCompletion(null);
-}, true);
-
-if (location.hostname.includes("openrouter.ai") && localStorage.getItem("pga_autoplay") === "1") {
-  const saved = localStorage.getItem("pga_last_guide");
-  if (saved) setTimeout(() => pgaPlay(JSON.parse(saved)), 1200);
-}
+  globalThis.PGA_RENDERER={execute,documentId};
+  chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
+    if(msg.type!=='PGA_COMMAND')return;
+    try{reply({result:execute(msg.command,msg.args)});}catch(e){reply({error:e.message});}
+  });
+})();

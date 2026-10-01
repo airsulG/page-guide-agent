@@ -101,7 +101,7 @@ flowchart TD
 主 Agent：/root（模型与推理设置未由工具返回）
 负责计划、全部实现、浏览器验证、提交与记录
     |
-    +-- /root/mcp_runtime_research：gpt-6-luna / high [已启动，只读]
+    +-- /root/mcp_runtime_research：gpt-6-luna / high [已完成，只读]
         核对 SDK 参数验证与 MV3 重载/恢复条件
     |
     v
@@ -126,11 +126,18 @@ flowchart TD
 
 ## 当前进展与下一步
 
-计划已建立，调查基线已核对，代码实施待执行。SDK 与 MV3 调查子代理已启动，尚未返回。下一步安装锁定依赖并实现合同、桥接和 MCP 适配器。真实验收最后需要 Karl 手动重载一次，这是加载新增监听代码的前置条件；可独立完成的代码、检查与产物先全部准备好。
+计划已保存为 `18ec6e0`；合同、桥接、stdio 适配器、扩展定位绘制、后台、开发重载、构建与监听已实现。安装锁定依赖后 audit 为 0；`npm test` 的 10 项检查全部通过。正式目录实际生成成功，版本 `118a3d77a681d518`，未引用开发重载脚本、测试页快照或侧栏；开发目录保持 `prototype/extension/`。
+
+`npm run guide:dev` 正在本机端口 8767 运行。真实 SDK 已初始化并发现六项工具；页面列表返回 `connected: 0`，说明新后台还没连接。已在 `/Users/zhouqi/.codex/config.toml` 增加 `page-guide-agent`，保留其他服务；TOML 解析通过。当前 Codex 原生工具列表仍无这六项，不把 SDK 发现说成原生会话发现。
+
+已请求 Karl 在原扩展卡上手动 ↻ 一次，看到 0.2.0 后回复；内置浏览器测试页已打开。等待的是新后台实际加载，不是再次申请实现授权。收到连接后继续真实批量、更新、清理、正常操作、颜色自动更新、服务重启与真实网页验证；本 Task 尚未完成。
+
+SDK 调查已收回。官方 1.31.0 的低层 Server 不替工具执行 inputSchema 校验，因此适配器和桥接都调用 Zod parse；storage.local 及 alarm 的恢复条件已进入实现。来源：[SDK Server](https://github.com/modelcontextprotocol/typescript-sdk/blob/1.31.0/src/server/index.ts)、[Chrome storage](https://developer.chrome.com/docs/extensions/reference/api/storage)、[生命周期](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle)。子代理没有验证内置浏览器，主 Agent 的源码与自动检查也不替代安装验收。
+
+实施检查中发现中文项目路径使 URL pathname 保持百分号编码，导致 build CLI 未进入；已改用 fileURLToPath，重新运行正式构建，确认实际输出目录和版本。自动测试覆盖模拟传输、DOM 算法与重载状态；真实扩展仍待上述首次加载。
 
 ## 重要变化
 
 - 2026-10-01：接受对话驱动与无独立插件前端；旧扩展兼容检查通过。
 - 2026-10-01：开发自动更新流程写入 AGENTS，尚未实现。
 - 2026-10-02：Karl 接受 MCP 参数调用方向并授权创建计划后实施；本计划保存当前范围和待执行验收。
-

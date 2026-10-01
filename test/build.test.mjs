@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,readFile,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {ROOT} from '../src/state.mjs';
+import {build} from '../scripts/build.mjs';
+const connection={port:8767,token:'test-token',project:'page-guide-agent'};
+test('production excludes reload and sidebar; validation failure leaves previous output intact',async()=>{
+  const directory=await mkdtemp(tmpdir()+'/page-guide-build-');
+  const result=await build({development:false,output:directory+'/',connection});
+  const manifest=JSON.parse(await readFile(directory+'/manifest.json'));
+  assert.equal(manifest.side_panel,undefined);assert.ok(!manifest.permissions.includes('sidePanel'));
+  assert.ok(!(await readFile(directory+'/background.js','utf8')).includes('dev-reload'));
+  assert.ok(!(await readFile(directory+'/config.js','utf8')).includes('test_url'));
+  assert.ok(!(await readFile(directory+'/content.js','utf8')).includes('dev_snapshot'));
+  assert.match(await readFile(directory+'/content.js','utf8'),new RegExp(result.revision));
+  const source=await mkdtemp(tmpdir()+'/page-guide-bad-source-');
+  await writeFile(source+'/content.js','broken {{{');await writeFile(source+'/background.js',await readFile(ROOT+'src/extension/background.js'));
+  const previous=await readFile(directory+'/content.js','utf8');
+  await assert.rejects(build({development:false,output:directory+'/',connection,sourceRoot:source+'/'}));
+  assert.equal(await readFile(directory+'/content.js','utf8'),previous);
+});

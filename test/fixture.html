@@ -1,0 +1,13 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>Page Guide MCP 测试页</title>
+<style>body{font:17px/1.6 system-ui;margin:40px;color:#17202c}main{max-width:800px}input,button{font:inherit;padding:10px 16px;border:1px solid #94a3b8;border-radius:8px;margin:12px 0}label{display:block}section{margin:30px 0;padding:20px;border:1px solid #ddd;border-radius:12px}.space{height:800px}</style>
+<main><h1>Page Guide MCP 测试页</h1><p>只用于定位、批量标注、偏移、布局变化和开发更新验收，不填写真实业务数据。</p>
+<section><label for="keyword">关键词<input id="keyword" placeholder="输入测试文字"></label><button id="compare">比较选项</button><p id="feedback">尚未操作</p></section>
+<button id="expand">展开更多选项</button><div id="options" hidden><button class="duplicate">重复名称</button><button class="duplicate">重复名称</button><button id="remove-target">移除比较按钮</button></div>
+<div id="shadow-host"></div><iframe id="same-frame" title="同源测试" srcdoc="<label>Frame 参数<input id='frame-input'></label>"></iframe>
+<div class="space"></div><section><button id="bottom-target">页面底部目标</button></section></main>
+<script>
+document.querySelector('#expand').onclick=()=>document.querySelector('#options').hidden=!document.querySelector('#options').hidden;
+document.querySelector('#compare').onclick=()=>document.querySelector('#feedback').textContent='比较选项已由用户操作';
+document.querySelector('#remove-target').onclick=()=>document.querySelector('#compare')?.remove();
+const shadow=document.querySelector('#shadow-host').attachShadow({mode:'open'});shadow.innerHTML='<label>Shadow 参数<input id="shadow-input"></label>';
+</script></html>

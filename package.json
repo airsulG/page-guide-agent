@@ -4,13 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/*.test.mjs",
+    "guide:build": "node scripts/build.mjs",
+    "guide:dev": "node scripts/dev.mjs",
+    "guide:serve": "node scripts/dev.mjs --production",
+    "guide:mcp": "node src/mcp.mjs",
+    "guide:call": "node scripts/call.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {"node": ">=24"},
   "dependencies": {
-    "playwright-core": "^1.62.1"
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "playwright-core": "^1.62.1",
+    "ws": "8.22.0",
+    "zod": "3.25.76",
+    "zod-to-json-schema": "3.25.1"
+  },
+  "devDependencies": {
+    "jsdom": "27.4.0"
   }
 }

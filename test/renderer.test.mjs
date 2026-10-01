@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {JSDOM} from 'jsdom';
+import {parseCall} from '../src/contract.mjs';
+import {ROOT} from '../src/state.mjs';
+const source=await readFile(ROOT+'src/extension/content.js','utf8');
+function renderer(){
+  const dom=new JSDOM('<label for="a">参数</label><input id="a"><button class="duplicate">相同</button><button class="duplicate">相同</button>',{url:'https://example.com',runScripts:'outside-only',pretendToBeVisual:true});
+  const w=dom.window;w.chrome={runtime:{onMessage:{addListener(){}}}};
+  w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};
+  w.Element.prototype.getBoundingClientRect=function(){return {x:100,y:100,width:150,height:40};};
+  w.eval(source);return {dom,run:w.PGA_RENDERER.execute};
+}
+function annotation(id='a',target={css:'#a'},text='说明'){return {id,target,text};}
+test('all targets validated before modification, owners isolated and content rendered literally',()=>{
+  const {dom,run}=renderer();try{
+    const create=(session,annotations)=>run('page_guide_annotate',parseCall('page_guide_annotate',{page_id:'p',session_id:session,annotations}));
+    create('one',[annotation('old',undefined,'<img src=x onerror=alert(1)>')]);
+    assert.throws(()=>create('one',[annotation('new'),annotation('bad',{css:'.duplicate'})]),/AMBIGUOUS/);
+    assert.equal(run('page_guide_status',{session_id:'one'}).annotations[0].id,'old');
+    create('two',[annotation('other',{label:'参数'})]);
+    run('page_guide_clear',{session_id:'two'});assert.equal(run('page_guide_status',{session_id:'one'}).annotations.length,1);
+    const root=dom.window.document.querySelector('[data-page-guide-root]').shadowRoot;
+    assert.equal(root.querySelector('.callout').textContent,'<img src=x onerror=alert(1)>');assert.equal(root.querySelector('img'),null);
+    run('page_guide_clear',{session_id:'one'});assert.equal(dom.window.document.querySelector('[data-page-guide-root]'),null);
+  }finally{dom.window.close();}
+});
+test('stale documents rejected and removed target is withdrawn with error status',()=>{
+  const {dom,run}=renderer();try{
+    assert.throws(()=>run('page_guide_inspect',{page:{document_id:'old',url:'https://example.com'},target:{css:'#a'}}),/STALE_PAGE/);
+    run('page_guide_annotate',parseCall('page_guide_annotate',{page_id:'p',session_id:'one',annotations:[annotation()]}));
+    dom.window.document.querySelector('#a').remove();
+    assert.equal(run('page_guide_status',{session_id:'one'}).annotations[0].ok,false);
+    assert.equal(dom.window.document.querySelector('[data-page-guide-root]').shadowRoot.querySelector('.ring'),null);
+  }finally{dom.window.close();}
+});
