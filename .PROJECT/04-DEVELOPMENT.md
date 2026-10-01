@@ -8,6 +8,23 @@
 
 首次需要安装 Node 依赖时，在仓库根使用 `npm ci` 按锁文件安装；本次迁移复用现有 `node_modules`，没有重新安装依赖。`playwright-core` 不包含浏览器，旧脚本使用 `channel: "chrome"` 调用本机 Chrome。
 
+## 官方扩展开发工具
+
+本机已安装 [chrome-extensions](</Users/zhouqi/.codex/skills/chrome-extensions/SKILL.md>) 与 [modern-web-guidance](</Users/zhouqi/.codex/skills/modern-web-guidance/SKILL.md>)。它们分别补充扩展开发与商店发布知识，以及现代浏览器 API、定位、性能和兼容性指南。官方文件保留原文，产品方向与行动授权仍由项目要求决定；Skill 中提及侧栏、弹窗或教程，不构成恢复这些产品界面的要求。
+
+安装使用 skill-installer 的 GitHub 脚本，来源、固定提交与本地保存版本见 [Task 06](../.TASK/06-extension-development-tools.md)。这是本地 Skill 安装，不是浏览器插件安装。Skill 会在后续轮次被发现；不依赖全局 npm 安装，指南可以按需检索和读取：
+
+```sh
+npx --yes modern-web-guidance@latest search "position a tooltip next to a target element"
+npx --yes modern-web-guidance@latest retrieve position-aware-tooltips
+```
+
+现有 Codex 配置中的 `chrome-devtools` MCP 已增加 `--categoryExtensions`。独立启动检查已返回 `install_extension`、`list_extensions`、`reload_extension`、`trigger_extension_action` 与 `uninstall_extension`。运行中的会话未因配置文件修改而自动刷新；需要 MCP 服务重新加载后才能取得新增工具。本次只检查了启动与工具发现，没有调用浏览器扩展安装。
+
+构建由 Agent 执行项目实际的构建命令；当前原型没有构建脚本，加载目录仍是 `prototype/extension/`。DevTools MCP 的加载工具接收未打包目录绝对路径，后续修改可以重载扩展并刷新目标网页，再检查内容脚本和标注。工具默认操作自身连接的 Chrome，不能直接认作 Codex 内置浏览器；连接方式与版本条件以执行时的帮助为准。
+
+当前 Computer Use 的 URL 策略禁止自动访问 `chrome://extensions/`，并明确禁止绕过。需要 Karl 在内置浏览器的扩展设置中手动加载，再在允许访问的 HTTP/HTTPS 页面核对插件运行。实际加载前辨认目录和 manifest 权限；现有插件仍有 Side Panel、全部网页内容脚本匹配和本地 file 访问声明，不应把它记成新产品版本。完整边界和下一步见 Task 06。
+
 ## 现有运行入口
 
 | 内容 | 方法与预期结果 | 副作用或条件 |

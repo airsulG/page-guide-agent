@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-01 Asia/Shanghai",
+  "scope": "official developer skills and MCP tool discovery; no browser extension installation or product acceptance",
+  "skills": {
+    "repository": "GoogleChrome/modern-web-guidance",
+    "source_commit": "84ae7251ee919239d5ea85aef25897983f26601e",
+    "local_commit": "bead17b7",
+    "chrome-extensions": {"files": 24, "source_hash_match": true, "quick_validate": "passed"},
+    "modern-web-guidance": {"files": 163, "source_hash_match": true, "quick_validate": "passed"},
+    "upstream_whitespace_warnings": "preserved without rewriting official files"
+  },
+  "guidance_cli": {
+    "version": "0.0.191",
+    "search_query": "position a tooltip next to a target element and keep it inside the viewport",
+    "result_ids": ["position-aware-tooltips", "interest-triggered-tooltips", "persistent-toast-notifications", "persistent-app-tours", "css-layout"],
+    "retrieved_id": "position-aware-tooltips",
+    "search_exit_code": 0,
+    "retrieve_exit_code": 0
+  },
+  "mcp": {
+    "configuration": "/Users/zhouqi/.codex/config.toml",
+    "added_argument": "--categoryExtensions",
+    "version": "1.10.1",
+    "checked_methods": ["initialize", "tools/list"],
+    "extension_tools": ["install_extension", "list_extensions", "reload_extension", "trigger_extension_action", "uninstall_extension"],
+    "missing_tools": [],
+    "tool_count": 35,
+    "browser_actions_invoked": false,
+    "current_session_server_reloaded": false
+  },
+  "in_app_browser": {
+    "provider": "Codex In-app Browser",
+    "extension_manager_url": "chrome://extensions/",
+    "navigation": "rejected by browser URL policy",
+    "reason": "only HTTP/HTTPS allowed; policy expressly prohibits workarounds",
+    "workaround_attempted": false,
+    "extension_installed": false,
+    "manual_loading_required": true,
+    "product_runtime_verified": false
+  },
+  "task_workflow": {"mermaid_rendered": true, "nodes": 7, "edges": 6, "visible_status": "工作图渲染成功"},
+  "project_static": {"markdown_files": 7, "local_links_checked": 51, "heading_targets_checked": true, "json_valid": true, "diff_check": "passed", "product_code_changed": false}
+}

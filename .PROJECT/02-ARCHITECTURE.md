@@ -21,6 +21,8 @@
 
 内置浏览器的扩展安装或注入、命令与结果传递、会话与标签页归属、持续更新和清理均尚未验证。当前没有已接受的新消息名、JSON schema 或通信实现。后续先调查真实可用工具，再在 [模块规格](modules/page-guide-agent.md) 的要求下确定接口；不能直接把旧 PGA_PLAY 当成新能力已实现。
 
+官方扩展开发 Skill 已安装，DevTools MCP 已启用扩展管理工具并完成工具发现检查。这些属于开发环境能力，没有建立 Codex 对话与内置浏览器插件之间的命令通道。内置浏览器的扩展管理页被自动化 URL 策略拦截，实际加载需 Karl 手动操作；后续在 HTTP/HTTPS 页面验证内容脚本与通信。开发工具用法见 [开发说明](04-DEVELOPMENT.md)，实际证据见 [Task 06](../.TASK/06-extension-development-tools.md)。
+
 ## 文档、任务与证据
 
 长期规则在 `.PROJECT/`，核心判断在根 EVAL，工作任务在 `.TASK/`；`prototype/service/tasks/` 只保存旧产品的 guide 资产。二者不能相互替代，也不把工程进度写入 guide 文件。

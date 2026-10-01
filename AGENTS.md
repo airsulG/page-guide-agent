@@ -29,7 +29,7 @@
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
 - 当前模块 PRD：`.PROJECT/modules/page-guide-agent.md`（已确认对话驱动、无独立插件前端；新运行体验未实现。旧原型证据保留）。
-- 当前文档与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；后续实现尚未授权，先验证内置浏览器安装、注入与通信条件。
+- 产品定义与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；官方开发工具与接入条件检查见 `.TASK/06-extension-development-tools.md`。新产品实现尚未授权，内置浏览器实际加载与通信仍待验证。
 
 ## TEAM 入口
 
@@ -85,7 +85,7 @@ package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 
 <!-- ACTIVE_TASK_START -->
 当前工作区任务：
-- 暂无；迁移结果见 `.TASK/05-workspace-migration.md`，TEAM 运行任务仍在独立控制工作树。
+- 官方扩展开发工具与内置浏览器接入检查：`.TASK/06-extension-development-tools.md`；TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责
