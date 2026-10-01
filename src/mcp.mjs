@@ -15,6 +15,10 @@ server.setRequestHandler(CallToolRequestSchema,async request=>{
     });
     const result=await response.json();if(!response.ok)throw new Error(result.error);
     return {content:[{type:'text',text:JSON.stringify(result)}],structuredContent:result,isError:result.ok===false};
-  }catch(e){return {isError:true,content:[{type:'text',text:e.message}]};}
+  }catch(e){
+    const message=e.name==='TimeoutError'?'BRIDGE_TIMEOUT: 本机服务超时，请检查开发服务与扩展连接':
+      e instanceof TypeError&&e.message==='fetch failed'?'BRIDGE_UNAVAILABLE: 本机服务未连接，请运行 npm run guide:dev':e.message;
+    return {isError:true,content:[{type:'text',text:message}]};
+  }
 });
 await server.connect(new StdioServerTransport());

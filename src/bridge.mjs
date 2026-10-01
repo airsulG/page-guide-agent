@@ -28,7 +28,7 @@ export async function createBridge({port=8767,token,project='page-guide-agent',r
           }))};
         }catch(e){return {instance_id:peer.id,error:e.message,pages:[]};}
       }));
-      return {ok:true,instances:result,connected:peers.size};
+      return {ok:true,instances:result,connected:peers.size,...(!peers.size?{message:'扩展尚未连接，请在内置浏览器确认已加载 0.2.0，并首次重载一次'}:{})};
     }
     const page=decodePage(args.page_id),peer=peers.get(page.instance_id);
     if(!peer) throw new Error('EXTENSION_NOT_CONNECTED: 请启动开发服务并在内置浏览器重载扩展一次');

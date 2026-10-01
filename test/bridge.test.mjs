@@ -12,6 +12,7 @@ async function peer(bridge){
 }
 test('authenticated bridge correlates replies, rejects origin and validates arguments',async t=>{
   const bridge=await createBridge({port:0,token,development:true,revision:'one',timeout:100});t.after(()=>bridge.close());
+  const empty=await bridge.call('page_guide_pages',{});assert.equal(empty.connected,0);assert.match(empty.message,/扩展尚未连接/);
   const ws=await peer(bridge);t.after(()=>ws.close());
   ws.on('message',raw=>{const msg=JSON.parse(raw);if(msg.type==='request')ws.send(JSON.stringify({type:'result',request_id:msg.request_id,result:{pages:[{tab_id:1,url:'https://example.com',document_id:'d'}]}}));});
   const result=await bridge.call('page_guide_pages',{});
