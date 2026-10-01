@@ -1,6 +1,8 @@
 # 02 第二阶段可交互任务向导
 
-> 2026-10-01：Karl 已确认对话驱动、无独立插件前端，完整知识与解释留在 Codex 对话。下面的目标、队列和证据保留为旧原型记录；T5/T6 未验收，不再要求 Karl 验收独立知识卡，也不发布为通过。新要求见 [PRD 当前定义](../01-product/page-guide-agent.md)，本次维护见 [Task 04](04-conversation-driven-annotations.md)。
+> 文件迁移只更新查阅位置；下文 allowed files 保留当时授权范围。main 的 Task 已移到 `.TASK/`，原型程序仍在 `prototype/`；对应关系见 [Task 05](05-workspace-migration.md)。
+
+> 2026-10-01：Karl 已确认对话驱动、无独立插件前端，完整知识与解释留在 Codex 对话。下面的目标、队列和证据保留为旧原型记录；T5/T6 未验收，不再要求 Karl 验收独立知识卡，也不发布为通过。新要求见 [PRD 当前定义](../.PROJECT/modules/page-guide-agent.md)，本次维护见 [Task 04](04-conversation-driven-annotations.md)。
 
 <<<<<<<<<<<<<<<<<<<< 00 任务进度 <<<<<<<<<<<<<<<<<<<<
 

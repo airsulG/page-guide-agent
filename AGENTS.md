@@ -8,15 +8,15 @@
 
 ## 项目运行背景
 
-- 项目一句话承诺：让 Codex 在与你共同使用网页时，能够直接在页面上指给你看，并根据你的问题和操作结果持续调整帮助。来源：`.project/01-product/PRODUCT.md`。
-- 目标用户：当前阶段为 Karl 本人；长期面向复杂 Web 工具的普通用户。来源：`.project/01-product/PRODUCT.md`。
-- 核心价值：在 Codex 中共同观察、讨论和操作网页，解释准确对应真实对象，帮助随多轮对话继续。来源：`.project/01-product/PRODUCT.md`。
-- 当前成立标准：真实内置浏览器中完成提问、标注、用户操作、重新观察、更新与撤下；不要求先生成完整教程。来源：`.project/01-product/page-guide-agent.md` 的当前产品验收。
-- 不做事项：独立插件侧栏、任务列表、教程播放器、知识卡或内容预览页；云端账号、静态网站教程库和通用爬虫。标注权限不包含自动点击或业务写入。来源：`.project/01-product/PRODUCT.md`。
+- 项目一句话承诺：让 Codex 在与你共同使用网页时，能够直接在页面上指给你看，并根据你的问题和操作结果持续调整帮助。来源：`.PROJECT/01-PRODUCT.md`。
+- 目标用户：当前阶段为 Karl 本人；长期面向复杂 Web 工具的普通用户。来源：`.PROJECT/01-PRODUCT.md`。
+- 核心价值：在 Codex 中共同观察、讨论和操作网页，解释准确对应真实对象，帮助随多轮对话继续。来源：`.PROJECT/01-PRODUCT.md`。
+- 当前成立标准：真实内置浏览器中完成提问、标注、用户操作、重新观察、更新与撤下；不要求先生成完整教程。来源：`.PROJECT/modules/page-guide-agent.md` 的当前产品验收。
+- 不做事项：独立插件侧栏、任务列表、教程播放器、知识卡或内容预览页；云端账号、静态网站教程库和通用爬虫。标注权限不包含自动点击或业务写入。来源：`.PROJECT/01-PRODUCT.md`。
 
 ## 产品承诺快照
 
-本区只保存每轮 Agent 必须记住的产品承诺摘要，不替代完整产品文档。完整权威源是 `.project/01-product/PRODUCT.md`；如果本区和 PRODUCT 冲突，以 PRODUCT 为准，并同步修正本区。
+本区只保存每轮 Agent 必须记住的产品承诺摘要，不替代完整产品文档。完整权威源是 `.PROJECT/01-PRODUCT.md`；如果本区和 PRODUCT 冲突，以 PRODUCT 为准，并同步修正本区。
 
 - Codex 对话是唯一使用入口，主要场景是对话、内置浏览器、用户操作与即时标注共同发生；局部提问不必先变成完整任务。
 - 插件没有独立产品前端，只提供预先定义的定位、绘制、更新、撤下与结果反馈能力；内容与下一次指示由当前对话决定。
@@ -28,12 +28,12 @@
 
 本区只保存当前正在推进的模块 PRD 路径；PRD 自身保存稳定模块事实、当前交付、已验收目标证据和长期踩坑点。
 
-- 当前模块 PRD：`.project/01-product/page-guide-agent.md`（已确认对话驱动、无独立插件前端；新运行体验未实现。旧原型证据保留）。
-- 当前文档与技能维护记录：`.project/02-tasks/04-conversation-driven-annotations.md`；后续实现尚未授权，先验证内置浏览器安装、注入与通信条件。
+- 当前模块 PRD：`.PROJECT/modules/page-guide-agent.md`（已确认对话驱动、无独立插件前端；新运行体验未实现。旧原型证据保留）。
+- 当前文档与技能维护记录：`.TASK/04-conversation-driven-annotations.md`；后续实现尚未授权，先验证内置浏览器安装、注入与通信条件。
 
 ## TEAM 入口
 
-设计、创建或接续自主团队时，读取 [团队定义与建设任务](.project/02-tasks/03-project-team.md)。控制工作树已由建设对话创建于 `/Users/zhouqi/.codex/worktrees/page-guide-team/51-page-guide-agent`，实际运行进展查其中同一 Task；main 的文件用于定义与导航，不从此副本领取。普通问答不自动启动团队，定时运行尚未开启。
+设计、创建或接续自主团队时，读取 [团队定义与建设任务](.TASK/03-project-team.md)。控制工作树已由建设对话创建于 `/Users/zhouqi/.codex/worktrees/page-guide-team/51-page-guide-agent`，实际运行进展仍查其旧位置的 [控制目录 Task 03](</Users/zhouqi/.codex/worktrees/page-guide-team/51-page-guide-agent/.project/02-tasks/03-project-team.md>)；main 的文件用于定义与导航，不从此副本领取。普通问答不自动启动团队，定时运行尚未开启。
 
 团队目标是从完整体验选择新能力，在隔离分支自主开发并报告；候选不自动改写已接受产品承诺。Leader、产品与体验、工程各用独立持续会话，Karl 与 Leader 对接；Leader 管理会话、心跳、能力与定向工作消息，不切换身份代做业务岗位。会话独立，共享工作树写入仍排他。当前 Leader 会话为 `01a0f6fc-4dc6-78a1-ac0b-cf3c37c23a75`，岗位会话由它实际创建登记。候选插件须核对加载目录与任务来源，不能在 TEAM 工作树测试时仍读取 main 的任务包。
 
@@ -49,22 +49,44 @@
 
 1. `/Users/zhouqi/.codex/AGENTS.md`
 2. 本文件的项目运行背景、产品承诺快照、当前模块入口和禁止漂移项。
-3. `.project/00-index.md`
-4. `.project/01-product/PRODUCT.md`
-5. 当前模块 PRD；只有明确继续 Task 时才读取 `.project/02-tasks/00-index.md` 与对应文件
+3. `.PROJECT/00-INDEX.md`
+4. `.PROJECT/01-PRODUCT.md`
+5. 当前模块 PRD；只有明确继续 Task 时才读取 `.TASK/00-INDEX.md` 与对应文件
 
-## 项目事实树
+## 工作区导航
 
 ```text
-.project/
-  00-index.md
-  01-product/PRODUCT.md
-  01-product/<module>.md
-  02-tasks/
-  03-docs/
-  04-artifacts/
-  05-prototypes/
+AGENTS.md                         执行约定与阅读入口
+README.md                         项目介绍、当前可用内容与快速开始
+EVAL.md                           已确认的核心结果标准
+.PROJECT/
+  00-INDEX.md                     长期文档索引
+  01-PRODUCT.md                   产品承诺、愿景与最终体验
+  02-ARCHITECTURE.md              现有原型职责及新接入缺口
+  04-DEVELOPMENT.md               环境、运行、检查与生成文件说明
+  modules/page-guide-agent.md     模块行为、详细验收与历史原型证据
+.TASK/
+  00-INDEX.md                     本地任务查找入口
+  <编号>-<主题>.md                 同一任务的授权、过程、结果与接续
+.PROTOTYPE/
+  surface-tutorials/              既有软件说明演示与原始观察
+  validation/                    既有方法验证截图、图形与报告
+  legacy-workspace/               冻结的旧目录说明，不作当前依据
+prototype/                       保持原路径的旧 Chrome 插件、CDP 脚本与任务包
+skill/                           历史 Skill 镜像，当前方法仍用 LEARN02/03
+package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 ```
+
+长期正文只在 `.PROJECT/` 维护；任务沿用本地 Markdown，编号不变，每项只维护 `.TASK/` 中的一个文件。已有演示与验证材料在 `.PROTOTYPE/` 保存，执行者在新增或变更材料时更新引用；不要把任务、报告或缓存塞进长期规则目录。原型源码仍在 `prototype/`，路径受已安装插件和旧脚本依赖，本次没有移动。
+
+日常工作按 [PROJECT06 的项目开发流程](</Users/zhouqi/.codex/skills/PROJECT/PROJECT06-推进项目开发/workflows/01-project-development-workflow.md>) 推进，读取本次适用的 [EVAL](EVAL.md)、模块规格和原 Task。修改运行或检查方法前读 [开发说明](.PROJECT/04-DEVELOPMENT.md)，修改模块与通信职责前读 [架构说明](.PROJECT/02-ARCHITECTURE.md)。执行者同批更新受影响正文、原任务与证据引用。
+
+当前 main 的普通文档维护在本地保存，验证后只提交本次内容；本仓库没有远端，不创建 Issue、PR 或推送。TEAM 仍使用它已有的隔离分支与控制工作树，具体范围见 Task 03；不能从 main 切换或覆盖其运行状态。插件安装、代码整合和发布不由文档迁移授权。
+
+<!-- ACTIVE_TASK_START -->
+当前工作区任务：
+- 暂无；迁移结果见 `.TASK/05-workspace-migration.md`，TEAM 运行任务仍在独立控制工作树。
+<!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责
 

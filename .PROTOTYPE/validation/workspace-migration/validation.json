@@ -1,0 +1,252 @@
+{
+  "date": "2026-10-01 Asia/Shanghai",
+  "scope": "workspace structure and preserved legacy materials; no new product runtime acceptance",
+  "static": {
+    "baseline": "c13ae5e99ce1b49b4235afee8a3e82ad7285d0f4",
+    "mapped_files": 28,
+    "pure_move_hashes_verified": 19,
+    "program_hashes_verified": 41,
+    "product_and_task_full_content_preserved": [
+      ".PROJECT/01-PRODUCT.md",
+      ".PROJECT/modules/page-guide-agent.md",
+      ".TASK/04-conversation-driven-annotations.md",
+      ".TASK/02-phase2-interactive-wizard.md",
+      ".TASK/03-project-team.md",
+      ".TASK/01-cdp-guide-prototype.md",
+      ".TASK/00-INDEX.md"
+    ],
+    "markdown_files": 27,
+    "local_links_checked": 101,
+    "heading_fragments_checked": 3,
+    "errors": [],
+    "mapping": [
+      {
+        "old": ".project/README.md",
+        "new": ".PROTOTYPE/legacy-workspace/README.md",
+        "sha256": "6df8c2488bb8b839d71a70a09b13ef0b988f605ac887a3db0ef82cc39ded8c83"
+      },
+      {
+        "old": ".project/00-index.md",
+        "new": ".PROJECT/00-INDEX.md"
+      },
+      {
+        "old": ".project/03-docs/README.md",
+        "new": ".PROTOTYPE/legacy-workspace/03-docs.md",
+        "sha256": "35a3dae78a5e6ce73d34b60fcd283a6e56ff6209c2b6db41b41b0450304b91af"
+      },
+      {
+        "old": ".project/02-tasks/04-conversation-driven-annotations.md",
+        "new": ".TASK/04-conversation-driven-annotations.md"
+      },
+      {
+        "old": ".project/02-tasks/02-phase2-interactive-wizard.md",
+        "new": ".TASK/02-phase2-interactive-wizard.md"
+      },
+      {
+        "old": ".project/02-tasks/03-project-team.md",
+        "new": ".TASK/03-project-team.md"
+      },
+      {
+        "old": ".project/02-tasks/01-cdp-guide-prototype.md",
+        "new": ".TASK/01-cdp-guide-prototype.md"
+      },
+      {
+        "old": ".project/02-tasks/05-workspace-migration.md",
+        "new": ".TASK/05-workspace-migration.md"
+      },
+      {
+        "old": ".project/02-tasks/00-index.md",
+        "new": ".TASK/00-INDEX.md"
+      },
+      {
+        "old": ".project/01-product/PRODUCT.md",
+        "new": ".PROJECT/01-PRODUCT.md"
+      },
+      {
+        "old": ".project/01-product/page-guide-agent.md",
+        "new": ".PROJECT/modules/page-guide-agent.md"
+      },
+      {
+        "old": ".project/04-artifacts/.gitkeep",
+        "new": ".PROTOTYPE/validation/.gitkeep",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "old": ".project/05-prototypes/README.md",
+        "new": ".PROTOTYPE/legacy-workspace/05-prototypes.md",
+        "sha256": "7cf007bcedd204dfbe9281f9ffbd17911ba81111b0a9812504d5d546bd677ea4"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/clash-verge-guide.html",
+        "new": ".PROTOTYPE/surface-tutorials/clash-verge-guide.html",
+        "sha256": "25b65ded488f291f892cc2f66339610d8e073bfa0e8e65b3c8e280b563afe4a9"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/clash-verge-observations.md",
+        "new": ".PROTOTYPE/surface-tutorials/clash-verge-observations.md",
+        "sha256": "063d4b29d892587a8fc6ec8bb00a73797d8c6f1eaddc25eec98c7e2f4e6df6e0"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/clash-verge-guide.md",
+        "new": ".PROTOTYPE/surface-tutorials/clash-verge-guide.md",
+        "sha256": "170c47ca1c44ffc6e4a1d019dcc492b8e000c6bc20c4531b3ddcd2ccd4e2efeb"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/learn03-workflow.png",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/learn03-workflow.png",
+        "sha256": "49e45728077ba85eee5b328190df0cc063a149eda89b6fe2d39f47d326c19c13"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/learn02-workflow.png",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/learn02-workflow.png",
+        "sha256": "3cdd43ebbf7da28b35781a658444b47fd9433572a4a7218db5fbc4fd7ca35bf6"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/learn02-workflow.svg",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/learn02-workflow.svg",
+        "sha256": "095f3f0d7b7c787def73430051585f3046964fcd0eb74c033ac7a0dd389704ab"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/legacy-controlled-annotation.png",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/legacy-controlled-annotation.png",
+        "sha256": "48364538b23225943443c4d53183cadfed09afdf9ca8a83385b33a0960e90adf"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/learn03-workflow.svg",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/learn03-workflow.svg",
+        "sha256": "bf693cc6a41112d07a26866038f0b8167d549ec4bb1b9e5a25eb05ead267b718"
+      },
+      {
+        "old": ".project/04-artifacts/conversation-driven-annotations/validation.json",
+        "new": ".PROTOTYPE/validation/conversation-driven-annotations/validation.json",
+        "sha256": "98f8ef68a82cb03b46374bb2ec55e736bc66fb78e4d81a035c584310c24245b3"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/clash-rules.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/clash-rules.jpg",
+        "sha256": "c61dd372c101f36fb496cc225cb6998c01875a3c74c0bf96721211616792c5c9"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/clash-connections.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/clash-connections.jpg",
+        "sha256": "c9e6596114254bf981b67b56aa58b5b103505cac2ac965fe8515a899786dfe65"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/clash-tests.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/clash-tests.jpg",
+        "sha256": "e35834a1f2d7f114997aedaf32709740a1f064bd29924c05f68532b09c0bf766"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/clash-proxy.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/clash-proxy.jpg",
+        "sha256": "bbc15fc1ceaaeca7efeee9e6dc174cd2eb801eb125f7b5570032b6bb3b2d2bb1"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/clash-logs.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/clash-logs.jpg",
+        "sha256": "d4d8ac22a103d8f10a2ad3f4f47f45c936c40399efc70c0cddef6ce06b631c9d"
+      },
+      {
+        "old": ".project/04-artifacts/surface-tutorials/assets/chrome-wikipedia.jpg",
+        "new": ".PROTOTYPE/surface-tutorials/assets/chrome-wikipedia.jpg",
+        "sha256": "47cfda8c07d460b9e1ece766b9e74ac2934e4c7464a6d93b398fb2f1f9137b1a"
+      }
+    ],
+    "program_files_sha256": {
+      "package-lock.json": "07ffcd6ed41f744290f6fcf3c5e1b574f5031a5ea798a6e12a58bccfe54a71ee",
+      "package.json": "c86280f0bc01013d3de61e4cddc365bf7f564e731eb7b9e32cad58ff423a2944",
+      "prototype/cdp/guides/openrouter-models-guide.json": "92f5962210b9a1a8c1ec426c5544e53d361bbe6a9b9cdbb94d04cb5b41ec1bef",
+      "prototype/cdp/samples/openrouter-guide-render.png": "e59a256403898a8238ba4f07d569630ba08ef2ca318835ad80280d4a12a6243e",
+      "prototype/cdp/samples/openrouter-guide-verify.json": "b87212a6176d000596cc2f1b68f49d746a7fb142849be3aa5a92231d5d4c77b4",
+      "prototype/cdp/samples/openrouter-models.json": "3b1d8e8fb0b537deca69ba3d552b93f19e263716d31cb967c03252f118e8a527",
+      "prototype/cdp/samples/t5-reload-render.png": "98600468c12b002dcd80cb482ec6145ade6e66e804d2f1080ede2a122e70cfe7",
+      "prototype/cdp/samples/t5-reload-verify.json": "9142632adb580f878c33a537e5108e80ce06553fef7aef486f7a96c883c6649a",
+      "prototype/cdp/samples/t6-selfheal-render.png": "157602b8fe1ea11d4840135253cd5c8c8b2fa2b7e945233ffce7983a7169bbef",
+      "prototype/cdp/samples/t6-selfheal-verify.json": "4603dfa791b9bd4aca36aa33c6529736facbea31c94160a8b75f121d664c3de1",
+      "prototype/cdp/samples/t7-phase2-walkthrough.json": "3f9b9bb75ea4ae4c349da62270159fa3ff114fc04c426d3d29c704bf8977be78",
+      "prototype/cdp/samples/t7-step1-done-auto-advance.png": "562066250105567b4397d1b6db5c83ddc1f18f673d1aa4bd67c984967c9a5b9e",
+      "prototype/cdp/samples/t7-step1-waiting.png": "b691dd33243ada1af8c174a837fb6b59a670f688bd551cfe0c2207d486a4c116",
+      "prototype/cdp/samples/t7-step2-done-auto-advance.png": "6878f1801fe7e7c32a9245be187f14470d388301dc97a586a08ec89b4919cd78",
+      "prototype/cdp/samples/t7-step3-done-auto-advance.png": "21674ec6e6e32a0ae6ba86794f36dc9933f11a967328f949f6ce21d92e00d0fb",
+      "prototype/cdp/samples/t7-step4-completed.png": "21674ec6e6e32a0ae6ba86794f36dc9933f11a967328f949f6ce21d92e00d0fb",
+      "prototype/cdp/t1-connect.js": "5fd471925961447fe5c75772c361953a81ae0c2593353ce099fb5e35da5623d7",
+      "prototype/cdp/t2-extract.js": "c433f6b43bca92be8be6958fbfc1be088d08b42ef83fbbad19fb7f2178be14b2",
+      "prototype/cdp/t4-render-verify.js": "c317e3cee7e098839c219a1c3094d19febec247021e23ec5a96b96e4c36cc39c",
+      "prototype/cdp/t5-persist-reload.js": "728a03177b6631f18f2ec2179eac38f5f09adf8aa4e99965247334c67d340938",
+      "prototype/cdp/t6-selfheal.js": "e5e2305790ccea3ccf682ba880a56c7d07bdbe6c2a171d2eb56a6fe36a80a12f",
+      "prototype/cdp/t7-phase2-walkthrough.js": "eb29766925d84a8b7f49ad1655e4d2fcf3390da64bded75e83e575ba5b0d4cbd",
+      "prototype/cdp/tasks/openrouter-model-compare/guide.json": "673d3f23b26399d047abae1d144079e228bdacf9f6ad612b19e046b9e554cb84",
+      "prototype/extension/background.js": "ed6f1021f313c907ef1597e037913cb0e41757e562a9236bd909e8d7d69e3dc5",
+      "prototype/extension/content.js": "21b166173d9372379af06beca37e7b95ecfc2e7c551bc171e136dc69774d9a40",
+      "prototype/extension/default-guides.json": "e4fd3d6f2001d81d333fe23686d55875ccd30f5d845f2f09c32f2c0d29424b0a",
+      "prototype/extension/icons/page-guide-agent-128.png": "941368000d25429ce04cdfa1216d19263ba1c667803ed4868fd8d82004c8a4c1",
+      "prototype/extension/icons/page-guide-agent-16.png": "a718684c51bc0af140b6897382f61fe5ee8c4e5b780e8dd1f097b7b369d071b3",
+      "prototype/extension/icons/page-guide-agent-32.png": "55329d1f56c8d93c4b54220fa52802f6231eabc47dbc1df253994db15bdaaef4",
+      "prototype/extension/icons/page-guide-agent-48.png": "8c8f988cded2e185c9c293085cbc55c61dc60f4739dce54f032b10f9d560080b",
+      "prototype/extension/manifest.json": "619e379dc8ce734c5f2da78a8b41d7cd146428046e2ef84ef5dd6881ff98f753",
+      "prototype/extension/sidepanel.html": "ffcf3a60da716ac160e6697e3ee596eaf4cde8c885905445268c5f16790757e6",
+      "prototype/extension/sidepanel.js": "39a0991f25880c0f0ef934eb00e51205a96fdff2639f9a307096d849a9908b18",
+      "prototype/service/tasks/index.json": "e35c8e2f19f999c6a643b3666e09b7e11bc14a74e76b735f2450f1e56588305c",
+      "prototype/service/tasks/openrouter-cheapest/guide.json": "2bee4da346d02ba550e628433d5a943256034249911cf599af8957486bb50aa8",
+      "prototype/service/tasks/openrouter-model-compare/guide.json": "ae55782fffb4bfaeddd89c47610683925f5ea1130ebb2a30a9e4674e31c440f7",
+      "prototype/skill/page-guide-skill.md": "2a6f328b484346ad354d3211f11251560a5f0f164d6fbf4662f2a2eb9089658f",
+      "skill/SKILL.md": "7f0bd5278a15e789a8090e78b08e53da9fe434a3f1cca6358c9dcbc89182784a",
+      "skill/agents/openai.yaml": "8b333ebebfa7135769c193377d609ae097bd92b516e9ec71ddd5110ec2129504",
+      "skill/references/guide-schema.md": "11749cac65cef75168873802e5c02b4475045a3125f85d72d6e685d99b10b44a",
+      "skill/references/observation-recipe.md": "81445b1679b3d771523e360e84d76fa577e3c7e1e55fdf7514ebd4c225f6f9fe"
+    }
+  },
+  "browser": {
+    "environment": "isolated headless Chrome; migrated static HTML served on loopback; Mermaid rendered with existing local package",
+    "scope": "workspace migration, not product runtime acceptance",
+    "checks": [
+      {
+        "name": "migrated HTML returns 200",
+        "passed": true
+      },
+      {
+        "name": "all existing image resources load",
+        "passed": true,
+        "detail": [
+          {
+            "src": "assets/clash-proxy.jpg",
+            "loaded": true
+          },
+          {
+            "src": "assets/clash-connections.jpg",
+            "loaded": true
+          },
+          {
+            "src": "assets/clash-rules.jpg",
+            "loaded": true
+          },
+          {
+            "src": "assets/clash-logs.jpg",
+            "loaded": true
+          },
+          {
+            "src": "assets/chrome-wikipedia.jpg",
+            "loaded": true
+          }
+        ]
+      },
+      {
+        "name": "existing markers remain usable",
+        "passed": true
+      },
+      {
+        "name": "marker explanation appears",
+        "passed": true
+      },
+      {
+        "name": "no page script errors",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "migration workflow renders",
+        "passed": true
+      }
+    ]
+  }
+}

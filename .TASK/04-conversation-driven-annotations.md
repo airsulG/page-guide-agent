@@ -10,7 +10,7 @@ Karl 确认主要场景是 Codex、内置浏览器、实时对话、用户操作
 
 ## 已确认方向与当前缺口
 
-长期要求由 [PRODUCT](../01-product/PRODUCT.md) 和 [PRD](../01-product/page-guide-agent.md) 当前 R17–R24 持有。本任务只记录本次维护与验证，不复制规格。
+长期要求由 [PRODUCT](../.PROJECT/01-PRODUCT.md) 和 [PRD](../.PROJECT/modules/page-guide-agent.md) 当前 R17–R24 持有。本任务只记录本次维护与验证，不复制规格。
 
 现有源码仍为 Chrome Side Panel + PGA_PLAY，读取本地 guide.json 并按固定步骤展示；完成判定和 lesson 有旧实现，但真实插件人工验收未完成。Codex 内置浏览器的安装或注入、指令与结果传递、当前会话和标签页归属、动态更新和清理尚未验证。文档与技能更新不会自动带来这些运行能力。
 
@@ -37,8 +37,8 @@ Karl 确认主要场景是 Codex、内置浏览器、实时对话、用户操作
 - 2026-10-01：核对 PRODUCT、PRD、Task 02/03、sidepanel 与 content、通用 LEARN02/03。最早偏差在于默认先生成完整 guide 再播放，以及把深度知识塞进独立 Lesson；本次改变默认使用过程，保留真实定位、敏感信息和兼容能力。
 - **独立审查。** 使用 `gpt-6.1-sol`、独立上下文，只读对照原版和新版 PRODUCT、PRD、导航、任务与两项技能。审查结论：没有阻止交付的重要问题；默认过程、证据范围、真实能力、权限与 TEAM main 定义一致。采纳一项措辞建议，将 AGENTS 的回归要求改为检查标注方法，旧合同变化时才生成或修复兼容任务。
 - **结构与链接。** 两项技能运行官方 quick_validate.py 均通过；19 份 Markdown 的本地引用、代码块闭合和 YAML 元数据检查通过；两个仓库的本次 diff 检查通过。没有为验证指令加载新建会话。
-- **图形。** 两项技能的 Mermaid 工作图在本机隔离 Chrome 中实际渲染，已读回图片确认中文和连接可读。证据：[LEARN02 工作图](../04-artifacts/conversation-driven-annotations/learn02-workflow.svg)、[LEARN03 工作图](../04-artifacts/conversation-driven-annotations/learn03-workflow.svg)。
-- **真实页面与兼容回归。** 在隔离 headless Chrome 打开受控本地 HTML，生成一条无 lesson 的短指引，注入未修改的 content.js，以运行消息桩加载并检查真实呈现。确认唯一定位、高亮与输入框对应、定位失效显示过期且不画错误高亮、重新观察并修复保存的 guide 后恢复、停止可撤下可见标注、重复文字在生成前被识别。共 11 项页面检查通过；原消费者来自项目基准 `dd828ce`，content.js SHA-256 为 `21b166173d9372379af06beca37e7b95ecfc2e7c551bc171e136dc69774d9a40`。证据：[检查结果](../04-artifacts/conversation-driven-annotations/validation.json)。
+- **图形。** 两项技能的 Mermaid 工作图在本机隔离 Chrome 中实际渲染，已读回图片确认中文和连接可读。证据：[LEARN02 工作图](../.PROTOTYPE/validation/conversation-driven-annotations/learn02-workflow.svg)、[LEARN03 工作图](../.PROTOTYPE/validation/conversation-driven-annotations/learn03-workflow.svg)。
+- **真实页面与兼容回归。** 在隔离 headless Chrome 打开受控本地 HTML，生成一条无 lesson 的短指引，注入未修改的 content.js，以运行消息桩加载并检查真实呈现。确认唯一定位、高亮与输入框对应、定位失效显示过期且不画错误高亮、重新观察并修复保存的 guide 后恢复、停止可撤下可见标注、重复文字在生成前被识别。共 11 项页面检查通过；原消费者来自项目基准 `dd828ce`，content.js SHA-256 为 `21b166173d9372379af06beca37e7b95ecfc2e7c551bc171e136dc69774d9a40`。证据：[检查结果](../.PROTOTYPE/validation/conversation-driven-annotations/validation.json)。
 - **方法适配核对。** “这个参数是什么意思”进入 LEARN02 的局部解释；“指给我看输入框”可直接进入 LEARN03；“修复旧 guide”进入显式兼容分支。购买、发送、提交或删除不由标注授权覆盖。这是作者情景核对与成稿审查，不是新标注接口的现场试用。
 - **本次范围。** 源码、manifest、日常任务包、TEAM 控制工作树和其他会话均未修改；没有安装或替换插件。浏览器回归是旧内容脚本加消息桩，不能算真实 Chrome 扩展、Codex 内置浏览器接入、多轮双向反馈或新产品验收。
 - **保存结果。** 通用技能仓库在 main 保存 `56ed9c03`，只含 LEARN02/03 的六个文件；原有 .system、PROJECT01、WRITE07 等修改和删除保留。本项目只保存本次文档与检查证据，没有推送、PR 或代码整合。
