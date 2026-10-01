@@ -5,6 +5,16 @@
   const sessions=new Map();
   const DEFAULT_COLOR='#8b5cf6';
   const MARKER_SIZE=32;
+  function foreground(color){
+    const channels=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);
+    const luminance=channels[0]*.2126+channels[1]*.7152+channels[2]*.0722;
+    return luminance>.179?'#000000':'#ffffff';
+  }
+  function edge(box,toward){
+    const cx=box.x+box.width/2,cy=box.y+box.height/2,dx=toward.x-cx,dy=toward.y-cy;
+    const scale=Math.min(dx?box.width/2/Math.abs(dx):Infinity,dy?box.height/2/Math.abs(dy):Infinity);
+    return Number.isFinite(scale)?{x:cx+dx*scale,y:cy+dy*scale}:{x:cx,y:cy};
+  }
   let host,shadow,raf=0,observer,resize;
   const observed=new Set(),scopes=new Map();
   function watchScope(scope){
@@ -72,6 +82,7 @@
     shadow=host.attachShadow({mode:'open'});
     const style=document.createElement('style');
     style.textContent=`:host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:${MARKER_SIZE}px;height:${MARKER_SIZE}px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 15px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:8px 12px;border-radius:8px;background:var(--color);color:white;box-shadow:0 3px 12px #18203326;font:500 14px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:.08;pointer-events:none}`;
+    style.textContent+=`.callout,.badge,.name{color:var(--foreground)}.callout.numbered{padding:12px 26px 12px 16px;font-size:15px;font-weight:500;max-width:min(300px,calc(100vw - 48px))}.corner{font-weight:700}`;
     shadow.append(style);document.documentElement.append(host);
     window.addEventListener('scroll',schedule,true);window.addEventListener('resize',schedule);
     observer=new MutationObserver(schedule);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
@@ -90,6 +101,7 @@
   function createNode(tag,cls,item){
     const node=document.createElement(tag);node.className=cls;node.dataset.annotationId=item.spec.id;
     node.style.setProperty('--color',item.spec.color||DEFAULT_COLOR);
+    node.style.setProperty('--foreground',foreground(item.spec.color||DEFAULT_COLOR));
     shadow.append(node);item.nodes.push(node);return node;
   }
   function dispose(item){
@@ -128,33 +140,63 @@
       const ring=createNode('div','ring',item);
       Object.assign(ring.style,{left:b.x-4+'px',top:b.y-4+'px',width:b.width+8+'px',height:b.height+8+'px'});
     }
-    let bubbleBox;
-    if(a.type==='callout'||a.type==='combined'||(a.type==='arrow'&&a.text)){
-      const bubble=createNode('div','callout',item);bubble.textContent=a.text;bubble.setAttribute('role','note');
-      const size=bubble.getBoundingClientRect(),gap=14;
+    let bubbleBox,badgeBox,arrowGeometry;
+    if(a.type==='callout'||a.type==='combined'||a.type==='connector'||(a.type==='arrow'&&a.text)){
+      const numbered=['arrow','connector'].includes(a.type)&&a.number!==undefined;
+      const bubble=createNode('div',numbered?'callout numbered':'callout',item);bubble.textContent=a.text;bubble.setAttribute('role','note');
+      if(numbered)bubble.setAttribute('aria-label',a.number+' '+a.text);
+      const size=bubble.getBoundingClientRect(),gap=a.type==='connector'?80:numbered?40:14;
       let x=b.x,y=b.y+b.height+gap;
       if(a.placement==='top')y=b.y-size.height-gap;
       if(a.placement==='right'){x=b.x+b.width+gap;y=b.y+(b.height-size.height)/2;}
       if(a.placement==='left'){x=b.x-size.width-gap;y=b.y+(b.height-size.height)/2;}
       x+=a.offset?.x||0;y+=a.offset?.y||0;
-      x=Math.max(8,Math.min(x,innerWidth-size.width-8));y=Math.max(8,Math.min(y,innerHeight-size.height-8));
+      if(numbered&&y<16)y=b.y+b.height+gap;
+      if(numbered&&y+size.height>innerHeight-16)y=b.y-size.height-gap;
+      const margin=numbered?24:8;
+      x=Math.max(margin,Math.min(x,innerWidth-size.width-margin));y=Math.max(margin,Math.min(y,innerHeight-size.height-margin));
       Object.assign(bubble.style,{left:x+'px',top:y+'px'});
       bubbleBox={x,y,width:size.width,height:size.height};
+      if(numbered){
+        const badge=createNode('div',a.type==='connector'?'badge target-badge':'badge corner',item);badge.textContent=String(a.number);badge.setAttribute('aria-hidden','true');
+        let bx=x+size.width-MARKER_SIZE/2,by=y-MARKER_SIZE/2;
+        if(a.type==='connector'){
+          bx=b.x+(b.width-MARKER_SIZE)/2;by=b.y+b.height+6;
+          if(a.placement==='top')by=b.y-MARKER_SIZE-6;
+          if(a.placement==='right'){bx=b.x+b.width+6;by=b.y+(b.height-MARKER_SIZE)/2;}
+          if(a.placement==='left'){bx=b.x-MARKER_SIZE-6;by=b.y+(b.height-MARKER_SIZE)/2;}
+          bx=Math.max(4,Math.min(bx,innerWidth-MARKER_SIZE-4));by=Math.max(4,Math.min(by,innerHeight-MARKER_SIZE-4));
+        }
+        badgeBox={x:bx,y:by,width:MARKER_SIZE,height:MARKER_SIZE};
+        Object.assign(badge.style,{left:badgeBox.x+'px',top:badgeBox.y+'px'});
+      }
     }
-    if(a.type==='arrow'||a.type==='combined'){
+    if(['arrow','combined','connector'].includes(a.type)){
       const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),line=document.createElementNS(ns,'line'),head=document.createElementNS(ns,'path');
       let end={x:b.x+b.width/2,y:b.y};
       if(a.placement==='bottom')end.y=b.y+b.height;
       if(a.placement==='right')end={x:b.x+b.width,y:b.y+b.height/2};
       if(a.placement==='left')end={x:b.x,y:b.y+b.height/2};
-      const start=bubbleBox?{x:bubbleBox.x+bubbleBox.width/2,y:bubbleBox.y+bubbleBox.height/2}:{x:end.x+(a.offset?.x||0),y:end.y+(a.offset?.y||-55)};
+      let start=bubbleBox?{x:bubbleBox.x+bubbleBox.width/2,y:bubbleBox.y+bubbleBox.height/2}:{x:end.x+(a.offset?.x||0),y:end.y+(a.offset?.y||-55)};
+      if(bubbleBox&&a.number!==undefined){
+        end=edge(b,start);start=edge(bubbleBox,end);
+      }
+      if(a.type==='connector'){
+        const center={x:badgeBox.x+MARKER_SIZE/2,y:badgeBox.y+MARKER_SIZE/2};
+        end=edge(bubbleBox,center);
+        const distance=Math.hypot(end.x-center.x,end.y-center.y);
+        start=distance?{x:center.x+(end.x-center.x)*MARKER_SIZE/2/distance,y:center.y+(end.y-center.y)*MARKER_SIZE/2/distance}:center;
+      }
+      arrowGeometry={start,end};
       const angle=Math.atan2(end.y-start.y,end.x-start.x),length=9;
       line.setAttribute('x1',start.x);line.setAttribute('y1',start.y);line.setAttribute('x2',end.x);line.setAttribute('y2',end.y);line.setAttribute('stroke',color);line.setAttribute('stroke-width','2');
+      line.setAttribute('stroke-linecap','round');
       const p1={x:end.x-length*Math.cos(angle-.5),y:end.y-length*Math.sin(angle-.5)},p2={x:end.x-length*Math.cos(angle+.5),y:end.y-length*Math.sin(angle+.5)};
       head.setAttribute('d','M'+p1.x+' '+p1.y+' L'+end.x+' '+end.y+' L'+p2.x+' '+p2.y);head.setAttribute('fill','none');head.setAttribute('stroke',color);head.setAttribute('stroke-width','2');
-      svg.dataset.annotationId=a.id;svg.append(line,head);shadow.prepend(svg);item.nodes.push(svg);
+      head.setAttribute('stroke-linecap','round');head.setAttribute('stroke-linejoin','round');
+      svg.dataset.annotationId=a.id;svg.append(line);if(a.type!=='connector')svg.append(head);shadow.prepend(svg);item.nodes.push(svg);
     }
-    item.result={id:a.id,ok:true,match_count:1,target_box:b,callout_box:bubbleBox||null,color};
+    item.result={id:a.id,ok:true,match_count:1,target_box:b,callout_box:bubbleBox||null,color,...(badgeBox?{number:a.number,marker_box:badgeBox,name_visible:true}:{}),...(arrowGeometry?{[a.type==='connector'?'connector':'arrow']:arrowGeometry}:{})};
   }
   function refresh(){
     const current=new Set();

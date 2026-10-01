@@ -13,6 +13,62 @@ function renderer(){
   w.eval(source);return {dom,run:w.PGA_RENDERER.execute};
 }
 function annotation(id='a',target={css:'#a'},text='说明'){return {id,target,text};}
+test('connectors keep badges beside targets and join names with a line without an arrowhead',()=>{
+  const {dom,run}=renderer();try{
+    const spec={id:'c',target:{css:'#a'},type:'connector',number:1,text:'参数',placement:'right',color:'#0f766e',offset:{x:30,y:20}};
+    const args=parseCall('page_guide_annotate',{page_id:'p',session_id:'one',annotations:[spec]});
+    const result=run('page_guide_annotate',args).annotations[0];
+    const shadow=dom.window.document.querySelector('[data-page-guide-root]').shadowRoot;
+    assert.equal(result.marker_box.x,result.target_box.x+result.target_box.width+6);
+    assert.equal(result.marker_box.y,result.target_box.y+(result.target_box.height-32)/2);
+    assert.equal(shadow.querySelector('.target-badge').textContent,'1');
+    assert.equal(shadow.querySelector('path,.corner,.ring,.wash'),null);
+    assert.equal(shadow.querySelector('line').getAttribute('stroke'),'#0f766e');
+    const before=result.marker_box;
+    const updated=run('page_guide_update',parseCall('page_guide_update',{page_id:'p',session_id:'one',annotations:[{...spec,offset:{x:50,y:-30},color:'#facc15'}]})).annotations[0];
+    assert.deepEqual(updated.marker_box,before);
+    assert.notDeepEqual(updated.connector,result.connector);
+    assert.equal(shadow.querySelector('.target-badge').style.getPropertyValue('--color'),'#facc15');
+    dom.window.document.querySelector('#a').getBoundingClientRect=()=>({x:300,y:200,width:160,height:40});
+    const moved=run('page_guide_status',{session_id:'one'}).annotations[0];
+    assert.equal(moved.marker_box.x,466);
+    run('page_guide_clear',{session_id:'one'});assert.equal(dom.window.document.querySelector('[data-page-guide-root]'),null);
+  }finally{dom.window.close();}
+});
+test('numbered arrows attach badges to labels, color each item, update and preserve input',()=>{
+  const {dom,run}=renderer();try{
+    const w=dom.window,input=w.document.querySelector('#a');
+    const spec={id:'arrow',target:{css:'#a'},type:'arrow',number:3,text:'参数名称',color:'#facc15',placement:'bottom'};
+    const args=parseCall('page_guide_annotate',{page_id:'p',session_id:'one',annotations:[spec]});
+    const result=run('page_guide_annotate',args).annotations[0];
+    const root=w.document.querySelector('[data-page-guide-root]'),shadow=root.shadowRoot;
+    assert.equal(shadow.querySelector('.corner').textContent,'3');
+    assert.equal(shadow.querySelector('.callout').textContent,'参数名称');
+    assert.equal(shadow.querySelector('.ring,.wash,.name'),null);
+    assert.equal(result.marker_box.x,result.callout_box.x+result.callout_box.width-16);
+    assert.equal(result.marker_box.y,result.callout_box.y-16);
+    assert.equal(result.arrow.start.y,result.callout_box.y);
+    assert.equal(result.arrow.end.y,result.target_box.y+result.target_box.height);
+    assert.equal(shadow.querySelector('line').getAttribute('stroke'),'#facc15');
+    assert.equal(shadow.querySelector('.callout').style.getPropertyValue('--foreground'),'#000000');
+    assert.equal(root.style.pointerEvents,'none');
+    input.focus();input.value='输入保持';
+    const update=parseCall('page_guide_update',{page_id:'p',session_id:'one',annotations:[{...spec,color:'#4c1d95'}]});
+    run('page_guide_update',update);
+    assert.equal(shadow.querySelector('line').getAttribute('stroke'),'#4c1d95');
+    assert.equal(shadow.querySelector('.corner').style.getPropertyValue('--color'),'#4c1d95');
+    assert.equal(shadow.querySelector('.callout').style.getPropertyValue('--foreground'),'#ffffff');
+    run('page_guide_update',parseCall('page_guide_update',{page_id:'p',session_id:'one',annotations:[{...spec,color:undefined}]}));
+    assert.equal(shadow.querySelector('.callout').style.getPropertyValue('--color'),'#8b5cf6');
+    assert.equal(shadow.querySelector('.callout').style.getPropertyValue('--foreground'),'#000000');
+    assert.equal(w.document.activeElement,input);assert.equal(input.value,'输入保持');
+    input.getBoundingClientRect=()=>({x:300,y:200,width:160,height:40});
+    assert.equal(run('page_guide_status',{session_id:'one'}).annotations[0].target_box.x,300);
+    input.remove();assert.equal(run('page_guide_status',{session_id:'one'}).annotations[0].ok,false);
+    assert.equal(shadow.querySelector('.corner,svg,.callout'),null);
+    run('page_guide_clear',{session_id:'one'});assert.equal(w.document.querySelector('[data-page-guide-root]'),null);
+  }finally{dom.window.close();}
+});
 test('all targets validated before modification, owners isolated and content rendered literally',()=>{
   const {dom,run}=renderer();try{
     const create=(session,annotations)=>run('page_guide_annotate',parseCall('page_guide_annotate',{page_id:'p',session_id:session,annotations}));

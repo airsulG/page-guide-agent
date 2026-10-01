@@ -1,0 +1,943 @@
+{
+  "protocol": "真实 MCP SDK，经已加载内置浏览器扩展执行",
+  "revision": "2882479d26db7751",
+  "fixture": {
+    "args": {
+      "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NjEwLCJkb2N1bWVudF9pZCI6IjQ1YzIxNjg0LWZiMmMtNDc1MC1hZDE3LTM2MGQxMzhlNDg2NCIsInVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6ODc2Ny9maXh0dXJlIn0",
+      "session_id": "arrow-color-validation",
+      "annotations": [
+        {
+          "id": "keyword",
+          "target": {
+            "css": "#keyword"
+          },
+          "type": "connector",
+          "number": 1,
+          "text": "关键词输入",
+          "placement": "right",
+          "color": "#7c3aed"
+        },
+        {
+          "id": "compare",
+          "target": {
+            "css": "#compare"
+          },
+          "type": "connector",
+          "number": 2,
+          "text": "比较选项",
+          "placement": "right",
+          "color": "#0f766e"
+        },
+        {
+          "id": "expand",
+          "target": {
+            "css": "#expand"
+          },
+          "type": "connector",
+          "number": 3,
+          "text": "展开选项",
+          "placement": "right",
+          "color": "#facc15"
+        }
+      ]
+    },
+    "inspections": [
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 112,
+          "y": 207.3671875,
+          "width": 221.5,
+          "height": 49.1953125
+        },
+        "document_id": "45c21684-fb2c-4750-ad17-360d138e4864"
+      },
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 61,
+          "y": 280.5625,
+          "width": 102,
+          "height": 49.1953125
+        },
+        "document_id": "45c21684-fb2c-4750-ad17-360d138e4864"
+      },
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 40,
+          "y": 465.953125,
+          "width": 136,
+          "height": 49.1953125
+        },
+        "document_id": "45c21684-fb2c-4750-ad17-360d138e4864"
+      }
+    ],
+    "result": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "keyword",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 112,
+            "y": 207.3671875,
+            "width": 221.5,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 413.5,
+            "y": 208.71484375,
+            "width": 117,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 1,
+          "marker_box": {
+            "x": 339.5,
+            "y": 215.96484375,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 371.5,
+              "y": 231.96484375
+            },
+            "end": {
+              "x": 413.5,
+              "y": 231.96484375
+            }
+          }
+        },
+        {
+          "id": "compare",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 61,
+            "y": 280.5625,
+            "width": 102,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 243,
+            "y": 281.91015625,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 2,
+          "marker_box": {
+            "x": 169,
+            "y": 289.16015625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 201,
+              "y": 305.16015625
+            },
+            "end": {
+              "x": 243,
+              "y": 305.16015625
+            }
+          }
+        },
+        {
+          "id": "expand",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 40,
+            "y": 465.953125,
+            "width": 136,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 256,
+            "y": 467.30078125,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#facc15",
+          "number": 3,
+          "marker_box": {
+            "x": 182,
+            "y": 474.55078125,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 214,
+              "y": 490.55078125
+            },
+            "end": {
+              "x": 256,
+              "y": 490.55078125
+            }
+          }
+        }
+      ],
+      "document_id": "45c21684-fb2c-4750-ad17-360d138e4864",
+      "revision": "2882479d26db7751"
+    },
+    "recolor": {
+      "args": {
+        "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NjEwLCJkb2N1bWVudF9pZCI6IjQ1YzIxNjg0LWZiMmMtNDc1MC1hZDE3LTM2MGQxMzhlNDg2NCIsInVybCI6Imh0dHA6Ly8xMjcuMC4wLjE6ODc2Ny9maXh0dXJlIn0",
+        "session_id": "arrow-color-validation",
+        "annotations": [
+          {
+            "id": "keyword",
+            "target": {
+              "css": "#keyword"
+            },
+            "type": "connector",
+            "number": 1,
+            "text": "关键词输入",
+            "placement": "right",
+            "color": "#e11d48"
+          }
+        ]
+      },
+      "result": {
+        "ok": true,
+        "annotations": [
+          {
+            "id": "keyword",
+            "ok": true,
+            "match_count": 1,
+            "target_box": {
+              "x": 112,
+              "y": 207.3671875,
+              "width": 221.5,
+              "height": 49.1953125
+            },
+            "callout_box": {
+              "x": 413.5,
+              "y": 208.71484375,
+              "width": 117,
+              "height": 46.5
+            },
+            "color": "#e11d48",
+            "number": 1,
+            "marker_box": {
+              "x": 339.5,
+              "y": 215.96484375,
+              "width": 32,
+              "height": 32
+            },
+            "name_visible": true,
+            "connector": {
+              "start": {
+                "x": 371.5,
+                "y": 231.96484375
+              },
+              "end": {
+                "x": 413.5,
+                "y": 231.96484375
+              }
+            }
+          }
+        ],
+        "document_id": "45c21684-fb2c-4750-ad17-360d138e4864",
+        "revision": "2882479d26db7751"
+      }
+    },
+    "restore": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "keyword",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 112,
+            "y": 207.3671875,
+            "width": 221.5,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 413.5,
+            "y": 208.71484375,
+            "width": 117,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 1,
+          "marker_box": {
+            "x": 339.5,
+            "y": 215.96484375,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 371.5,
+              "y": 231.96484375
+            },
+            "end": {
+              "x": 413.5,
+              "y": 231.96484375
+            }
+          }
+        },
+        {
+          "id": "compare",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 61,
+            "y": 280.5625,
+            "width": 102,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 243,
+            "y": 281.91015625,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 2,
+          "marker_box": {
+            "x": 169,
+            "y": 289.16015625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 201,
+              "y": 305.16015625
+            },
+            "end": {
+              "x": 243,
+              "y": 305.16015625
+            }
+          }
+        },
+        {
+          "id": "expand",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 40,
+            "y": 465.953125,
+            "width": 136,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 256,
+            "y": 467.30078125,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#facc15",
+          "number": 3,
+          "marker_box": {
+            "x": 182,
+            "y": 474.55078125,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 214,
+              "y": 490.55078125
+            },
+            "end": {
+              "x": 256,
+              "y": 490.55078125
+            }
+          }
+        }
+      ],
+      "document_id": "45c21684-fb2c-4750-ad17-360d138e4864",
+      "revision": "2882479d26db7751"
+    },
+    "status": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "keyword",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 112,
+            "y": 207.3671875,
+            "width": 221.5,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 413.5,
+            "y": 208.71484375,
+            "width": 117,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 1,
+          "marker_box": {
+            "x": 339.5,
+            "y": 215.96484375,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 371.5,
+              "y": 231.96484375
+            },
+            "end": {
+              "x": 413.5,
+              "y": 231.96484375
+            }
+          }
+        },
+        {
+          "id": "compare",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 61,
+            "y": 280.5625,
+            "width": 102,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 243,
+            "y": 281.91015625,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 2,
+          "marker_box": {
+            "x": 169,
+            "y": 289.16015625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 201,
+              "y": 305.16015625
+            },
+            "end": {
+              "x": 243,
+              "y": 305.16015625
+            }
+          }
+        },
+        {
+          "id": "expand",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 40,
+            "y": 465.953125,
+            "width": 136,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 256,
+            "y": 467.30078125,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#facc15",
+          "number": 3,
+          "marker_box": {
+            "x": 182,
+            "y": 474.55078125,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 214,
+              "y": 490.55078125
+            },
+            "end": {
+              "x": 256,
+              "y": 490.55078125
+            }
+          }
+        }
+      ],
+      "document_id": "45c21684-fb2c-4750-ad17-360d138e4864"
+    },
+    "separate": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "temporary",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 61,
+            "y": 280.5625,
+            "width": 102,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 243,
+            "y": 281.91015625,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 9,
+          "marker_box": {
+            "x": 169,
+            "y": 289.16015625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 201,
+              "y": 305.16015625
+            },
+            "end": {
+              "x": 243,
+              "y": 305.16015625
+            }
+          }
+        }
+      ],
+      "document_id": "45c21684-fb2c-4750-ad17-360d138e4864",
+      "revision": "2882479d26db7751"
+    },
+    "clear": {
+      "ok": true,
+      "cleared": [
+        "temporary"
+      ],
+      "remaining": 0
+    },
+    "afterClear": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "keyword",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 112,
+            "y": 207.3671875,
+            "width": 221.5,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 413.5,
+            "y": 208.71484375,
+            "width": 117,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 1,
+          "marker_box": {
+            "x": 339.5,
+            "y": 215.96484375,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 371.5,
+              "y": 231.96484375
+            },
+            "end": {
+              "x": 413.5,
+              "y": 231.96484375
+            }
+          }
+        },
+        {
+          "id": "compare",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 61,
+            "y": 280.5625,
+            "width": 102,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 243,
+            "y": 281.91015625,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 2,
+          "marker_box": {
+            "x": 169,
+            "y": 289.16015625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 201,
+              "y": 305.16015625
+            },
+            "end": {
+              "x": 243,
+              "y": 305.16015625
+            }
+          }
+        },
+        {
+          "id": "expand",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 40,
+            "y": 465.953125,
+            "width": 136,
+            "height": 49.1953125
+          },
+          "callout_box": {
+            "x": 256,
+            "y": 467.30078125,
+            "width": 102,
+            "height": 46.5
+          },
+          "color": "#facc15",
+          "number": 3,
+          "marker_box": {
+            "x": 182,
+            "y": 474.55078125,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 214,
+              "y": 490.55078125
+            },
+            "end": {
+              "x": 256,
+              "y": 490.55078125
+            }
+          }
+        }
+      ],
+      "document_id": "45c21684-fb2c-4750-ad17-360d138e4864"
+    }
+  },
+  "semrush": {
+    "args": {
+      "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE0NTg4LCJkb2N1bWVudF9pZCI6ImQ0MTNhYjJlLWI3YTEtNDI3ZC1iMWU3LTM1ZGEwMjk2NWM4YyIsInVybCI6Imh0dHBzOi8vemguc2VtcnVzaC5jb20vYWktc2VvL292ZXJ2aWV3Lz9xPXdhcmJ5cGFya2VyLmNvbSZjb21wYXJlV2l0aD16ZW5uaW9wdGljYWwuY29tJTdDZXllYnV5ZGlyZWN0LmNvbSU3Q2dsYXNzZXN1c2EuY29tJTdDZmlybW9vLmNvbSJ9",
+      "session_id": "01a0f7c9-a7c9-7201-9546-579e54c6549b",
+      "annotations": [
+        {
+          "id": "visibility",
+          "target": {
+            "text": "26 /100"
+          },
+          "type": "connector",
+          "number": 1,
+          "text": "AI 可见度",
+          "placement": "top",
+          "color": "#7c3aed"
+        },
+        {
+          "id": "mentions",
+          "target": {
+            "text": "1.7万"
+          },
+          "type": "connector",
+          "number": 2,
+          "text": "提及",
+          "placement": "left",
+          "offset": {
+            "x": 128,
+            "y": -206
+          },
+          "color": "#7c3aed"
+        },
+        {
+          "id": "citations",
+          "target": {
+            "text": "3.8万"
+          },
+          "type": "connector",
+          "number": 3,
+          "text": "引用",
+          "placement": "top",
+          "offset": {
+            "x": -28,
+            "y": -88
+          },
+          "color": "#0f766e"
+        },
+        {
+          "id": "cited-pages",
+          "target": {
+            "text": "9529"
+          },
+          "type": "connector",
+          "number": 4,
+          "text": "被引用页面",
+          "placement": "top",
+          "offset": {
+            "x": -56,
+            "y": -88
+          },
+          "color": "#0f766e"
+        }
+      ]
+    },
+    "inspected": [
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 156.24609375,
+          "y": 442.3828125,
+          "width": 57.5078125,
+          "height": 24.5
+        },
+        "document_id": "d413ab2e-b7a1-427d-b1e7-35da02965c8c"
+      },
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 374,
+          "y": 396.765625,
+          "width": 53.484375,
+          "height": 29.5
+        },
+        "document_id": "d413ab2e-b7a1-427d-b1e7-35da02965c8c"
+      },
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 488.703125,
+          "y": 396.765625,
+          "width": 60.2421875,
+          "height": 29.5
+        },
+        "document_id": "d413ab2e-b7a1-427d-b1e7-35da02965c8c"
+      },
+      {
+        "ok": true,
+        "match_count": 1,
+        "visible": true,
+        "target_box": {
+          "x": 626.6640625,
+          "y": 396.765625,
+          "width": 59.65625,
+          "height": 29.5
+        },
+        "document_id": "d413ab2e-b7a1-427d-b1e7-35da02965c8c"
+      }
+    ],
+    "result": {
+      "ok": true,
+      "annotations": [
+        {
+          "id": "visibility",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 156.24609375,
+            "y": 442.3828125,
+            "width": 57.5078125,
+            "height": 24.5
+          },
+          "callout_box": {
+            "x": 156.24609375,
+            "y": 315.8828125,
+            "width": 105.0703125,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 1,
+          "marker_box": {
+            "x": 169,
+            "y": 404.3828125,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 189.49451273628307,
+              "y": 405.0270528228173
+            },
+            "end": {
+              "x": 201.97615384615384,
+              "y": 362.3828125
+            }
+          }
+        },
+        {
+          "id": "mentions",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 374,
+            "y": 396.765625,
+            "width": 53.484375,
+            "height": 29.5
+          },
+          "callout_box": {
+            "x": 350,
+            "y": 182.265625,
+            "width": 72,
+            "height": 46.5
+          },
+          "color": "#7c3aed",
+          "number": 2,
+          "marker_box": {
+            "x": 336,
+            "y": 395.515625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 354.60552654590026,
+              "y": 395.7291994571924
+            },
+            "end": {
+              "x": 382.1626213592233,
+              "y": 228.765625
+            }
+          }
+        },
+        {
+          "id": "citations",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 488.703125,
+            "y": 396.765625,
+            "width": 60.2421875,
+            "height": 29.5
+          },
+          "callout_box": {
+            "x": 460.703125,
+            "y": 182.265625,
+            "width": 72,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 3,
+          "marker_box": {
+            "x": 502.82421875,
+            "y": 358.765625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 516.7506436282829,
+              "y": 358.9005600390679
+            },
+            "end": {
+              "x": 499.74191631277694,
+              "y": 228.765625
+            }
+          }
+        },
+        {
+          "id": "cited-pages",
+          "ok": true,
+          "match_count": 1,
+          "target_box": {
+            "x": 626.6640625,
+            "y": 396.765625,
+            "width": 59.65625,
+            "height": 29.5
+          },
+          "callout_box": {
+            "x": 570.6640625,
+            "y": 182.265625,
+            "width": 117,
+            "height": 46.5
+          },
+          "color": "#0f766e",
+          "number": 4,
+          "marker_box": {
+            "x": 640.4921875,
+            "y": 358.765625,
+            "width": 32,
+            "height": 32
+          },
+          "name_visible": true,
+          "connector": {
+            "start": {
+              "x": 653.9417635654471,
+              "y": 358.97020358257464
+            },
+            "end": {
+              "x": 632.9181476181684,
+              "y": 228.765625
+            }
+          }
+        }
+      ],
+      "document_id": "d413ab2e-b7a1-427d-b1e7-35da02965c8c",
+      "revision": "2882479d26db7751"
+    }
+  },
+  "observations": {
+    "fixture": {
+      "input": "connector-input-test",
+      "focus": "keyword",
+      "pointerEvents": "none",
+      "badges": 3,
+      "lines": 3,
+      "arrowheads": 0,
+      "colors": [
+        "#7c3aed",
+        "#0f766e",
+        "#facc15"
+      ],
+      "yellowText": "#000000"
+    },
+    "semrush": {
+      "badges": 4,
+      "lines": 4,
+      "arrowheads": 0,
+      "colors": [
+        "#7c3aed",
+        "#0f766e"
+      ]
+    }
+  }
+}
