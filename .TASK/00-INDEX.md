@@ -14,6 +14,8 @@ execution_mode: interactive
 - [x] [06-extension-development-tools.md](06-extension-development-tools.md)：官方开发工具检查通过；Karl 手动加载后，旧扩展在内置浏览器测试页真实绘制并撤下标注。对话调用另需实现。
 
 ## Checkbox 语义
+- [>] [07-mcp-page-annotations.md](07-mcp-page-annotations.md)：已授权 MCP 标注与开发自动更新，计划已保存，正在实施。
+
 
 ```text
 [ ] 未开始

@@ -98,7 +98,7 @@ package.json、package-lock.json   现有 Node 依赖；没有可用的 npm test
 验收时修改一处标注颜色并保存源码，确认内置浏览器中的真实扩展自动更新、指定测试页自动刷新并显示新颜色，其他标签页保持原样；记录实际加载目录、版本与结果。
 
 <!-- ACTIVE_TASK_START -->
-当前工作区没有已授权且未完成的实施任务。开发工具与兼容检查已记录于 `.TASK/06-extension-development-tools.md`；TEAM 运行任务仍在独立控制工作树。
+当前任务：MCP 页面标注与开发自动更新，见 `.TASK/07-mcp-page-annotations.md`。Karl 已授权计划与实施；TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责
