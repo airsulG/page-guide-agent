@@ -9,7 +9,7 @@ execution_mode: interactive
 - [x] 01-cdp-guide-prototype.md：第一阶段原型验证（已完成，五项验收证据齐备）。
 - [x] 02-phase2-interactive-wizard.md：旧目标已被对话驱动方向替代；T1–T4 实现保留，T5/T6 未验收，不记作通过。
 - [>] [03-project-team.md](03-project-team.md)：建设对话转为 Leader；两个业务岗位改用独立会话，建设工作树正在调整与试跑，定时未启动。
-- [x] [04-conversation-driven-annotations.md](04-conversation-driven-annotations.md)：需求选工具与目标分阶段引导方法已更新，完整迁移为 WEBTASK01/02，成稿与入口检查通过；两条完整业务路径和宿主新入口发现仍待真实验收。
+- [x] [04-conversation-driven-annotations.md](04-conversation-driven-annotations.md)：WEBTASK01/02 已补工具编排、跨工具交接和 SEO 五条路径贯穿案例，成稿与入口检查通过；新入口已出现在当前会话技能清单，两条完整业务路径仍待真实验收。
 - [x] [05-workspace-migration.md](05-workspace-migration.md)：文件结构、入口与引用迁移完成，内容保留及实际材料检查通过；TEAM 控制工作树未移动。
 - [x] [06-extension-development-tools.md](06-extension-development-tools.md)：官方开发工具检查通过；Karl 手动加载后，旧扩展在内置浏览器测试页真实绘制并撤下标注。对话调用另需实现。
 

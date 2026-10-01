@@ -8,10 +8,10 @@
 
 ## 项目运行背景
 
-- 项目一句话承诺：让 Codex 从你的需求选择工具，围绕目标规划网页任务，在对话中讲解操作，并根据真实结果和你一起把事情做完。来源：`.PROJECT/01-PRODUCT.md`。
+- 项目一句话承诺：让 Codex 理解你的目标，编排工具、调查路径和步骤，在对话中带你取得并串联各工具的结果，直到完成目标。来源：`.PROJECT/01-PRODUCT.md`。
 - 目标用户：当前阶段为 Karl 本人；长期面向复杂 Web 工具的普通用户。来源：`.PROJECT/01-PRODUCT.md`。
-- 核心价值：先理解需求、判断工具，再按目标规划阶段和组件操作，在对话中讲解并根据真实结果继续；标注辅助找到对象。来源：`.PROJECT/01-PRODUCT.md`。
-- 当前成立标准：跑通需求或参考网址到工具选择，以及内置浏览器进入网站、必要登录、按目标规划与操作讲解、重新观察并调整路径；标注辅助定位，不要求先生成完整教程。两条完整路径仍待真实任务验收。来源：`.PROJECT/modules/page-guide-agent.md` 的当前产品验收。
+- 核心价值：从最终产物反推问题，编排工具分工、路径、步骤及产物交接，在对话中解释、检查结果并调整方案；标注辅助找到对象。来源：`.PROJECT/01-PRODUCT.md`。
+- 当前成立标准：从需求形成可执行的工具编排与路径，再在内置浏览器取得并交接真实产物，根据发现调整方案、完成目标；必要登录与组件讲解服务于本步，标注辅助定位。两条完整路径仍待真实任务验收。来源：`.PROJECT/modules/page-guide-agent.md` 的当前产品验收。
 - 不做事项：独立插件侧栏、任务列表、教程播放器、知识卡或内容预览页；云端账号、静态网站教程库和通用爬虫。标注权限不包含自动点击或业务写入。来源：`.PROJECT/01-PRODUCT.md`。
 
 ## 产品承诺快照
@@ -19,6 +19,7 @@
 本区只保存每轮 Agent 必须记住的产品承诺摘要，不替代完整产品文档。完整权威源是 `.PROJECT/01-PRODUCT.md`；如果本区和 PRODUCT 冲突，以 PRODUCT 为准，并同步修正本区。
 
 - Codex 对话是唯一使用入口，主要场景是对话、内置浏览器、用户操作与即时标注共同发生；局部提问不必先变成完整任务。
+- 核心是编排工具完成目标。工具选择必须带有调查路径、具体步骤、输入输出交接和完成判断；不能停在工具名单或阶段标题。参照 WEBTASK 的 SEO 找词建站贯穿案例理解做法，按真实需求调整数量和顺序。跨工具的发现回到同一目标；标注最次要。
 - 默认从需求与目标开始，不逐项介绍界面。参考网址先判断用途，再按所需能力选择工具；在内置浏览器进入选定网站，必要时请 Karl 自行登录并重新观察。先规划阶段、环节与当前步骤，再对应到真实组件，讲清目的、操作理由和预期结果；操作后按实际结果继续或调整。局部问题仍直接回答。
 - 插件没有独立产品前端，只提供预先定义的定位、绘制、更新、撤下与结果反馈能力；内容与下一次指示由当前对话决定。
 - 完整解释、知识、Mermaid 与图片留在对话，使用当前可用工具；网页标注暂定编号与对象名称常驻，对话用相同编号解释。当前使用 marker、number 与名称 text；不使用悬停或聚焦触发显示，避免与网站自己的 hover 冲突。标注不拦截鼠标与键盘，输入框仍能点击和输入。不做点击展开、悬停详细解释或“更多”入口；真实检查见 Task 08。
@@ -101,12 +102,12 @@ package.json、package-lock.json   锁定依赖与 test、guide:dev/build/mcp/ca
 验收时修改一处标注颜色并保存源码，确认内置浏览器中的真实扩展自动更新、指定测试页自动刷新并显示新颜色，其他标签页保持原样；记录实际加载目录、版本与结果。
 
 <!-- ACTIVE_TASK_START -->
-本轮更新目标规划与技能领域，见 `.TASK/04-conversation-driven-annotations.md`；两条完整使用路径待真实任务验收。最近完成 MCP 与开发更新，见 `.TASK/07-mcp-page-annotations.md`。Semrush 教学后的当前约定是网页标注只显示对象名称＋编号，详细解释留在对话；文档更新与暂不实施的点击展开方案见 `.TASK/08-expandable-annotation-details.md`。TEAM 运行任务仍在独立控制工作树。
+本轮补充以目标编排工具、跨工具产物交接与 SEO 完整案例，见 `.TASK/04-conversation-driven-annotations.md`；两条完整使用路径待真实任务验收。最近完成 MCP 与开发更新，见 `.TASK/07-mcp-page-annotations.md`。Semrush 教学后的当前约定是网页标注只显示对象名称＋编号，详细解释留在对话；文档更新与暂不实施的点击展开方案见 `.TASK/08-expandable-annotation-details.md`。TEAM 运行任务仍在独立控制工作树。
 <!-- ACTIVE_TASK_END -->
 
 ## Skill 维护职责
 
-当前需求理解与工具选择使用 [WEBTASK01](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK01-理解需求并选择工具/SKILL.md>)，目标阶段规划、对话讲解与辅助标注使用 [WEBTASK02](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK02-规划并引导网页任务/SKILL.md>)。`references/guide-schema.md` 只保存旧 Chrome 原型的兼容合同，不代表新通信 API。旧扩展目录的 SKILL.md 已不存在；项目 `skill/` 与 `prototype/skill/page-guide-skill.md` 仅作历史参考。
+当前需求理解与工具编排使用 [WEBTASK01](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK01-理解需求并选择工具/SKILL.md>)，跨工具路径执行、产物交接、对话讲解与辅助标注使用 [WEBTASK02](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK02-规划并引导网页任务/SKILL.md>)。`references/guide-schema.md` 只保存旧 Chrome 原型的兼容合同，不代表新通信 API。旧扩展目录的 SKILL.md 已不存在；项目 `skill/` 与 `prototype/skill/page-guide-skill.md` 仅作历史参考。
 
 - **保持最新**：新标注命令、页面身份与目标定位、更新和清理、执行结果或操作反馈的实际合同变化时，同批核对 WEBTASK02 的方法与资源。有全局 Skill 维护授权时更新，否则保存准确交接；未实现接口不得先写成可调用事实。
 - **同步触发点**：修改 content.js 消费字段、标注通信、完成反馈或本地保存办法时检查技能；旧 guide.json、completion、lesson 与目录只按兼容需要维护，不能反向恢复独立播放器方向。
