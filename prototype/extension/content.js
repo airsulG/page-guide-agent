@@ -1,10 +1,11 @@
-globalThis.PGA_VERSION={"revision":"2ae9dd5371b9eee9"};
+globalThis.PGA_VERSION={"revision":"84b04d125431d284"};
 (() => {
   'use strict';
   if(globalThis.PGA_RENDERER) return;
   const documentId=crypto.randomUUID();
   const sessions=new Map();
   const DEFAULT_COLOR='#8b5cf6';
+  const MARKER_SIZE=32;
   let host,shadow,raf=0,observer,resize;
   const observed=new Set(),scopes=new Map();
   function watchScope(scope){
@@ -71,7 +72,7 @@ globalThis.PGA_VERSION={"revision":"2ae9dd5371b9eee9"};
     host.style.cssText='position:fixed;inset:0;z-index:2147483647;pointer-events:none;';
     shadow=host.attachShadow({mode:'open'});
     const style=document.createElement('style');
-    style.textContent=':host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:22px;height:22px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 11px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:6px 9px;border-radius:6px;background:#fff;color:#263044;box-shadow:0 2px 12px #18203324;font:500 12px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none;visibility:hidden}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:0;pointer-events:none}.name[data-active="true"]{visibility:visible}.wash[data-active="true"]{opacity:.08}';
+    style.textContent=`:host{all:initial;pointer-events:none}.ring{position:fixed;box-sizing:border-box;border:2px solid var(--color);border-radius:8px;pointer-events:none}.callout{position:fixed;box-sizing:border-box;max-width:300px;padding:10px 14px;background:var(--color);color:white;border-radius:9px;box-shadow:0 4px 18px #0003;font:14px/1.5 system-ui,"PingFang SC",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;pointer-events:none}svg{position:fixed;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.badge{position:fixed;display:grid;place-items:center;width:${MARKER_SIZE}px;height:${MARKER_SIZE}px;box-sizing:border-box;border:2px solid white;border-radius:50%;background:var(--color);color:white;box-shadow:0 2px 6px #18203326;font:600 15px/1 system-ui,sans-serif;pointer-events:none}.name{position:fixed;max-width:240px;box-sizing:border-box;padding:8px 12px;border-radius:8px;background:var(--color);color:white;box-shadow:0 3px 12px #18203326;font:500 14px/1.4 system-ui,"PingFang SC",sans-serif;overflow-wrap:anywhere;pointer-events:none;visibility:hidden}.wash{position:fixed;box-sizing:border-box;border-radius:6px;background:var(--color);opacity:0;pointer-events:none}.name[data-active="true"]{visibility:visible}.wash[data-active="true"]{opacity:.08}`;
     shadow.append(style);document.documentElement.append(host);
     window.addEventListener('scroll',schedule,true);window.addEventListener('resize',schedule);
     observer=new MutationObserver(schedule);observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,characterData:true});
@@ -128,22 +129,22 @@ globalThis.PGA_VERSION={"revision":"2ae9dd5371b9eee9"};
     const badge=createNode('div','badge',item);badge.textContent=String(a.number);
     badge.setAttribute('role','note');badge.setAttribute('aria-label',a.number+' '+a.text);
     const clamp=(v,size,limit)=>Math.max(4,Math.min(v,limit-size-4));
-    let x=b.x+b.width-11,y=b.y-11;
-    if(a.placement==='bottom')y=b.y+b.height-11;
-    if(a.placement==='left'){x=b.x-11;y=b.y+(b.height-22)/2;}
-    if(a.placement==='right'){x=b.x+b.width-11;y=b.y+(b.height-22)/2;}
-    x=clamp(x+(a.offset?.x||0),22,innerWidth);y=clamp(y+(a.offset?.y||0),22,innerHeight);
+    let x=b.x+b.width-MARKER_SIZE/2,y=b.y-MARKER_SIZE/2;
+    if(a.placement==='bottom')y=b.y+b.height-MARKER_SIZE/2;
+    if(a.placement==='left'){x=b.x-MARKER_SIZE/2;y=b.y+(b.height-MARKER_SIZE)/2;}
+    if(a.placement==='right'){x=b.x+b.width-MARKER_SIZE/2;y=b.y+(b.height-MARKER_SIZE)/2;}
+    x=clamp(x+(a.offset?.x||0),MARKER_SIZE,innerWidth);y=clamp(y+(a.offset?.y||0),MARKER_SIZE,innerHeight);
     Object.assign(badge.style,{left:x+'px',top:y+'px'});
     const name=createNode('div','name',item);name.textContent=a.text;name.setAttribute('aria-hidden','true');
     const size=name.getBoundingClientRect();
-    const nx=clamp(x+28,size.width,innerWidth);
-    let ny=y+(22-size.height)/2;
+    const nx=clamp(x+MARKER_SIZE+8,size.width,innerWidth);
+    let ny=y+(MARKER_SIZE-size.height)/2;
     // Keep the name outside the target so typing stays visually readable too.
     if(nx<b.x+b.width&&nx+size.width>b.x&&ny<b.y+b.height&&ny+size.height>b.y)ny=b.y-size.height-8;
     if(ny<4)ny=b.y+b.height+8;
     ny=clamp(ny,size.height,innerHeight);
     Object.assign(name.style,{left:nx+'px',top:ny+'px'});
-    item.result={id:a.id,ok:true,match_count:1,target_box:b,marker_box:{x,y,width:22,height:22},callout_box:{x:nx,y:ny,width:size.width,height:size.height},number:a.number,color:a.color||DEFAULT_COLOR,name_visible:false};
+    item.result={id:a.id,ok:true,match_count:1,target_box:b,marker_box:{x,y,width:MARKER_SIZE,height:MARKER_SIZE},callout_box:{x:nx,y:ny,width:size.width,height:size.height},number:a.number,color:a.color||DEFAULT_COLOR,name_visible:false};
     showName(item);
   }
   function draw(item,located){
