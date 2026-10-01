@@ -8,7 +8,7 @@ execution_mode: interactive
 
 - [x] 01-cdp-guide-prototype.md：第一阶段原型验证（已完成，五项验收证据齐备）。
 - [?] 02-phase2-interactive-wizard.md：T1–T4 已实现，等待真实插件人工验收；T6 收口未完成。
-- [>] [03-project-team.md](03-project-team.md)：自主团队定义已形成；创建、试跑和定时启动尚未执行。
+- [>] [03-project-team.md](03-project-team.md)：建设对话转为 Leader；两个业务岗位改用独立会话，建设工作树正在调整与试跑，定时未启动。
 
 ## Checkbox 语义
 

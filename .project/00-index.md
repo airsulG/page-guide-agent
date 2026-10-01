@@ -14,7 +14,7 @@
 
 - `02-tasks/01-cdp-guide-prototype.md` —— 第一阶段 CDP 指引原型验证（五项验收证据齐备，收口中）。
 - `02-tasks/02-phase2-interactive-wizard.md` —— 第二阶段可交互任务向导；T1–T4 已实现，T5 真实插件人工验收与 T6 收口未完成。
-- [03 自主团队](02-tasks/03-project-team.md) —— 两个岗位、完整体验、文件交接与运行方案；尚未建队或启动。
+- [03 自主团队](02-tasks/03-project-team.md) —— Leader 与两个独立岗位会话、完整体验及文件交接；建设工作树已建立，正在按新结构调整，定时尚未启动。
 
 ## 外部材料
 
