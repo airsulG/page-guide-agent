@@ -1,8 +1,8 @@
 # Page Guide Agent
 
-让 Codex 理解你的目标，在内置浏览器为整页组件准备有知识增量的说明：平时页面保持原样，悬停时显示对应知识。AI 可按当前讲解精确选择一个或多个标注显示、替换和撤下；对话负责顺序、跨工具编排、追问和结果判断，网页没有预设路径或切换窗。
+让Codex理解目标并准备组件知识。网页只显示组件框和数字角标，正文留在对话；AI随讲解追加、替换和撤下框选。普通hover仅框住对象并显示复制ID图标，没有正文卡片或路径窗。
 
-当前在原 0.2.0 扩展上提供整页悬停说明与 `page_guide_show` 精确选择显示，保留深色卡片、橙黄编号与圆角正交连线。25项自动检查和 pump.fun 真实扩展调用见 [Task 11](.TASK/11-high-value-path.md)。图表加载和未打开面板仍有覆盖缺口，初始检查见 [Task 09](.TASK/09-full-page-hover-tutorial.md)。历史通信与开发更新证据见 [Task 07](.TASK/07-mcp-page-annotations.md)，产品目标见 [产品](.PROJECT/01-PRODUCT.md)与[模块规格](.PROJECT/modules/page-guide-agent.md)。
+当前扩展支持完整组件框、数字和page_guide_show的追加／替换／撤下；返回相同编号的标题与正文供对话讲解。28项检查及真实pump.fun演示见 [Task 11](.TASK/11-high-value-path.md)。图表和隐藏面板仍有覆盖缺口；通信与开发更新见 [Task 07](.TASK/07-mcp-page-annotations.md)。
 
 ## 运行 MCP 开发版
 

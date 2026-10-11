@@ -36,7 +36,7 @@ export const schemas={
     for(const c of a.components)if(c.target.frame_path.length)ctx.addIssue({code:z.ZodIssueCode.custom,message:'Help does not yet support iframe targets'});
     if(Buffer.byteLength(JSON.stringify(a),'utf8')>1800000)ctx.addIssue({code:z.ZodIssueCode.custom,message:'Help batch exceeds 1.8 MB; shorten repeated descriptions before registering the complete page'});
   }),
-  page_guide_show:z.object({...session,component_ids:z.array(id).max(40).refine(a=>new Set(a).size===a.length,'Duplicate component ID')}).strict(),
+  page_guide_show:z.object({...session,component_ids:z.array(id).max(40).refine(a=>new Set(a).size===a.length,'Duplicate component ID'),mode:z.enum(['replace','add','remove']).default('replace')}).strict(),
   page_guide_pages:z.object({}).strict(),
   page_guide_inspect:z.object({...page,target}).strict(),
   page_guide_annotate:z.object({...session,annotations,replace:z.boolean().default(true)}).strict(),
@@ -46,8 +46,8 @@ export const schemas={
 };
 const descriptions={
   page_guide_inventory:'列出整页语义组件和唯一 CSS 定位，包括视口外对象；用于逐项编写有知识增量的说明，不能把清单数量当成完整覆盖证明。',
-  page_guide_help:'注册或整批替换整页组件知识，默认无标记，仅悬停显示说明。每条 body 应有知识增量，采用具体、懂行的措辞。注册后通过 page_guide_show 精确选择要辅助对话的组件；不提供路径或教程窗口，不自动点击业务控件。',
-  page_guide_show:'从当前会话已注册的组件中精确选择一个或多个标注。component_ids 按对话讲解顺序排列，显示对应深色说明卡片、编号和连线；每次替换当前显示组，空数组撤下全部显示但保留全量悬停知识。先核对注册组件 ID，未知或失效目标整批拒绝并保留原显示。',
+  page_guide_help:'注册或整批替换整页组件知识，默认无标记，悬停仅框选组件并显示复制图标，不弹网页说明。每条 body 应有知识增量，采用具体、懂行的措辞；由 page_guide_show 返回选中知识，在对话解释。无路径或教程窗口，不自动点击业务控件。',
+  page_guide_show:'选择当前会话已注册组件，只显示橙黄组件框和数字角标，不显示网页说明卡片。返回选中项的 number、title、body，供对话按相同编号解释。mode 默认为 replace，空数组撤下全部；add 追加并去重，remove 撤下指定 ID。合并后最多40项。普通悬停仅框选并提供复制图标，不弹说明。未知 ID 或新增／替换目标失效时整批拒绝并保留原显示；视口外框和角标同步隐藏，status 返回真实可见状态。',
   page_guide_pages:'列出真实已配对扩展与可用页面；使用返回的页面句柄，不能猜 tab ID。',
   page_guide_inspect:'核对指定 DOM 目标是否唯一、可见，并返回真实几何；不修改业务网页。',
   page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。当前指引用 type: connector、number 和对象名称 text，编号贴近对象，以无箭头线段连接名称标注，全部常驻且不拦截原操作。每项 color 接受 #RRGGBB，可在数组内用不同颜色分类；解释留在对话。',

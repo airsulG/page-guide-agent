@@ -93,6 +93,12 @@ export function compose(inventory,page_id){
   {id:find(/^24h交易量$/),title:'交易量｜成交活跃，不等于资金持续进入',body:'交易量累计过去24小时的成交金额。例如买入100美元后再卖出100美元，累计成交额就是200美元；同一笔资金反复买卖，可以产生多次成交。\n\n同时留意买卖次数和参与钱包数。成交额增长、单笔交易变大、参与钱包增多，是三种不同变化。'},
   {id:find(/流动性池信息/),title:'流动性｜池规模怎样影响一笔交易',body:'流动性池为买卖提供资产。交易改变池中资产的数量关系，从而影响成交价格；关键是看交易金额相对于池规模有多大。\n\n市值是估值，交易量是累计成交额，都不能代替池中资产规模。这里的总流动性不直接表示一笔卖出能收到的金额。'}
  ];
- for(const k of knowledge)Object.assign(components.find(c=>c.id===k.id),{title:k.title,body:k.body});
+ // These minimal label-and-value containers were observed on the real in-app page.
+ for(const [i,k] of knowledge.entries()){
+  const component=components.find(c=>c.id===k.id);const path=component.target.css.split(' > ');
+  // Use the observed node ancestry; responsive copies can share data-testid values.
+  const css=path.length>2?path.slice(0,i===2?-2:-1).join(' > '):component.target.css;
+  Object.assign(component,{title:k.title,body:k.body,target:{css}});
+ }
  return {page_id,session_id:'pump-help-task-09',components};
 }

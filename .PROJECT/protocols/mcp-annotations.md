@@ -5,15 +5,15 @@
 ## 全量悬停知识与对话选择
 
 1. 在 Codex 内置浏览器观察页面，调用 `page_guide_pages` 取得当前句柄，再调用 `page_guide_inventory`，输入 `{page_id}`。返回当前语义控件、指标文字、表格单元格、列名、视口状态与唯一 CSS 定位。清单只覆盖当前文档对象模型（DOM），不含隐藏面板、框架内组件或未加载图表；数量不能代替全量覆盖证明。
-2. 根据清单和真实页面编写 `components`，每项包含 `id`、`target`、`title`、`body`。标题最多120字符，正文30–1,800字符，每批最多1,000组件、序列化正文最多1.8 MB。调用 `page_guide_help` 提供页面句柄和当前会话 ID；同一会话整批替换知识并撤下此前显示组，默认仅悬停显示说明。接口不再接受 `tutorial`。
-3. 讲解需要网页辅助时调用 `page_guide_show`，提供页面句柄、同一会话 ID 和 `component_ids`。从已注册组件精确选择一个或多个 ID，最多40个、不可重复；数组顺序定义编号。每次调用替换当前显示组。目标允许位于视口外，卡片可点击或用 Enter、空格滚动定位，不自动点击业务控件。
-4. 传 `component_ids: []` 撤下全部选中卡片、编号与连线，保留全量悬停知识。要只撤下一部分，传剩余 ID 的完整数组；编号按新数组重新计算。悬停在显示组存在时仍可用。
-5. `page_guide_status.help` 返回 `count`、`annotation_visible`、`active_component`、`selected_annotations` 与全量 `components`。选中项包含 `id`、`number`、`available`、`marker_visible`、`connector_visible`；全量项包含 ID、标题与可用状态。状态不再返回 `tutorial_*` 或 `path_*`。目标失效不重绑到同位置新节点，需重新观察并注册。
-6. `page_guide_clear` 不传 `ids` 时清理本会话全部知识与旧标注；之后悬停不再出现说明。传 `ids` 只清理旧标注，不影响知识或当前选择组。结束讲解通常用空选择，结束整个帮助会话用 clear。
+2. 根据清单和真实页面编写 `components`，每项包含 `id`、`target`、`title`、`body`。标题最多120字符，正文30–1,800字符，每批最多1,000组件、序列化正文最多1.8 MB。调用 `page_guide_help` 提供页面句柄和当前会话 ID；整批替换知识并撤下此前选择，默认没有标注。普通悬停只框选并显示复制图标，完整解释留在对话。接口不接受 `tutorial`。
+3. 调用 `page_guide_show` 提供页面句柄、同一会话 ID、`component_ids` 及 `mode`。默认 `replace` 替换；`add` 追加并去重；`remove` 撤下指定项。输入与合并结果最多40项，输入不可重复。网页只框选和显示数字角标；编号按当前数组从1开始，移除后重排。目标在视口外时框和角标一起隐藏，滚回恢复。
+4. `mode: "replace", component_ids: []` 撤下当前选择，保留知识与普通悬停。其他模式空数组不改变选择。同一组件悬停复用框选，仅增加复制图标；其他注册子组件仍可悬停。
+5. `page_guide_status.help` 返回 `count`、`annotation_visible`、`active_component`、`selected_annotations` 与 `components`。选中项包含 `id`、`number`、`title`、`body`、`available`、`outline_visible`、`badge_visible`；模型在对话用相同编号解释。全量项包含 ID、标题与可用状态。目标失效不重绑同位置新节点，需要重新观察并注册。
+6. `page_guide_clear` 不传 `ids` 时清理本会话知识与旧标注；传 `ids` 只清理旧标注，不影响帮助。结束一次讲解通常用空选择，结束整个帮助会话用 clear。
 
-同页只允许一个帮助会话，不同会话注册返回 `HELP_SESSION_CONFLICT`。没有本会话知识时 show 返回 `HELP_NOT_REGISTERED`；未知组件返回 `UNKNOWN_COMPONENT`，原节点失效返回 `COMPONENT_UNAVAILABLE`。所有选择验证成功后才替换显示，失败保留原组。重新注册时也先验证整批定位，不取多个匹配中的第一个。帮助不支持 `frame_path`，明确拒绝；页面句柄、通信错误与错页检查沿原反馈。
+同页只允许一个帮助会话，不同会话注册返回 `HELP_SESSION_CONFLICT`。没有本会话知识时 show 返回 `HELP_NOT_REGISTERED`；未知组件返回 `UNKNOWN_COMPONENT`，新增／替换原节点失效返回 `COMPONENT_UNAVAILABLE`，追加合并超过40项返回 `SELECTION_LIMIT`。整批校验后才改变显示，失败保留原组；remove 允许撤下失效目标。重新注册也先验证整批定位。帮助不支持 `frame_path`，明确拒绝；页面句柄、通信错误与错页检查沿原反馈。
 
-悬停说明和选中卡片采用深色磨砂主题；选中卡片底部横排，超出时横向滚动，长正文可单独滚动。橙黄编号与圆角正交连线对应真实组件；目标或编号被卡片遮挡时隐藏编号与连线，露出后恢复；视口外目标不伪造位置。正文使用纯文本，不执行超文本标记语言（HTML）。
+组件框和数字角标沿用橙黄色，复制图标采用深色磨砂主题。没有卡片、连线、路径或切换窗。指标 target 定位标签与数值的最小完整容器；不能猜父级或取多个匹配中的第一个。复制标题及组件 ID，成功或失败用图标和可访问名称反馈，点击不定位或触发业务控件。
 
 例如解释交易量与流动性时：
 
@@ -25,7 +25,7 @@
 }
 ```
 
-随后解释市值，传只包含市值 ID 的数组即可替换；结束这段辅助显示时传空数组。ID 来自本次注册或状态，不复用另一页、重载前或重新扫描后的序号。真实接口和 pump.fun 检查见 [Task 11](../../.TASK/11-high-value-path.md)。
+随后解释市值，传市值 ID 和 `mode: "add"` 可追加；传交易量 ID 和 `mode: "remove"` 仅撤下交易量。结束辅助显示时以默认替换模式传空数组。ID 来自本次注册或状态，不复用另一页、重载前或重新扫描后的序号。真实接口和 pump.fun 检查见 [Task 11](../../.TASK/11-high-value-path.md)。
 
 Apple 文字参考：[更改默认浏览器](https://support.apple.com/zh-cn/102362)、[录屏](https://support.apple.com/zh-cn/102653)、[轻点背面](https://support.apple.com/zh-cn/111772)。本项目采用具体任务标题、必要条件、连续动作和结果检查的写法，不宣称实现了 Apple 的完整规范。
 

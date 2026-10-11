@@ -62,12 +62,12 @@ Computer Use 禁止自动访问 `chrome://extensions/` 并禁止绕过，因此�
 
 1. 用 `page_guide_pages` 取得当前页面句柄，核对内置浏览器的 URL 和实例，不猜 tab ID。
 2. 用 `page_guide_status` 核对当前会话已注册知识、组件 ID、标题与可用状态。尚未注册时用 inventory 观察并编写知识，再用 help 注册；已有有效知识不必为了显示而重复注册。
-3. 用 `page_guide_show` 传所选 `component_ids`，单项、多项都使用同一接口；再次调用替换，空数组撤下。不要把清理整个会话用的 clear 当成撤下显示。
-4. 在内置浏览器核对实际卡片、编号与连线，并在撤下后检查悬停仍可用。CLI 成功响应与页面呈现分别验证。
+3. 用 `page_guide_show` 传所选 `component_ids`，`mode` 默认为replace整组替换；add追加去重，remove撤下指定项。空数组替换撤下全部；不要把清理整个会话用的 clear 当成撤下显示。
+4. 在内置浏览器核对完整组件框和数字，无正文卡片；对话用相同编号解释。检查视口外隐藏和恢复，撤下后hover仍只框选；status的outline_visible/badge_visible报告真实显示，title/body供对话使用。
 
 固定 CLI 解决的是当前对话可稳定发出标注指令，不等于 Codex 原生工具清单已接通。2026-10-12 已在既有 pump.fun 页完成显示市值、替换为交易量与流动性、空数组撤下；真实结果与截图见 [Task 11](../.TASK/11-high-value-path.md)。
 
-整页帮助使用 `page_guide_inventory` 获取当前语义组件、指标标签和表格单元格，结合真实页面补齐说明后调用 `page_guide_help`。可注册视口外对象，默认仅悬停显示；对话用 `page_guide_show` 选择已注册 ID，数组顺序决定编号，每次替换显示组，空数组撤下且保留知识。没有教程或切换窗。旧常驻 connector 保留兼容。修改合同或通信限额后重启本项目服务；扩展更新后仅刷新指定业务测试页，再取得新页面句柄。新工具已通过 SDK 发现与调用；长期运行的 Codex 会话若仍保留旧工具清单，需要重新发现，不能用命令行发现代替原生会话验收。
+用inventory观察当前组件，再help注册知识。指标须核对标签＋数值的完整容器及唯一定位，不取响应式重复节点的首项。show追加、替换或撤下框与数字，返回知识供对话解释，网页不显示正文。修改合同后重启服务；扩展更新后刷新指定测试页并重新取得句柄。CLI可用不等于原生会话已接通。
 
 Task 09 的实际样本和辅助执行脚本放在 `.PROTOTYPE/validation/task-09/`；它不是预置网站库。`node .PROTOTYPE/validation/task-09/run-case.mjs` 只作用于已经打开并接通扩展的指定 pump.fun 页面，重新扫描、生成本次样本并注册帮助。它不打开 Chrome，不连接钱包，不提交交易；页面状态改变后须重新核对内容和覆盖。
 
