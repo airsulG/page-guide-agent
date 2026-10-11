@@ -88,6 +88,10 @@ export function compose(inventory,page_id){
  const components=inventory.components.map(c=>{
   const label=(c.column||c.label).replace(/[↑↓]/g,'').trim();const rule=rules.find(([re])=>re.test(label));
   let title=rule?.[1],body=rule?.[2];
+  if(label==='供应量占比'){
+   if(c.tag==='TD'){title='供应量占比｜当前钱包的持有比例';body='这个单元格显示所在行钱包持有的代币占供应量的比例。例如3%表示每100枚代币中约3枚由这个钱包持有。比较不同钱包的比例，可以观察持有分布；多个钱包可能由同一人控制，钱包分布不能直接当作人数分布。';}
+   else{title='供应量占比｜按钱包持有比例排序';body='这一列显示每个钱包持有代币的供应量占比。点击列标题切换排序；从高到低时，较大的钱包持仓排在前面。先核对排序方向，再比较前几行占比。多个钱包可能由同一人控制，因此钱包分布不等于人数分布。';}
+  }
   if(c.column?.replace(/[↑↓]/g,'').trim()==='买入'){title='查看买入金额';body='这一列展示网站记录的买入金额。与当前持仓、盈亏和平均入场一起核对；买入金额不表示当前余额，也不代表未来能够卖出的金额。';}
   if(!rule){
    if(c.tag==='H1'||/Abu Shalab|Coin image/.test(label)){title='核对 ABU 的身份';body='这里显示代币简称 ABU、名称 Abu Shalab 或对应图像。名称和图像用于识别页面，完整合约地址才用于区分代币；继续与地址按钮及网址末尾核对。';}
