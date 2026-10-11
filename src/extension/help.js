@@ -33,6 +33,7 @@
       '.component-outline{position:fixed;border:1.5px solid #ffc247;border-radius:5px;background:rgba(255,194,71,.045);box-shadow:0 0 0 1px #ffc24716;pointer-events:none}',
       '.annotation-mark{position:fixed;width:24px;height:24px;border-radius:7px;background:#ffc247;color:#201600;border:1px solid #ffe1a1;font:600 12px/22px -apple-system,sans-serif;text-align:center;pointer-events:none;box-shadow:0 2px 8px #0004}',
       '.copy-component{position:fixed;width:26px;height:26px;padding:4px;border:1px solid #ffffff26;border-radius:6px;background:rgba(24,25,28,.88);color:#ffe1a1;backdrop-filter:blur(18px);font:14px/16px -apple-system,sans-serif;cursor:pointer;pointer-events:auto}.copy-component:focus-visible{outline:2px solid #ffc247}'
+      ,'.hover-card{position:fixed;width:320px;max-width:calc(100vw - 24px);max-height: min(360px,calc(100vh - 24px));overflow:auto;padding:16px;border:1px solid #ffffff26;border-radius:12px;background:rgba(24,25,28,.92);backdrop-filter:blur(20px);box-shadow:0 12px 36px #0005;color:#f2f2f3;font:14px/1.65 -apple-system,sans-serif;pointer-events:auto}.hover-card h3{margin:0 0 8px;padding-right:26px;color:#ffe1a1;font-size:15px;line-height:1.45}.hover-card p{margin:0;white-space:pre-wrap}'
     ].join('');root.append(style);
     let active=null,timer;const selectedItems=[],feedbackTimers=new Set();
     function resolve(item){const el=item?.element;if(!el?.isConnected)return null;const r=el.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(el).visibility!=='hidden'?el:null;}
@@ -49,6 +50,16 @@
     }
     function createFrame(){const frame=document.createElement('div');frame.className='component-outline';frame.hidden=true;frame.setAttribute('aria-hidden','true');root.append(frame);return frame;}
     const hoverFrame=createFrame(),hoverCopy=copyButton(()=>active);hoverCopy.hidden=true;root.append(hoverCopy);
+    const hoverCard=document.createElement('section');hoverCard.className='hover-card';hoverCard.hidden=true;hoverCard.setAttribute('aria-label','组件说明');
+    const hoverTitle=document.createElement('h3'),hoverBody=document.createElement('p'),cardCopy=copyButton(()=>active);cardCopy.style.cssText='position:absolute;right:12px;top:12px';hoverCard.append(hoverTitle,hoverBody,cardCopy);root.append(hoverCard);
+    function cardLayout(){
+      const el=resolve(active),r=el?.getBoundingClientRect();hoverCard.hidden=!inViewport(r);if(hoverCard.hidden)return;
+      hoverTitle.textContent=active.spec.title;hoverBody.textContent=active.spec.body;
+      const w=hoverCard.offsetWidth,h=hoverCard.offsetHeight,gap=12;
+      const left=r.right+gap+w<=innerWidth-12?r.right+gap:r.left-gap-w>=12?r.left-gap-w:Math.max(12,Math.min(r.left,innerWidth-w-12));
+      const top=r.right+gap+w<=innerWidth-12||r.left-gap-w>=12?Math.max(12,Math.min(r.top,innerHeight-h-12)):r.bottom+gap+h<=innerHeight-12?r.bottom+gap:Math.max(12,r.top-gap-h);
+      Object.assign(hoverCard.style,{left:left+'px',top:top+'px'});
+    }
     function paint(item,frame,mark,copy,showCopy){
       const el=resolve(item),r=el?.getBoundingClientRect(),visible=inViewport(r);
       frame.hidden=!visible;if(mark)mark.hidden=!visible;copy.hidden=!visible||!showCopy;
@@ -57,15 +68,16 @@
       if(mark){mark.style.left=Math.max(0,Math.min(r.left-12,innerWidth-24))+'px';mark.style.top=Math.max(0,Math.min(r.top-12,innerHeight-24))+'px';}
       copy.style.left=Math.max(0,Math.min(r.right-13,innerWidth-26))+'px';copy.style.top=Math.max(0,Math.min(r.top-13,innerHeight-26))+'px';
     }
-    function hideHover(){active=null;hoverFrame.hidden=true;hoverCopy.hidden=true;selectedItems.forEach(p=>{if(root.activeElement!==p.copy)p.copy.hidden=true;});}
+    function hideHover(){active=null;hoverCard.hidden=true;hoverFrame.hidden=true;hoverCopy.hidden=true;selectedItems.forEach(p=>{if(root.activeElement!==p.copy)p.copy.hidden=true;});}
     function layout(){
       selectedItems.forEach(p=>paint(p.item,p.frame,p.mark,p.copy,active===p.item||root.activeElement===p.copy));
       const selected=selectedItems.find(p=>p.item===active);
       if(active&&!selected)paint(active,hoverFrame,null,hoverCopy,true);
       else{hoverFrame.hidden=true;hoverCopy.hidden=true;}
+      cardLayout();
     }
     function pointer(event){
-      if(event.composedPath().includes(host))return;
+      if(event.composedPath().includes(host)){clearTimeout(timer);return;}
       clearTimeout(timer);const path=event.composedPath();
       const item=staged.filter(i=>path.includes(i.element)).sort((a,b)=>path.indexOf(a.element)-path.indexOf(b.element))[0];
       if(item){active=item;layout();}else timer=setTimeout(()=>{hideHover();layout();},180);
@@ -98,11 +110,12 @@
     }
     function dispose(){
       clearTimeout(timer);feedbackTimers.forEach(clearTimeout);feedbackTimers.clear();observer.disconnect();resizeObserver?.disconnect();
-      document.removeEventListener('pointerover',pointer,true);document.removeEventListener('pointerout',leave,true);document.removeEventListener('keydown',key,true);window.removeEventListener('scroll',layout,true);window.removeEventListener('resize',layout);host.remove();
+      document.removeEventListener('pointerover',pointer,true);document.removeEventListener('pointermove',pointer,true);document.removeEventListener('pointerout',leave,true);document.removeEventListener('keydown',key,true);window.removeEventListener('scroll',layout,true);window.removeEventListener('resize',layout);host.remove();
     }
     document.documentElement.append(host);groups.set(args.session_id,{host,staged,dispose,status,select});
-    document.addEventListener('pointerover',pointer,true);document.addEventListener('pointerout',leave,true);document.addEventListener('keydown',key,true);window.addEventListener('scroll',layout,true);window.addEventListener('resize',layout);
+    document.addEventListener('pointerover',pointer,true);document.addEventListener('pointermove',pointer,true);document.addEventListener('pointerout',leave,true);document.addEventListener('keydown',key,true);window.addEventListener('scroll',layout,true);window.addEventListener('resize',layout);
     hoverCopy.addEventListener('pointerenter',()=>clearTimeout(timer));hoverCopy.addEventListener('pointerleave',()=>{timer=setTimeout(()=>{hideHover();layout();},180);});
+    hoverCard.addEventListener('pointerenter',()=>clearTimeout(timer));hoverCard.addEventListener('pointerleave',()=>{timer=setTimeout(()=>{hideHover();layout();},180);});
     hoverCopy.addEventListener('blur',()=>{if(root.activeElement!==hoverCopy){hideHover();layout();}});
     observer.observe(document.documentElement,{childList:true,characterData:true,subtree:true});staged.forEach(item=>resizeObserver?.observe(item.element));
     return {ok:true,...status()};
