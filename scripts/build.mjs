@@ -7,7 +7,7 @@ import {ROOT,state} from '../src/state.mjs';
 export async function build({development=true,output,connection,sourceRoot=ROOT+'src/extension/'}={}){
   connection ||= await state();
   output ||= ROOT+(development?'prototype/extension/':'build/extension/');
-  const names=['background.js','content.js',...(development?['dev-reload.js']:[])];
+  const names=['background.js','help.js','content.js',...(development?['dev-reload.js']:[])];
   const sources=Object.fromEntries(await Promise.all(names.map(async name=>[name,await readFile(sourceRoot+name,'utf8')])));
   if(!development)sources['content.js']=sources['content.js'].replace(/\/\* DEVELOPMENT_ONLY_START \*\/[\s\S]*?\/\* DEVELOPMENT_ONLY_END \*\//g,'');
   // Validate all sources before writing the first output file.
@@ -18,7 +18,7 @@ export async function build({development=true,output,connection,sourceRoot=ROOT+
     description:'由 Codex 对话调用 MCP，在网页上定位元素并显示标注。',icons,
     permissions:['storage','tabs','alarms'],host_permissions:['http://127.0.0.1:'+connection.port+'/*'],
     action:{default_title:'在 Codex 对话中使用 Page Guide Agent',default_icon:icons},background:{service_worker:'background.js'},
-    content_scripts:[{matches:['http://*/*','https://*/*'],js:['content.js'],run_at:'document_idle'}]};
+    content_scripts:[{matches:['http://*/*','https://*/*'],js:['help.js','content.js'],run_at:'document_idle'}]};
   const config={endpoint:'ws://127.0.0.1:'+connection.port+'/bridge',token:connection.token,project:connection.project,revision,development,
     ...(development?{test_url:'http://127.0.0.1:'+connection.port+'/fixture'}:{})};
   await mkdir(output+'icons/',{recursive:true});

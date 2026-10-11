@@ -7,8 +7,8 @@
 | [01 产品](01-PRODUCT.md) | 确认用户、承诺、愿景、最终体验和不做事项 |
 | [02 架构](02-ARCHITECTURE.md) | 理解 MCP、桥接、扩展、构建与历史材料职责 |
 | [04 开发](04-DEVELOPMENT.md) | 启动服务、首次重载、自动更新、检查与正式生成 |
-| [MCP 标注协议](protocols/mcp-annotations.md) | 调用页面、目标、数组、偏移、更新与清理，判断真实错误 |
-| [页面指引模块](modules/page-guide-agent.md) | 修改行为前查 R17–R26、详细验收、历史要求和实现差距 |
+| [MCP 标注协议](protocols/mcp-annotations.md) | 调用组件观察、悬停说明、浮动教程与旧标注工具，判断真实错误 |
+| [页面指引模块](modules/page-guide-agent.md) | 修改行为前查 R17–R31、详细验收、历史要求和实现差距 |
 | [核心结果标准](../EVAL.md) | 判断本次用户结果是否满足已确认要求 |
 
 当前没有独立接受的视觉规范或实际发布流程，不创建 03-DESIGN、05-DEPLOYMENT 占位正文。团队的运行方法仍在独立控制工作树维护，建设来源见 [Task 03](../.TASK/03-project-team.md)。

@@ -1,4 +1,4 @@
-globalThis.PGA_VERSION={"revision":"2882479d26db7751"};
+globalThis.PGA_VERSION={"revision":"03aba01bf58eac76"};
 (() => {
   'use strict';
   if(globalThis.PGA_RENDERER) return;
@@ -31,7 +31,7 @@ globalThis.PGA_VERSION={"revision":"2882479d26db7751"};
     if(found.length!==1)throw error(found.length?'TARGET_AMBIGUOUS':'TARGET_NOT_FOUND',css+' 匹配 '+found.length+' 个元素');
     return found[0];
   }
-  function locate(target){
+  function locate(target,allowOutside=false){
     let scope=document,dx=0,dy=0;
     const frameClips=[];
     try{
@@ -72,7 +72,7 @@ globalThis.PGA_VERSION={"revision":"2882479d26db7751"};
       if(!element.checkVisibility?.({checkOpacity:true,checkVisibilityCSS:true})&&element.checkVisibility)throw error('TARGET_NOT_VISIBLE','目标隐藏');
       if(style.visibility==='hidden'||style.display==='none'||r.width<=0||r.height<=0)throw error('TARGET_NOT_VISIBLE','目标没有可见边界');
       if(frameClips.some(clip=>box.x<clip.x-1||box.y<clip.y-1||box.x+box.width>clip.x+clip.width+1||box.y+box.height>clip.y+clip.height+1))throw error('TARGET_NOT_VISIBLE','目标被 iframe 边界裁切，请先在 frame 内滚动到完整目标');
-      if(box.x+box.width<=0||box.y+box.height<=0||box.x>=innerWidth||box.y>=innerHeight)throw error('TARGET_OUTSIDE_VIEWPORT','请先观察或滚动到目标');
+      if(!allowOutside&&(box.x+box.width<=0||box.y+box.height<=0||box.x>=innerWidth||box.y>=innerHeight))throw error('TARGET_OUTSIDE_VIEWPORT','请先观察或滚动到目标');
       return {element,box,match_count:1,visible:true};
     }catch(e){if(e.code)throw e;throw error('INVALID_TARGET',e.message);}
   }
@@ -210,13 +210,16 @@ globalThis.PGA_VERSION={"revision":"2882479d26db7751"};
   function execute(command,args={}){
     if(args.page&&(args.page.document_id!==documentId||args.page.url!==location.href))throw error('STALE_PAGE','文档或 URL 已改变，请重新观察');
     if(command==='status')return {document_id:documentId,url:location.href,revision:globalThis.PGA_VERSION?.revision};
+    if(command==='page_guide_inventory')return globalThis.PGA_HELP.inventory();
+    if(command==='page_guide_help')return globalThis.PGA_HELP.register(args,(t)=>locate(t,true));
     /* DEVELOPMENT_ONLY_START */
     if(command==='dev_snapshot')return {sessions:[...sessions].map(([session_id,group])=>({session_id,annotations:[...group.values()].map(i=>i.spec)}))};
     /* DEVELOPMENT_ONLY_END */
     if(command==='page_guide_inspect'){const located=locate(args.target);return {ok:true,match_count:1,visible:true,target_box:located.box,document_id:documentId};}
     const group=sessions.get(args.session_id)||new Map();
-    if(command==='page_guide_status'){refresh();return {ok:true,annotations:[...group.values()].map(i=>i.result),document_id:documentId};}
+    if(command==='page_guide_status'){refresh();return {ok:true,annotations:[...group.values()].map(i=>i.result),help:globalThis.PGA_HELP?.status(args.session_id),document_id:documentId};}
     if(command==='page_guide_clear'){
+      if(!args.ids)globalThis.PGA_HELP?.clear(args.session_id);
       const ids=args.ids||[...group.keys()],cleared=[];
       for(const id of ids){const item=group.get(id);if(item){dispose(item);group.delete(id);cleared.push(id);}}
       if(!group.size)sessions.delete(args.session_id);stopIfEmpty();return {ok:true,cleared,remaining:group.size};

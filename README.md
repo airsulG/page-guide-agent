@@ -1,14 +1,14 @@
 # Page Guide Agent
 
-让 Codex 理解你的目标，编排工具、调查路径和步骤，在对话中带你取得并串联各工具的结果，直到完成目标。已确认愿景是 Codex 对话、内置浏览器与无独立前端的标注插件共同工作，需求理解、工具判断、阶段规划和完整讲解都在对话里完成；标注只是辅助找到当前步骤的组件。
+让 Codex 理解你的目标，在内置浏览器为整页组件准备有知识增量的说明：平时页面保持原样，悬停时显示对应知识。需要完成目标时，网页内的浮动教程把组件串成连续动作；对话继续负责需求理解、跨工具编排、深入追问和结果判断。
 
-当前 0.2.0 是无侧栏的 MCP 标注扩展，已在 Codex 内置浏览器通过真实 SDK 调用验证批量、更新、清理和开发自动更新。当前对话原生工具列表尚未刷新，复杂业务网页多轮体验和本地复用仍需验收。版本与截图见 [Task 07](.TASK/07-mcp-page-annotations.md)，产品目标见 [产品](.PROJECT/01-PRODUCT.md)与[模块规格](.PROJECT/modules/page-guide-agent.md)。
+当前在原 0.2.0 扩展上增加整页悬停说明和可访问的浮动教程，23 项自动检查及 pump.fun 的真实扩展调用、鼠标悬停、键盘阅读和原输入已检查。图表加载和未打开面板仍有覆盖缺口，见 [Task 09](.TASK/09-full-page-hover-tutorial.md)。历史通信与开发更新证据见 [Task 07](.TASK/07-mcp-page-annotations.md)，产品目标见 [产品](.PROJECT/01-PRODUCT.md)与[模块规格](.PROJECT/modules/page-guide-agent.md)。
 
 ## 运行 MCP 开发版
 
 使用 Node 24 或更新版本，在根目录运行 `npm ci`，再运行 `npm run guide:dev`。已有开发扩展加载目录为 `prototype/extension/`，Karl 已完成新后台首次重载；后续修改 `src/extension/` 自动生成、重载扩展，并只刷新选定的测试页。
 
-打开 `http://127.0.0.1:8767/fixture`。Codex 使用已配置的 `page-guide-agent` MCP；已有会话未发现工具时，重载该 MCP 服务或在后续自然开始的会话确认工具发现。也可用 `node scripts/call.mjs list` 检查真实 SDK 协议。六项工具、参数与限制见 [标注协议](.PROJECT/protocols/mcp-annotations.md)，运行、正式构建和错误恢复见 [开发说明](.PROJECT/04-DEVELOPMENT.md)。
+打开 `http://127.0.0.1:8767/fixture`。Codex 使用已配置的 `page-guide-agent` MCP；已有会话未发现工具时，重载该 MCP 服务或在后续自然开始的会话确认工具发现。也可用 `node scripts/call.mjs list` 检查真实 SDK 协议。八项工具含整页清单、组件知识与教程，参数和限制见 [协议](.PROJECT/protocols/mcp-annotations.md)，运行、正式构建和错误恢复见 [开发说明](.PROJECT/04-DEVELOPMENT.md)。
 
 ## 查看已有演示
 

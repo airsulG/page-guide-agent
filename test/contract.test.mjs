@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseCall,pageId,decodePage,tools} from '../src/contract.mjs';
 const input={page_id:'p',session_id:'conversation-a',annotations:[{id:'a',target:{css:'#keyword'},text:'解释'}]};
-test('tools expose six schemas; annotation defaults are explicit',()=>{
-  assert.equal(tools.length,6);const result=parseCall('page_guide_annotate',input);
+test('tools expose annotation and page help schemas; annotation defaults are explicit',()=>{
+  assert.equal(tools.length,8);const result=parseCall('page_guide_annotate',input);
   assert.deepEqual(result.annotations[0].offset,{x:0,y:0});assert.equal(result.replace,true);
 });
 test('invalid, duplicate, oversized or executable parameters are rejected',()=>{

@@ -28,7 +28,16 @@ export const annotationSchema = z.object({
 const annotations=z.array(annotationSchema).min(1).max(20).refine(a=>new Set(a.map(x=>x.id)).size===a.length,'Duplicate annotation ID');
 const page={page_id:z.string().min(1).max(4096)};
 const session={...page,session_id:id};
+const helpComponent=z.object({id,target,title:z.string().min(1).max(120),body:z.string().min(30).max(1800)}).strict();
+const helpComponents=z.array(helpComponent).min(1).max(1000).refine(a=>new Set(a.map(x=>x.id)).size===a.length,'Duplicate component ID');
+const tutorial=z.object({title:z.string().min(1).max(120),goal:z.string().min(1).max(600),steps:z.array(z.object({component_id:id,title:z.string().min(1).max(120),action:z.string().min(1).max(900),expected:z.string().min(1).max(600)}).strict()).min(1).max(40)}).strict();
 export const schemas={
+  page_guide_inventory:z.object(page).strict(),
+  page_guide_help:z.object({...session,components:helpComponents,tutorial:tutorial.optional()}).strict().superRefine((a,ctx)=>{
+    for(const c of a.components)if(c.target.frame_path.length)ctx.addIssue({code:z.ZodIssueCode.custom,message:'Help does not yet support iframe targets'});
+    for(const step of a.tutorial?.steps||[])if(!a.components.some(c=>c.id===step.component_id))ctx.addIssue({code:z.ZodIssueCode.custom,message:'Tutorial references an unknown component'});
+    if(Buffer.byteLength(JSON.stringify(a),'utf8')>1800000)ctx.addIssue({code:z.ZodIssueCode.custom,message:'Help batch exceeds 1.8 MB; shorten repeated descriptions before registering the complete page'});
+  }),
   page_guide_pages:z.object({}).strict(),
   page_guide_inspect:z.object({...page,target}).strict(),
   page_guide_annotate:z.object({...session,annotations,replace:z.boolean().default(true)}).strict(),
@@ -37,6 +46,8 @@ export const schemas={
   page_guide_status:z.object(session).strict()
 };
 const descriptions={
+  page_guide_inventory:'列出整页语义组件和唯一 CSS 定位，包括视口外对象；用于逐项编写有知识增量的说明，不能把清单数量当成完整覆盖证明。',
+  page_guide_help:'注册整页组件知识说明及可选浮动教程。默认无标记、高亮或遮罩，仅悬停显示对应说明；教程支持键盘和连续步骤，不自动点击业务控件。每条 body 应解释含义、动作、结果或区别，采用 Apple 技术支持式具体措辞。',
   page_guide_pages:'列出真实已配对扩展与可用页面；使用返回的页面句柄，不能猜 tab ID。',
   page_guide_inspect:'核对指定 DOM 目标是否唯一、可见，并返回真实几何；不修改业务网页。',
   page_guide_annotate:'在指定页面和会话绘制一批标注；全部目标验证通过才修改。当前指引用 type: connector、number 和对象名称 text，编号贴近对象，以无箭头线段连接名称标注，全部常驻且不拦截原操作。每项 color 接受 #RRGGBB，可在数组内用不同颜色分类；解释留在对话。',
@@ -46,7 +57,7 @@ const descriptions={
 };
 export const tools=Object.entries(schemas).map(([name,schema])=>({
   name,description:descriptions[name],inputSchema:zodToJsonSchema(schema,{$refStrategy:'none'}),
-  annotations:{readOnlyHint:['page_guide_pages','page_guide_inspect','page_guide_status'].includes(name),destructiveHint:false,openWorldHint:false}
+  annotations:{readOnlyHint:['page_guide_pages','page_guide_inspect','page_guide_status','page_guide_inventory'].includes(name),destructiveHint:false,openWorldHint:false}
 }));
 export function parseCall(name,args){
   if(!schemas[name]) throw new Error('Unknown tool: '+name);

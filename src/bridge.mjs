@@ -45,13 +45,13 @@ export async function createBridge({port=8767,token,project='page-guide-agent',r
     if(req.headers.origin||!secretOK(req.headers.authorization?.replace(/^Bearer /,''))) return sendJSON(res,403,{error:'UNAUTHORIZED'});
     if(req.url==='/rpc'&&req.method==='POST'){
       try {
-        let body='';for await(const chunk of req){body+=chunk;if(body.length>128000) throw new Error('REQUEST_TOO_LARGE');}
+        let body='';for await(const chunk of req){body+=chunk;if(Buffer.byteLength(body)>2000000) throw new Error('REQUEST_TOO_LARGE');}
         const {name,args}=JSON.parse(body);return sendJSON(res,200,await call(name,args));
       } catch(e){return sendJSON(res,400,{ok:false,error:e.message});}
     }
     return sendJSON(res,404,{error:'NOT_FOUND'});
   });
-  const ws=new WebSocketServer({noServer:true,maxPayload:128000});
+  const ws=new WebSocketServer({noServer:true,maxPayload:2000000});
   server.on('upgrade',(req,socket,head)=>{
     let url;try{url=new URL(req.url,'http://127.0.0.1');}catch{socket.destroy();return;}
     if(req.headers.host!=='127.0.0.1:'+server.address().port||url.pathname!=='/bridge'||!secretOK(url.searchParams.get('token'))||
