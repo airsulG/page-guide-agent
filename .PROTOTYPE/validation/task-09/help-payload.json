@@ -1,5 +1,5 @@
 {
-  "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6IjQ1MWE2ZDI4LWJiYjEtNGIxZi05NTcxLTQ4MTRjM2I1YmI0MyIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9",
+  "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6Ijk4YWZlODYyLTIwNTYtNDRhZC1iZTczLWQ3MGJmODZiOGNmMCIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9",
   "session_id": "pump-help-task-09",
   "components": [
     {
@@ -727,8 +727,8 @@
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)"
       },
-      "title": "比较价格与市值",
-      "body": "点击这个按钮可在价格和市值显示之间切换。价格表示单个代币的报价，市值按价格与供应量估算；市值不表示池中有同等金额可供卖出。比较两个时点前，先确认使用相同的显示单位。"
+      "title": "市值｜价格如何变成整体估值",
+      "body": "市值把当前价格放大到供应量规模。供应量不变时，价格上涨10%，市值也会上涨10%；这不需要有相当于市值增量的资金进入。\n\n它按当前价格估算整体价值，但所有代币未必都能按这个价格成交。"
     },
     {
       "id": "component-92",
@@ -2797,13 +2797,21 @@
     {
       "id": "component-350",
       "target": {
+        "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
+      },
+      "title": "查看社交来源",
+      "body": "这个链接打开对应的社交页面。先核对账号、发布时间和所述合约地址；社交内容可帮助了解讨论背景，不能单独证明代币身份或链上资金情况。"
+    },
+    {
+      "id": "component-351",
+      "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(2)"
       },
       "title": "查看持有数量",
       "body": "这一列显示钱包持有的代币数量。点击列标题可调整排序。K 表示千，M 表示百万；数量不是美元金额，查看金额时请同时核对“持仓”列。"
     },
     {
-      "id": "component-351",
+      "id": "component-352",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(3)"
       },
@@ -2811,7 +2819,7 @@
       "body": "这一列显示钱包持有数量占代币供应量的比例。点击列标题可调整排序，再比较前几名的钱包；多个钱包可能属于同一人，钱包分散也不等于所有权分散。"
     },
     {
-      "id": "component-352",
+      "id": "component-353",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(4)"
       },
@@ -2819,7 +2827,7 @@
       "body": "持仓表示钱包当前持有代币的估算价值。先核对持有数量和当前价格，再比较该列；实际卖出还受到交易规模、池中流动性和费用影响。"
     },
     {
-      "id": "component-353",
+      "id": "component-354",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(5)"
       },
@@ -2827,7 +2835,7 @@
       "body": "查看网站计算的盈利或亏损，或用此选项筛选对应钱包。正数表示网站计算的盈利，负数表示亏损。点击盈亏明细进一步核对口径；当前持仓估值的变化不等于已经卖出并收到的钱。"
     },
     {
-      "id": "component-354",
+      "id": "component-355",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(5) > button:nth-of-type(1)"
       },
@@ -2835,7 +2843,7 @@
       "body": "查看网站计算的盈利或亏损，或用此选项筛选对应钱包。正数表示网站计算的盈利，负数表示亏损。点击盈亏明细进一步核对口径；当前持仓估值的变化不等于已经卖出并收到的钱。"
     },
     {
-      "id": "component-355",
+      "id": "component-356",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(6)"
       },
@@ -2843,7 +2851,7 @@
       "body": "这一列显示网站计算的平均入场水平。先核对当前显示价格还是市值，再与当前值比较；转入、转出和历史交易的处理会影响计算，不能仅凭该列推断所有买入成本。"
     },
     {
-      "id": "component-356",
+      "id": "component-357",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(21) > td:nth-of-type(7)"
       },
@@ -2851,7 +2859,7 @@
       "body": "这一列展示网站记录的买入金额。与当前持仓、盈亏和平均入场一起核对；买入金额不表示当前余额，也不代表未来能够卖出的金额。"
     },
     {
-      "id": "component-357",
+      "id": "component-358",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(22) > td:nth-of-type(1)"
       },
@@ -2859,7 +2867,7 @@
       "body": "这里列出持有代币的钱包及其持有数量、供应量占比和估值。先核对当前选中“全部”还是“Pump.fun”，再比较前几名的占比。钱包数量不等于真实人数。"
     },
     {
-      "id": "component-358",
+      "id": "component-359",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(22) > td:nth-of-type(1) > button:nth-of-type(1)"
       },
@@ -2867,7 +2875,7 @@
       "body": "点击后查看这个钱包对应的持仓信息。比较持有数量、供应量占比和入场水平，了解它在当前代币中的位置；一个钱包可能属于个人、平台或其他账户。"
     },
     {
-      "id": "component-359",
+      "id": "component-360",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(22) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
       },
@@ -2875,20 +2883,12 @@
       "body": "这里显示网站中的账户名称、头像或资料入口。查看账户时结合完整钱包地址核对，同名账号和同一个人使用多个钱包都可能出现；账户的历史表现不代表当前代币的未来结果。"
     },
     {
-      "id": "component-360",
+      "id": "component-361",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(22) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
       },
       "title": "识别账户",
       "body": "这里显示网站中的账户名称、头像或资料入口。查看账户时结合完整钱包地址核对，同名账号和同一个人使用多个钱包都可能出现；账户的历史表现不代表当前代币的未来结果。"
-    },
-    {
-      "id": "component-361",
-      "target": {
-        "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(22) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
-      },
-      "title": "查看社交来源",
-      "body": "这个链接打开对应的社交页面。先核对账号、发布时间和所述合约地址；社交内容可帮助了解讨论背景，不能单独证明代币身份或链上资金情况。"
     },
     {
       "id": "component-362",
@@ -3421,13 +3421,21 @@
     {
       "id": "component-428",
       "target": {
+        "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
+      },
+      "title": "查看社交来源",
+      "body": "这个链接打开对应的社交页面。先核对账号、发布时间和所述合约地址；社交内容可帮助了解讨论背景，不能单独证明代币身份或链上资金情况。"
+    },
+    {
+      "id": "component-429",
+      "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(2)"
       },
       "title": "查看持有数量",
       "body": "这一列显示钱包持有的代币数量。点击列标题可调整排序。K 表示千，M 表示百万；数量不是美元金额，查看金额时请同时核对“持仓”列。"
     },
     {
-      "id": "component-429",
+      "id": "component-430",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(3)"
       },
@@ -3435,7 +3443,7 @@
       "body": "这一列显示钱包持有数量占代币供应量的比例。点击列标题可调整排序，再比较前几名的钱包；多个钱包可能属于同一人，钱包分散也不等于所有权分散。"
     },
     {
-      "id": "component-430",
+      "id": "component-431",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(4)"
       },
@@ -3443,7 +3451,7 @@
       "body": "持仓表示钱包当前持有代币的估算价值。先核对持有数量和当前价格，再比较该列；实际卖出还受到交易规模、池中流动性和费用影响。"
     },
     {
-      "id": "component-431",
+      "id": "component-432",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(5)"
       },
@@ -3451,7 +3459,7 @@
       "body": "查看网站计算的盈利或亏损，或用此选项筛选对应钱包。正数表示网站计算的盈利，负数表示亏损。点击盈亏明细进一步核对口径；当前持仓估值的变化不等于已经卖出并收到的钱。"
     },
     {
-      "id": "component-432",
+      "id": "component-433",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(5) > button:nth-of-type(1)"
       },
@@ -3459,7 +3467,7 @@
       "body": "查看网站计算的盈利或亏损，或用此选项筛选对应钱包。正数表示网站计算的盈利，负数表示亏损。点击盈亏明细进一步核对口径；当前持仓估值的变化不等于已经卖出并收到的钱。"
     },
     {
-      "id": "component-433",
+      "id": "component-434",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(6)"
       },
@@ -3467,7 +3475,7 @@
       "body": "这一列显示网站计算的平均入场水平。先核对当前显示价格还是市值，再与当前值比较；转入、转出和历史交易的处理会影响计算，不能仅凭该列推断所有买入成本。"
     },
     {
-      "id": "component-434",
+      "id": "component-435",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(28) > td:nth-of-type(7)"
       },
@@ -3475,7 +3483,7 @@
       "body": "这一列展示网站记录的买入金额。与当前持仓、盈亏和平均入场一起核对；买入金额不表示当前余额，也不代表未来能够卖出的金额。"
     },
     {
-      "id": "component-435",
+      "id": "component-436",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(29) > td:nth-of-type(1)"
       },
@@ -3483,7 +3491,7 @@
       "body": "这里列出持有代币的钱包及其持有数量、供应量占比和估值。先核对当前选中“全部”还是“Pump.fun”，再比较前几名的占比。钱包数量不等于真实人数。"
     },
     {
-      "id": "component-436",
+      "id": "component-437",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(29) > td:nth-of-type(1) > button:nth-of-type(1)"
       },
@@ -3491,7 +3499,7 @@
       "body": "点击后查看这个钱包对应的持仓信息。比较持有数量、供应量占比和入场水平，了解它在当前代币中的位置；一个钱包可能属于个人、平台或其他账户。"
     },
     {
-      "id": "component-437",
+      "id": "component-438",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(29) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > img:nth-of-type(1)"
       },
@@ -3499,20 +3507,12 @@
       "body": "这里显示网站中的账户名称、头像或资料入口。查看账户时结合完整钱包地址核对，同名账号和同一个人使用多个钱包都可能出现；账户的历史表现不代表当前代币的未来结果。"
     },
     {
-      "id": "component-438",
+      "id": "component-439",
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(29) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
       },
       "title": "识别账户",
       "body": "这里显示网站中的账户名称、头像或资料入口。查看账户时结合完整钱包地址核对，同名账号和同一个人使用多个钱包都可能出现；账户的历史表现不代表当前代币的未来结果。"
-    },
-    {
-      "id": "component-439",
-      "target": {
-        "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(29) > td:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1) > a:nth-of-type(1)"
-      },
-      "title": "查看社交来源",
-      "body": "这个链接打开对应的社交页面。先核对账号、发布时间和所述合约地址；社交内容可帮助了解讨论背景，不能单独证明代币身份或链上资金情况。"
     },
     {
       "id": "component-440",
@@ -5639,8 +5639,8 @@
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > section:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1)"
       },
-      "title": "了解流动性池",
-      "body": "这里显示交易池的配对资产和总流动性。总流动性与市值不同：市值是估值，流动性描述池中的资产。较大交易可能改变成交价格，查看池规模有助于理解这种差别。"
+      "title": "流动性｜池规模怎样影响一笔交易",
+      "body": "流动性池为买卖提供资产。交易改变池中资产的数量关系，从而影响成交价格；关键是看交易金额相对于池规模有多大。\n\n市值是估值，交易量是累计成交额，都不能代替池中资产规模。这里的总流动性不直接表示一笔卖出能收到的金额。"
     },
     {
       "id": "component-706",
@@ -5839,8 +5839,8 @@
       "target": {
         "css": "html > body:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(3) > main:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1)"
       },
-      "title": "区分成交金额与人数",
-      "body": "这里显示所选时间范围中的成交金额，买入量和卖出量按方向分别统计。先核对 5m、1h 或 24h；同一个钱包可以多次交易，因此金额、次数和人数不能互相替代。"
+      "title": "交易量｜成交活跃，不等于资金持续进入",
+      "body": "交易量累计过去24小时的成交金额。例如买入100美元后再卖出100美元，累计成交额就是200美元；同一笔资金反复买卖，可以产生多次成交。\n\n同时留意买卖次数和参与钱包数。成交额增长、单笔交易变大、参与钱包增多，是三种不同变化。"
     },
     {
       "id": "component-731",
@@ -6004,44 +6004,26 @@
     }
   ],
   "tutorial": {
-    "title": "核对 ABU 的公开信息",
-    "goal": "核对代币身份、统计范围和持有人分布，理解市值与流动性的区别。这个教程无需连接钱包，也不提交交易。",
+    "title": "读懂估值、交易活动与流动性",
+    "goal": "解释为什么市值与成交额很高，一笔大额交易仍可能明显影响价格。无需连接钱包或交易。",
     "steps": [
       {
-        "component_id": "component-82",
-        "title": "核对代币地址",
-        "action": "查看标题中的 ABU 和 Abu Shalab。找到“复制合约地址”，核对完整地址与本页面网址末尾一致。",
-        "expected": "确认正在查看的代币地址，以免把同名代币混在一起。"
-      },
-      {
         "component_id": "component-91",
-        "title": "区分价格与市值",
-        "action": "查看当前显示的是价格还是市值。需要比较时点击切换按钮，重新核对单位。",
-        "expected": "知道数字表示单个代币报价还是按供应量估算的市值。"
+        "title": "市值｜价格如何变成整体估值",
+        "action": "观察对应组件并阅读说明。",
+        "expected": "能解释估值、交易活动和成交价格之间的区别。"
       },
       {
-        "component_id": "component-703",
-        "title": "选择统计范围",
-        "action": "选择 24h，读取同一时间范围下的价格变动、交易量、买入和卖出次数。",
-        "expected": "能区分交易次数、买卖人数和金额，比较时采用相同范围。"
-      },
-      {
-        "component_id": "component-101",
-        "title": "核对持有者列表",
-        "action": "查看“持有者”表格，确认当前选中“全部”还是“Pump.fun”。需要核对某个钱包时在搜索框输入完整地址。",
-        "expected": "知道当前列表范围，能用地址找到对应钱包。"
-      },
-      {
-        "component_id": "component-114",
-        "title": "比较持仓集中程度",
-        "action": "查看“供应量占比”列，比较前几名钱包。需要调整顺序时点击列标题，并核对排序方向。",
-        "expected": "能说明前几名各占多少，同时保留多个钱包可能属于同一人的区别。"
+        "component_id": "component-730",
+        "title": "交易量｜成交活跃，不等于资金持续进入",
+        "action": "观察对应组件并阅读说明。",
+        "expected": "能解释估值、交易活动和成交价格之间的区别。"
       },
       {
         "component_id": "component-705",
-        "title": "核对流动性",
-        "action": "查看流动性池的配对资产和总流动性，再与当前市值比较。",
-        "expected": "能够解释市值是估值，而池中流动性决定交易可用的资产条件。"
+        "title": "流动性｜池规模怎样影响一笔交易",
+        "action": "观察对应组件并阅读说明。",
+        "expected": "能解释估值、交易活动和成交价格之间的区别。"
       }
     ]
   }

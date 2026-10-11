@@ -19,7 +19,11 @@ execution_mode: interactive
 - [x] [09-full-page-hover-tutorial.md](09-full-page-hover-tutorial.md)：整页悬停说明与浮动教程，23 项检查和 pump.fun 真实扩展交互通过；图表加载与隐藏面板内部组件保留缺口。
 - [x] [10-annotation-writing.md](10-annotation-writing.md)：标注写作方法、知识增量标准、逐条检查与三个完整对比案例已保存；只改文档，推荐文案尚未应用。
 
+- [x] [11-high-value-path.md](11-high-value-path.md)：pump.fun 三组件说明同时显示并编号，选择窗收缩与退出恢复悬停通过真实扩展检查。
+
 ## Checkbox 语义
+
+
 
 ```text
 [ ] 未开始

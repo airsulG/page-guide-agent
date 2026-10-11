@@ -88,14 +88,13 @@ export function compose(inventory,page_id){
   return {id:c.id,target:c.target,title,body};
  });
  const find=re=>{const c=inventory.components.find(c=>re.test(c.label));if(!c)throw Error('Missing tutorial component '+re);return c.id;};
- const tutorial={title:'核对 ABU 的公开信息',goal:'核对代币身份、统计范围和持有人分布，理解市值与流动性的区别。这个教程无需连接钱包，也不提交交易。',steps:[
-  {component_id:find(/复制合约地址/),title:'1. 核对代币地址',action:'查看标题中的 ABU 和 Abu Shalab。找到“复制合约地址”，核对完整地址与本页面网址末尾一致。',expected:'确认正在查看的代币地址，以免把同名代币混在一起。'},
-  {component_id:find(/在价格与市值之间切换/),title:'2. 区分价格与市值',action:'查看当前显示的是价格还是市值。需要比较时点击切换按钮，重新核对单位。',expected:'知道数字表示单个代币报价还是按供应量估算的市值。'},
-  {component_id:find(/^24h$/),title:'3. 选择统计范围',action:'选择 24h，读取同一时间范围下的价格变动、交易量、买入和卖出次数。',expected:'能区分交易次数、买卖人数和金额，比较时采用相同范围。'},
-  {component_id:find(/搜索持有者或钱包/),title:'4. 核对持有者列表',action:'查看“持有者”表格，确认当前选中“全部”还是“Pump.fun”。需要核对某个钱包时在搜索框输入完整地址。',expected:'知道当前列表范围，能用地址找到对应钱包。'},
-  {component_id:find(/供应量占比/),title:'5. 比较持仓集中程度',action:'查看“供应量占比”列，比较前几名钱包。需要调整顺序时点击列标题，并核对排序方向。',expected:'能说明前几名各占多少，同时保留多个钱包可能属于同一人的区别。'},
-  {component_id:find(/流动性池信息/),title:'6. 核对流动性',action:'查看流动性池的配对资产和总流动性，再与当前市值比较。',expected:'能够解释市值是估值，而池中流动性决定交易可用的资产条件。'}
- ]};
- tutorial.steps=tutorial.steps.map(s=>({...s,title:s.title.replace(/^\d+\. /,'')}));
+ const tutorial={title:"读懂估值、交易活动与流动性",goal:"解释为什么市值与成交额很高，一笔大额交易仍可能明显影响价格。无需连接钱包或交易。",steps:[]};
+ const knowledge=[
+  {id:find(/在价格与市值之间切换/),title:'市值｜价格如何变成整体估值',body:'市值把当前价格放大到供应量规模。供应量不变时，价格上涨10%，市值也会上涨10%；这不需要有相当于市值增量的资金进入。\n\n它按当前价格估算整体价值，但所有代币未必都能按这个价格成交。'},
+  {id:find(/^24h交易量$/),title:'交易量｜成交活跃，不等于资金持续进入',body:'交易量累计过去24小时的成交金额。例如买入100美元后再卖出100美元，累计成交额就是200美元；同一笔资金反复买卖，可以产生多次成交。\n\n同时留意买卖次数和参与钱包数。成交额增长、单笔交易变大、参与钱包增多，是三种不同变化。'},
+  {id:find(/流动性池信息/),title:'流动性｜池规模怎样影响一笔交易',body:'流动性池为买卖提供资产。交易改变池中资产的数量关系，从而影响成交价格；关键是看交易金额相对于池规模有多大。\n\n市值是估值，交易量是累计成交额，都不能代替池中资产规模。这里的总流动性不直接表示一笔卖出能收到的金额。'}
+ ];
+ for(const k of knowledge)Object.assign(components.find(c=>c.id===k.id),{title:k.title,body:k.body});
+ tutorial.steps=knowledge.map(k=>({component_id:k.id,title:k.title,action:'观察对应组件并阅读说明。',expected:'能解释估值、交易活动和成交价格之间的区别。'}));
  return {page_id,session_id:'pump-help-task-09',components,tutorial};
 }

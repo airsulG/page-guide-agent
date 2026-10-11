@@ -3,10 +3,28 @@
   "annotations": [],
   "help": {
     "count": 750,
-    "annotation_visible": false,
+    "annotation_visible": true,
     "active_component": null,
-    "tutorial_step": 6,
+    "tutorial_step": null,
     "tutorial_visible": false,
+    "path_active": true,
+    "path_annotations": [
+      {
+        "id": "component-91",
+        "number": 1,
+        "available": true
+      },
+      {
+        "id": "component-730",
+        "number": 2,
+        "available": true
+      },
+      {
+        "id": "component-705",
+        "number": 3,
+        "available": true
+      }
+    ],
     "components": [
       {
         "id": "component-1",
@@ -3010,5 +3028,5 @@
       }
     ]
   },
-  "document_id": "e219c598-ed1c-461b-81eb-48224b9450d4"
+  "document_id": "98afe862-2056-44ad-be73-d70bf86b8cf0"
 }

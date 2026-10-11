@@ -1,5 +1,7 @@
 # 演示与验证材料
 
+- [三组件高价值路径](validation/task-09/high-value-path.png)：市值、24小时交易量与流动性说明同时显示、编号与收缩入口；真实检查与范围见 [Task 11](../.TASK/11-high-value-path.md)。
+
 本目录保存已有演示、原始观察和方法验证材料，不承载当前产品入口或任务状态。`prototype/` 中的原型程序、旧任务包与 CDP 样本保持原位，以免改变实际安装和运行路径。
 
 - [软件说明演示](surface-tutorials/clash-verge-guide.html)、[完整说明](surface-tutorials/clash-verge-guide.md)与[观察记录](surface-tutorials/clash-verge-observations.md)：迁移自旧 artifacts，图片保留在同目录 assets；这是历史材料，独立内容预览已退出新产品方向。

@@ -1,4 +1,4 @@
-globalThis.PGA_VERSION={"revision":"70c70ede2848e2de"};
+globalThis.PGA_VERSION={"revision":"78da51c42134cecb"};
 (() => {
   'use strict';
   if(globalThis.PGA_RENDERER) return;

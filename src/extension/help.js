@@ -53,45 +53,39 @@
     function show(item,pin=false){const el=resolve(item);if(!el){hide();return false;}active=item;pinned=pin;tipTitle.textContent=item.spec.title;tipBody.textContent=item.spec.body;tip.hidden=false;position(el);return true;}
     function pointer(event){
       if(event.composedPath().includes(host))return;
-      if(pinned)return;
+      if(pathActive||pinned)return;
       clearTimeout(timer);
       const path=event.composedPath();const item=staged.filter(i=>path.includes(i.element)).sort((a,b)=>path.indexOf(a.element)-path.indexOf(b.element))[0];
       if(item){if(active!==item)show(item);return;}
       if(!pinned)timer=setTimeout(hide,180);
     }
     function leave(event){if(!event.relatedTarget&&!pinned)hide();}
-    function reflow(){if(!active)return;const el=resolve(active);if(!el){hide();return;}const r=el.getBoundingClientRect();if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)hide();else position(el);}
-    function key(event){if(event.key==='Escape'){hide();if(panel&&!panel.hidden){panel.hidden=true;launcher.hidden=false;launcher.focus();}}}
+    function reflow(){if(pathActive){layoutPath();return;}if(!active)return;const el=resolve(active);if(!el){hide();return;}const r=el.getBoundingClientRect();if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)hide();else position(el);}
+    function key(event){if(event.key==='Escape'){if(!pathActive)hide();if(panel&&!panel.hidden){panel.hidden=true;launcher.hidden=false;launcher.focus();}}}
     let panel,launcher,picker,heading,action,expected,progress,previous,next,note;
+    let pathActive=false;const pathItems=[];
     function button(text,fn,cls=''){const b=document.createElement('button');b.type='button';b.textContent=text;b.className=cls;b.addEventListener('click',fn);return b;}
-    function current(){return args.tutorial.steps[step];}
-    function render(){
-      const s=current();picker.value=String(step);progress.textContent='步骤 '+(step+1)+' / '+args.tutorial.steps.length;heading.textContent=s.title;action.textContent=s.action;expected.textContent='检查结果：'+s.expected;previous.disabled=step===0;next.disabled=step===args.tutorial.steps.length-1;note.textContent='选择下一步表示你继续查看教程，完成情况以网页实际结果为准。';locateStep();
+    function layoutPath(){
+      pathItems.forEach(({item,mark,card},i)=>{const el=resolve(item);const b=el?.getBoundingClientRect();const visible=b&&b.bottom>0&&b.top<innerHeight&&b.right>0&&b.left<innerWidth;mark.hidden=!pathActive||!visible;if(visible){mark.style.left=Math.max(0,Math.min(b.left-14,innerWidth-28))+'px';mark.style.top=Math.max(0,Math.min(b.top-14,innerHeight-28))+'px';}card.querySelector('.availability').textContent=!el?'组件已变化，请重新观察':visible?'对应页面编号 '+(i+1):'组件在视口外，点击定位';});
     }
-    function locateStep(){
-      const item=staged.find(i=>i.spec.id===current().component_id),el=resolve(item);
-      if(!el){note.textContent='这个组件已改变或暂未显示。请回到 Codex 重新观察页面。';hide();return;}
-      el.scrollIntoView?.({block:'center',behavior:'instant'});show(item,true);badge.textContent=String(step+1);badge.setAttribute('aria-label','教程步骤 '+(step+1));badge.hidden=false;tipTitle.textContent=(step+1)+'. '+item.spec.title;note.textContent=item.spec.title+'：'+item.spec.body;
-    }
+    function selectPath(enabled){hide();pathActive=enabled;pinned=enabled;pathRail.hidden=!enabled;pathItems.forEach(p=>p.mark.hidden=!enabled);layoutPath();panel.hidden=true;launcher.hidden=false;launcher.textContent=enabled?'切换路径':'选择路径';launcher.focus();}
+    let pathRail;
     if(args.tutorial){
+      const extra=document.createElement('style');extra.textContent='.path-rail{position:fixed;left:72px;top:12px;width:min(310px,calc(100vw - 84px));max-height:calc(100vh - 76px);overflow:auto;pointer-events:auto;display:grid;gap:10px}.path-card{background:#fff;color:#1d1d1f;border:1px solid #d2d2d7;border-radius:12px;padding:14px;font:13px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;box-shadow:0 6px 22px #0002}.path-card h3{font-size:15px;margin:0 0 8px}.path-card p{white-space:pre-wrap;margin:0 0 8px}.path-card button{font-size:12px;padding:4px 8px}.path-mark{position:fixed;z-index:2;transform:translateZ(0);background:#0071e3;color:#fff;border:2px solid white;border-radius:50%;width:28px;height:28px;text-align:center;font:600 14px/24px -apple-system,sans-serif;pointer-events:none;box-shadow:0 2px 8px #0003}';root.append(extra);
+      pathRail=document.createElement('section');pathRail.className='path-rail';pathRail.setAttribute('aria-label',args.tutorial.title+'的全部标注');pathRail.hidden=true;root.append(pathRail);
+      args.tutorial.steps.forEach((s,i)=>{const item=staged.find(x=>x.spec.id===s.component_id);const card=document.createElement('article');card.className='path-card';const h=document.createElement('h3');h.textContent=(i+1)+'. '+item.spec.title;const p=document.createElement('p');p.textContent=item.spec.body;const availability=document.createElement('p');availability.className='availability muted';const find=button('定位组件 '+(i+1),()=>{const el=resolve(item);if(el){el.scrollIntoView?.({block:'center',behavior:'instant'});layoutPath();}else availability.textContent='组件已变化，请重新观察';});card.append(h,p,availability,find);pathRail.append(card);const mark=document.createElement('div');mark.className='path-mark';mark.textContent=String(i+1);mark.setAttribute('aria-label','路径编号 '+(i+1));mark.hidden=true;root.append(mark);pathItems.push({item,card,mark});});
       panel=document.createElement('section');panel.className='panel';panel.setAttribute('role','region');panel.setAttribute('aria-label',args.tutorial.title);
-      panel.append(button('收起',()=>{panel.hidden=true;launcher.hidden=false;hide();launcher.focus();},'close'));
+      panel.append(button('收起',()=>{panel.hidden=true;launcher.hidden=false;launcher.focus();},'close'));
       const title=document.createElement('h2');title.textContent=args.tutorial.title;const goal=document.createElement('p');goal.textContent=args.tutorial.goal;
-      progress=document.createElement('p');progress.className='muted';progress.setAttribute('aria-live','polite');
-      picker=document.createElement('select');picker.className='picker';picker.setAttribute('aria-label','选择教程步骤');
-      args.tutorial.steps.forEach((s,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=(i+1)+'. '+s.title;picker.append(o);});
-      picker.addEventListener('change',()=>{step=Number(picker.value);hide();render();});
-      heading=document.createElement('h3');action=document.createElement('p');expected=document.createElement('p');note=document.createElement('p');note.className='muted';note.setAttribute('role','status');
-      const nav=document.createElement('div');nav.className='nav';previous=button('上一步',()=>{step--;hide();render();});next=button('下一步',()=>{step++;hide();render();},'primary');
-      nav.append(previous,button('找到组件并阅读说明',locateStep),next);panel.append(title,goal,progress,picker,heading,action,expected,note,nav);root.append(panel);
-      launcher=button('打开教程',()=>{launcher.hidden=true;panel.hidden=false;render();picker.focus();},'launcher');launcher.hidden=true;root.append(launcher);
+      picker=document.createElement('select');picker.className='picker';picker.setAttribute('aria-label','选择高价值路径');for(const [value,label] of [['none','普通浏览'],['path',args.tutorial.title]]){const o=document.createElement('option');o.value=value;o.textContent=label;picker.append(o);}picker.addEventListener('change',()=>selectPath(picker.value==='path'));
+      panel.append(title,goal,picker,button('查看这条路径',()=>{picker.value='path';selectPath(true);},'primary'),button('退出路径',()=>{picker.value='none';selectPath(false);}));root.append(panel);
+      launcher=button('选择路径',()=>{launcher.hidden=true;panel.hidden=false;picker.focus();},'launcher');launcher.hidden=true;root.append(launcher);
     }
     document.documentElement.append(host);
-    if(args.tutorial)render();
     document.addEventListener('pointerover',pointer,true);document.addEventListener('pointerout',leave,true);document.addEventListener('keydown',key,true);window.addEventListener('scroll',reflow,true);window.addEventListener('resize',reflow);
     tip.addEventListener('pointerenter',()=>clearTimeout(timer));tip.addEventListener('pointerleave',()=>{if(!pinned)timer=setTimeout(hide,180);});
     const observer=new MutationObserver(reflow);observer.observe(document.documentElement,{childList:true,subtree:true});
-    function status(){return {count:staged.length,annotation_visible:!tip.hidden,active_component:active?.spec.id||null,tutorial_step:args.tutorial?step+1:null,tutorial_visible:panel?!panel.hidden:false,components:staged.map(i=>({id:i.spec.id,available:!!resolve(i)}))};}
+    function status(){return {count:staged.length,annotation_visible:!tip.hidden||pathActive,active_component:active?.spec.id||null,tutorial_step:null,tutorial_visible:panel?!panel.hidden:false,path_active:pathActive,path_annotations:pathActive?pathItems.map((p,i)=>({id:p.item.spec.id,number:i+1,available:!!resolve(p.item)})):[],components:staged.map(i=>({id:i.spec.id,available:!!resolve(i)}))};}
     function dispose(){clearTimeout(timer);observer.disconnect();document.removeEventListener('pointerover',pointer,true);document.removeEventListener('pointerout',leave,true);document.removeEventListener('keydown',key,true);window.removeEventListener('scroll',reflow,true);window.removeEventListener('resize',reflow);host.remove();}
     return {ok:true,...status()};
   }
