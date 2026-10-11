@@ -33,6 +33,16 @@
 
 全局 WEBTASK02 未在本次授权内修改：后续方法应以项目协议为准，使用 inventory → help → show → status，结束显示用空选择，结束帮助用 clear；旧 tutorial 和路径状态不可继续调用。项目写作方法及已确认三个完整案例保留。
 
+### 固定 CLI 的对话现场演示
+
+Karl 要求当前会话原生调用；调查发现全局 `/Users/zhouqi/.codex/config.toml` 没有登记 `page-guide-agent`，当前工具清单无 `page_guide_*`，服务器查询也返回 unknown MCP server。本机开发桥正常，Node 与 SDK 路径存在；并无服务启动失败证据。尝试自动操作 Codex 设置被安全策略阻止，未绕过。没有修改全局配置，原生工具接通未完成。
+
+Karl 随后提出使用固定 CLI。主会话沿用正式入口 `npm run --silent guide:call -- <工具名> '<参数 JSON>'`，直接在对话工具调用中使用；没有运行 `run-case.mjs` 或其他测试脚本，也没有在页面注入标注渲染器。
+
+先调用 pages 取得当前文档句柄，再调用 status 核对三项已注册 ID 与标题；真实调用 show 依次显示市值 `component-91`、替换为交易量 `component-730` 与流动性 `component-705`、传空数组撤下。每一步均在 Codex 内置浏览器核对卡片标题和数量；最终卡片、编号、连线均为0，750条知识保留。移开鼠标并用 Escape 关闭悬停说明后，默认页面无标注。未访问 Chrome、未执行业务操作。
+
+三次 CLI 调用均成功，revision `c95ee97fc19784e6`。截图：[选择显示](../.PROTOTYPE/validation/task-09/cli-show.png)、[替换显示](../.PROTOTYPE/validation/task-09/cli-replace.png)、[撤下显示](../.PROTOTYPE/validation/task-09/cli-withdraw.png)。固定入口及使用顺序已写入开发说明；该证据证明正式 CLI 通道可用，不证明当前会话原生工具发现完成。本轮未改业务代码，不重复运行自动测试。
+
 下面保留此前路径体验的授权、实现与截图，均为历史时点，不作为当前行为。
 
 ## 历史授权与 Git 计划
