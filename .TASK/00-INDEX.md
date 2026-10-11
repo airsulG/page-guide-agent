@@ -17,6 +17,7 @@ execution_mode: interactive
 - [x] [08-expandable-annotation-details.md](08-expandable-annotation-details.md)：对象旁编号＋无箭头连接线＋主题色名称，支持 MCP 每项颜色和组合分类；18项检查、真实扩展输入/改色/清理与 Semrush 呈现通过，协议和技能已同步；旧详情方案不实施。
 
 - [x] [09-full-page-hover-tutorial.md](09-full-page-hover-tutorial.md)：整页悬停说明与浮动教程，23 项检查和 pump.fun 真实扩展交互通过；图表加载与隐藏面板内部组件保留缺口。
+- [x] [10-annotation-writing.md](10-annotation-writing.md)：标注写作方法、知识增量标准、逐条检查与三个完整对比案例已保存；只改文档，推荐文案尚未应用。
 
 ## Checkbox 语义
 

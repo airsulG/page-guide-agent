@@ -110,6 +110,8 @@ package.json、package-lock.json   锁定依赖与 test、guide:dev/build/mcp/ca
 
 ## Skill 维护职责
 
+标注文案编写与审查先读 [.PROJECT/annotation-writing.md](.PROJECT/annotation-writing.md)：知识增量来自可使用的解释关系，保留市值、交易量、供应量占比完整对比案例。文案讨论稿与已运行版本分开，未知计算口径不补造。
+
 当前需求理解与工具编排使用 [WEBTASK01](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK01-理解需求并选择工具/SKILL.md>)，跨工具路径执行、产物交接、对话讲解与辅助标注使用 [WEBTASK02](</Users/zhouqi/.codex/skills/WEBTASK/WEBTASK02-规划并引导网页任务/SKILL.md>)。`references/guide-schema.md` 只保存旧 Chrome 原型的兼容合同，不代表新通信 API。旧扩展目录的 SKILL.md 已不存在；项目 `skill/` 与 `prototype/skill/page-guide-skill.md` 仅作历史参考。
 
 - **保持最新**：新标注命令、页面身份与目标定位、更新和清理、执行结果或操作反馈的实际合同变化时，同批核对 WEBTASK02 的方法与资源。有全局 Skill 维护授权时更新，否则保存准确交接；未实现接口不得先写成可调用事实。

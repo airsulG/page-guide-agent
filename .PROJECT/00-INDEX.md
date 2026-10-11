@@ -10,6 +10,7 @@
 | [MCP 标注协议](protocols/mcp-annotations.md) | 调用组件观察、悬停说明、浮动教程与旧标注工具，判断真实错误 |
 | [页面指引模块](modules/page-guide-agent.md) | 修改行为前查 R17–R31、详细验收、历史要求和实现差距 |
 | [核心结果标准](../EVAL.md) | 判断本次用户结果是否满足已确认要求 |
+| [标注写作方法](annotation-writing.md) | 编写或审查组件知识，查知识增量标准、检查办法及三个完整对比案例 |
 
 当前没有独立接受的视觉规范或实际发布流程，不创建 03-DESIGN、05-DEPLOYMENT 占位正文。团队的运行方法仍在独立控制工作树维护，建设来源见 [Task 03](../.TASK/03-project-team.md)。
 
