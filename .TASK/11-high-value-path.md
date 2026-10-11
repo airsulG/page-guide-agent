@@ -104,3 +104,11 @@ Karl 指出左侧堆叠像侧栏，要求移到底部，说明多时横向滚动
 - 截图：[全部路径说明](../.PROTOTYPE/validation/task-09/high-value-path.png)。本次 inventory、help-payload、registration 与 status 在同目录；此前单步截图保留历史时点。
 
 本轮不新增全局技能或网站教程库。旧 tutorial 参数仍可注册，但展示行为已由单步改为整条路径；客户端应读取 path_active 和 path_annotations，不再依赖 tutorial_step，后者返回 null。
+
+## 2026-10-12：复制组件按钮
+
+在悬停说明和底部卡片右上角加入“复制组件”，复制标注标题和组件 ID。底部按钮仅在悬停或焦点进入时可见；点击复制不会触发整卡定位，键盘事件不传给卡片。成功显示“已复制”，失败提供重试提示。实现位于 `src/extension/help.js`，开发服务生成已加载扩展文件。
+
+26项自动检查通过，新增检查覆盖准确复制内容、两个入口、复制不定位和剪贴板失败。Codex 内置浏览器 pump.fun 真实扩展 revision `80f7d11d5ae2b07d`：重新注册751个组件，选中市值 `component-91`；底部和真实鼠标悬停说明的复制按钮均显示“已复制”，底部点击没有滚动定位。截图见 [复制组件](../.PROTOTYPE/validation/task-09/copy-component.png)。没有访问 Chrome。
+
+真实验收缺口：Browser Use 的剪贴板读取返回空虚拟剪贴板，粘贴也明确报告虚拟剪贴板无数据；无法用该工具回读扩展写入的系统剪贴板。真实浏览器确认的是写入调用成功和界面反馈，具体文本由自动检查确认，尚未完成系统剪贴板真实粘贴核对。

@@ -34,11 +34,23 @@
       .tip{position:fixed;z-index:3;width:min(360px,calc(100vw - 24px));padding:18px;max-height:60vh;overflow:auto}.tip p,.annotation-card p{white-space:pre-wrap;margin:0 0 8px}.tip h3,.annotation-card h3{color:#ffe1a1;font-size:15px;margin:0 0 8px}
       .annotation-rail{position:fixed;left:72px;right:16px;bottom:64px;max-height:40vh;pointer-events:auto;display:grid;grid-auto-flow:column;grid-auto-columns:max(300px,calc((100vw - 108px)/3));gap:10px;overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:6px}
       .annotation-card{cursor:pointer;max-height:40vh;overflow:auto;padding:14px}.annotation-card:focus-visible{outline:2px solid #ffc247;outline-offset:-2px}
+      .copy-component{float:right;margin:0 0 6px 10px;padding:4px 8px;border:1px solid #ffffff26;border-radius:6px;background:#ffffff0a;color:#ffe1a1;font:12px/1.5 -apple-system,sans-serif;cursor:pointer}.annotation-card .copy-component{opacity:0}.annotation-card:hover .copy-component,.annotation-card:focus-within .copy-component{opacity:1}.copy-component:focus-visible{outline:2px solid #ffc247}
       .annotation-mark{position:fixed;z-index:2;transform:translateZ(0);background:#ffc247;color:#201600;border:1px solid rgba(255,224,153,.9);border-radius:50%;width:28px;height:28px;text-align:center;font:600 14px/24px -apple-system,sans-serif;pointer-events:none;box-shadow:0 2px 8px #0003}
     `;root.append(style);
     const tip=document.createElement('aside');tip.className='tip';tip.hidden=true;tip.setAttribute('role','note');
     const tipTitle=document.createElement('h3'),tipBody=document.createElement('p');tip.append(tipTitle,tipBody);root.append(tip);
     let active=null,timer;
+    function copyButton(getItem){
+      const button=document.createElement('button');button.type='button';button.className='copy-component';button.textContent='复制组件';
+      button.addEventListener('keydown',event=>event.stopPropagation());
+      button.addEventListener('click',async event=>{
+        event.stopPropagation();const item=getItem();if(!item)return;
+        try{await navigator.clipboard.writeText(item.spec.title+'\n组件 ID：'+item.spec.id);button.textContent='已复制';}
+        catch{button.textContent='复制失败，请重试';}
+        setTimeout(()=>{button.textContent='复制组件';},1600);
+      });return button;
+    }
+    tip.prepend(copyButton(()=>active));
     const g={host,staged,dispose,status,select};groups.set(args.session_id,g);
     function resolve(item){const el=item?.element;if(!el?.isConnected)return null;const r=el.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(el).visibility!=='hidden'?el:null;}
     function hide(){tip.hidden=true;active=null;}
@@ -86,8 +98,8 @@
         card.setAttribute('role','button');card.tabIndex=0;card.setAttribute('aria-label',heading.textContent);
         const locateCard=()=>{const el=resolve(item);if(el){el.scrollIntoView?.({block:'center',behavior:'instant'});layoutSelection();}else card.setAttribute('aria-description','组件已变化，请重新观察');};
         card.addEventListener('click',locateCard);
-        card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();locateCard();}});
-        card.append(heading,body);annotationRail.append(card);
+        card.addEventListener('keydown',event=>{if(event.target===card&&(event.key==='Enter'||event.key===' ')){event.preventDefault();locateCard();}});
+        card.append(copyButton(()=>item),heading,body);annotationRail.append(card);
         const mark=document.createElement('div');mark.className='annotation-mark';mark.textContent=String(i+1);
         mark.setAttribute('aria-label','标注编号 '+(i+1));mark.hidden=true;root.append(mark);
         const line=document.createElementNS('http://www.w3.org/2000/svg','path');
