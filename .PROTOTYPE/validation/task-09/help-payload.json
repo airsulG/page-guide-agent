@@ -1,5 +1,5 @@
 {
-  "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6ImU0YzFkNDI3LWYxZmQtNDZhZC04MmIxLTM4NzkwNGZjYmViZCIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9",
+  "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6IjU0MWM4OWU1LTk5YmItNGRmMS05OWE2LTRkNzRkOTJjYzIzMCIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9",
   "session_id": "pump-help-task-09",
   "components": [
     {
@@ -6002,29 +6002,5 @@
       "title": "查找网站说明",
       "body": "这里是网站页脚，可找到博客、资源、法律文件与社交入口。核对费用或操作条件时使用当前官方正文及更新时间，不把社交帖子当作条款说明。"
     }
-  ],
-  "tutorial": {
-    "title": "读懂估值、交易活动与流动性",
-    "goal": "解释为什么市值与成交额很高，一笔大额交易仍可能明显影响价格。无需连接钱包或交易。",
-    "steps": [
-      {
-        "component_id": "component-91",
-        "title": "市值｜价格如何变成整体估值",
-        "action": "观察对应组件并阅读说明。",
-        "expected": "能解释估值、交易活动和成交价格之间的区别。"
-      },
-      {
-        "component_id": "component-730",
-        "title": "交易量｜成交活跃，不等于资金持续进入",
-        "action": "观察对应组件并阅读说明。",
-        "expected": "能解释估值、交易活动和成交价格之间的区别。"
-      },
-      {
-        "component_id": "component-705",
-        "title": "流动性｜池规模怎样影响一笔交易",
-        "action": "观察对应组件并阅读说明。",
-        "expected": "能解释估值、交易活动和成交价格之间的区别。"
-      }
-    ]
-  }
+  ]
 }

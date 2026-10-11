@@ -87,14 +87,12 @@ export function compose(inventory,page_id){
   }
   return {id:c.id,target:c.target,title,body};
  });
- const find=re=>{const c=inventory.components.find(c=>re.test(c.label));if(!c)throw Error('Missing tutorial component '+re);return c.id;};
- const tutorial={title:"读懂估值、交易活动与流动性",goal:"解释为什么市值与成交额很高，一笔大额交易仍可能明显影响价格。无需连接钱包或交易。",steps:[]};
+ const find=re=>{const c=inventory.components.find(c=>re.test(c.label));if(!c)throw Error('Missing explanation component '+re);return c.id;};
  const knowledge=[
   {id:find(/在价格与市值之间切换/),title:'市值｜价格如何变成整体估值',body:'市值把当前价格放大到供应量规模。供应量不变时，价格上涨10%，市值也会上涨10%；这不需要有相当于市值增量的资金进入。\n\n它按当前价格估算整体价值，但所有代币未必都能按这个价格成交。'},
   {id:find(/^24h交易量$/),title:'交易量｜成交活跃，不等于资金持续进入',body:'交易量累计过去24小时的成交金额。例如买入100美元后再卖出100美元，累计成交额就是200美元；同一笔资金反复买卖，可以产生多次成交。\n\n同时留意买卖次数和参与钱包数。成交额增长、单笔交易变大、参与钱包增多，是三种不同变化。'},
   {id:find(/流动性池信息/),title:'流动性｜池规模怎样影响一笔交易',body:'流动性池为买卖提供资产。交易改变池中资产的数量关系，从而影响成交价格；关键是看交易金额相对于池规模有多大。\n\n市值是估值，交易量是累计成交额，都不能代替池中资产规模。这里的总流动性不直接表示一笔卖出能收到的金额。'}
  ];
  for(const k of knowledge)Object.assign(components.find(c=>c.id===k.id),{title:k.title,body:k.body});
- tutorial.steps=knowledge.map(k=>({component_id:k.id,title:k.title,action:'观察对应组件并阅读说明。',expected:'能解释估值、交易活动和成交价格之间的区别。'}));
- return {page_id,session_id:'pump-help-task-09',components,tutorial};
+ return {page_id,session_id:'pump-help-task-09',components};
 }

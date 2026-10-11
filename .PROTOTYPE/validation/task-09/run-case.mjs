@@ -5,11 +5,24 @@ const call=(name,args)=>{const reply=JSON.parse(execFileSync(process.execPath,['
 const url='https://pump.fun/coin/6hTLdzZaaCjmqtn7RtaEMQsCbXT5Pg8q76tRViEGpump';
 const pages=call('page_guide_pages',{});const page=pages.instances.flatMap(i=>i.pages).find(p=>p.url===url&&p.page_id);
 if(!page)throw Error('内置浏览器指定测试页面尚未连接。');
+const selection=process.argv.find(arg=>arg.startsWith('--show='));
+if(selection){
+ const saved=JSON.parse(await (await import('node:fs/promises')).readFile(new URL('help-payload.json',import.meta.url),'utf8'));
+ const keys=selection.slice(7).split(',').filter(Boolean);
+ const component_ids=keys.map(key=>{
+  const title={cap:'市值｜',volume:'交易量｜',liquidity:'流动性｜'}[key];
+  const component=saved.components.find(c=>title?c.title.startsWith(title):c.id===key);
+  if(!component)throw Error('没有已注册的组件 '+key);return component.id;
+ });
+ const result=call('page_guide_show',{page_id:page.page_id,session_id:saved.session_id,component_ids});
+ await writeFile(new URL('selection.json',import.meta.url),JSON.stringify({page,result},null,2)+'\n');
+ console.log(JSON.stringify({revision:page.revision,count:result.count,selected:result.selected_annotations}));process.exit(0);
+}
 if(process.argv.includes('--status')||process.argv.includes('--clear')){
  const result=call(process.argv.includes('--clear')?'page_guide_clear':'page_guide_status',{page_id:page.page_id,session_id:'pump-help-task-09'});
  if(process.argv.includes('--status')){
   await writeFile(new URL('status.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
-  console.log(JSON.stringify({ok:result.ok,count:result.help?.count,annotation_visible:result.help?.annotation_visible,tutorial_step:result.help?.tutorial_step,tutorial_visible:result.help?.tutorial_visible,unavailable:result.help?.components?.filter(c=>!c.available).length}));
+  console.log(JSON.stringify({ok:result.ok,count:result.help?.count,annotation_visible:result.help?.annotation_visible,selected:result.help?.selected_annotations,unavailable:result.help?.components?.filter(c=>!c.available).length}));
  }else console.log(JSON.stringify(result));process.exit(0);
 }
 const inventory=call('page_guide_inventory',{page_id:page.page_id});
@@ -18,4 +31,4 @@ const result=call('page_guide_help',payload);
 await writeFile(new URL('inventory.json',import.meta.url),JSON.stringify(inventory,null,2)+'\n');
 await writeFile(new URL('help-payload.json',import.meta.url),JSON.stringify(payload,null,2)+'\n');
 await writeFile(new URL('registration.json',import.meta.url),JSON.stringify({page, count:inventory.count,result},null,2)+'\n');
-console.log(JSON.stringify({revision:page.revision,count:inventory.count,registered:result.count,hidden:!result.annotation_visible,tutorial_step:result.tutorial_step,unavailable:result.components.filter(c=>!c.available).length}));
+console.log(JSON.stringify({revision:page.revision,count:inventory.count,registered:result.count,hidden:!result.annotation_visible,selected:result.selected_annotations,unavailable:result.components.filter(c=>!c.available).length}));

@@ -211,6 +211,7 @@
     if(command==='status')return {document_id:documentId,url:location.href,revision:globalThis.PGA_VERSION?.revision};
     if(command==='page_guide_inventory')return globalThis.PGA_HELP.inventory();
     if(command==='page_guide_help')return globalThis.PGA_HELP.register(args,(t)=>locate(t,true));
+    if(command==='page_guide_show')return globalThis.PGA_HELP.show(args);
     /* DEVELOPMENT_ONLY_START */
     if(command==='dev_snapshot')return {sessions:[...sessions].map(([session_id,group])=>({session_id,annotations:[...group.values()].map(i=>i.spec)}))};
     /* DEVELOPMENT_ONLY_END */
