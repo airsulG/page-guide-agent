@@ -2,6 +2,12 @@
 
 ## 最新补充：恢复单张就近悬停说明
 
+### 导航说明具体化
+
+真实重新注册748项，component-8 的 GO 卡已显示“发布悬赏与提交作品”及对应正文，见[实际卡片](../.PROTOTYPE/validation/task-09/go-specific-hover.png)。新增导航区分和悬停收起检查，30项测试通过；真实移开指针后卡片收起，对话编号保留。当前页面已撤下对话选择，普通悬停可用。
+
+Karl 复制 component-8 指出“浏览网站栏目”没有说明具体功能。现场库存确认它是 GO；原生成规则把七个不同入口合成同文案。已拆为独立规则，同时拆开最近查看、关注、信息栏设置和支持、应用、终端。官方来源：[GO](https://pump.fun/go)、[Mayhem](https://pump.fun/mayhem)、[持有者奖励](https://pump.fun/holder-rewards)、[$PUMP](https://pump.fun/pump-token)、[探索](https://pump.fun/explore)、[排行榜](https://pump.fun/leaderboard)、[直播](https://pump.fun/live)。排行榜具体排序算法未核实，不写成按收益排序；Mayhem 使用当前页面的状态及模式，不套旧文档的开启条件。
+
 Karl 确认全量组件与对话指向组件均可悬停显示附近卡片；对话指向的价值是增加操作序列编号，不同时展开多张说明。实现为唯一 hover-card，悬停读取当前对象的标题及正文，侧边优先并限制在视口；卡片可复制组件 ID，离开延迟180毫秒收起，Escape立即收起。默认隐藏，选择本身只保留框选和编号。
 
 28项测试通过；在内置浏览器 pump.fun 注册748项，真实悬停市值显示对应行家内容，已选中对象仍只出现一张卡并保留编号1。未访问Chrome。截图：[恢复悬停](../.PROTOTYPE/validation/task-09/restored-hover.png)。本次同步 WEBTASK02 及项目当前呈现规则；下文无卡方向为上一版历史。
