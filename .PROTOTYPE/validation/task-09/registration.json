@@ -2,17 +2,17 @@
   "page": {
     "tab_id": 125216165,
     "url": "https://pump.fun/coin/6hTLdzZaaCjmqtn7RtaEMQsCbXT5Pg8q76tRViEGpump",
-    "title": "ABU $514K | Pump",
-    "document_id": "e219c598-ed1c-461b-81eb-48224b9450d4",
-    "revision": "03aba01bf58eac76",
-    "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6ImUyMTljNTk4LWVkMWMtNDYxYi04MWViLTQ4MjI0Yjk0NTBkNCIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9"
+    "title": "ABU $482K | Pump",
+    "document_id": "451a6d28-bbb1-4b1f-9571-4814c3b5bb43",
+    "revision": "70c70ede2848e2de",
+    "page_id": "eyJpbnN0YW5jZV9pZCI6IjA0MzMwMWUyLTZlMWYtNDNjNS04ZTc3LWVjNDVkZDA0OTQ0YiIsInRhYl9pZCI6MTI1MjE2MTY1LCJkb2N1bWVudF9pZCI6IjQ1MWE2ZDI4LWJiYjEtNGIxZi05NTcxLTQ4MTRjM2I1YmI0MyIsInVybCI6Imh0dHBzOi8vcHVtcC5mdW4vY29pbi82aFRMZHpaYWFDam1xdG43UnRhRU1Rc0NiWFQ1UGc4cTc2dFJWaUVHcHVtcCJ9"
   },
   "count": 750,
   "result": {
     "ok": true,
     "count": 750,
-    "annotation_visible": false,
-    "active_component": null,
+    "annotation_visible": true,
+    "active_component": "component-82",
     "tutorial_step": 1,
     "tutorial_visible": true,
     "components": [
