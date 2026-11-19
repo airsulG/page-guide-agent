@@ -29,7 +29,7 @@ const annotations=z.array(annotationSchema).min(1).max(20).refine(a=>new Set(a.m
 const page={page_id:z.string().min(1).max(4096)};
 const session={...page,session_id:id};
 const helpComponent=z.object({id,target,title:z.string().min(1).max(120),body:z.string().min(30).max(1800)}).strict();
-const helpComponents=z.array(helpComponent).min(1).max(1000).refine(a=>new Set(a.map(x=>x.id)).size===a.length,'Duplicate component ID');
+const helpComponents=z.array(helpComponent).min(1).max(3000).refine(a=>new Set(a.map(x=>x.id)).size===a.length,'Duplicate component ID');
 export const schemas={
   page_guide_inventory:z.object(page).strict(),
   page_guide_help:z.object({...session,components:helpComponents}).strict().superRefine((a,ctx)=>{

@@ -15,7 +15,7 @@
   function inventory(){
     const textLabels=[...document.querySelectorAll('span,p,div')].filter(el=>!el.children.length&&!el.closest('button,a,input,table')&&el.textContent.trim().length>=2&&el.textContent.trim().length<=80&&!/^[\d\s$.,%+\-KM]+$/.test(el.textContent.trim()));
     const components=[...new Set([...document.querySelectorAll(semantic),...textLabels])].filter(el=>!own(el)&&el.getBoundingClientRect().width>0&&el.getBoundingClientRect().height>0&&getComputedStyle(el).visibility!=='hidden').map((el,i)=>{
-      const r=el.getBoundingClientRect();const row=el.closest('tr');const column=row&&['TD','TH'].includes(el.tagName)?[...row.children].indexOf(el):-1;return {id:'component-'+(i+1),target:{css:selector(el)},tag:el.tagName,label:(el.getAttribute('aria-label')||el.getAttribute('alt')||el.getAttribute('placeholder')||el.innerText||el.textContent||'').trim().slice(0,180),column:column<0?null:el.closest('table')?.rows[0]?.cells[column]?.textContent.trim(),in_viewport:r.bottom>0&&r.right>0&&r.top<innerHeight&&r.left<innerWidth};
+      const r=el.getBoundingClientRect();const row=el.closest('tr');const cell=el.closest('td,th');const column=row&&cell?[...row.children].indexOf(cell):-1;return {id:'component-'+(i+1),target:{css:selector(el)},tag:el.tagName,label:(el.getAttribute('aria-label')||el.getAttribute('alt')||el.getAttribute('placeholder')||el.innerText||el.textContent||'').trim().slice(0,180),href:el.closest('a[href]')?.getAttribute('href')||null,row_label:row?.cells[0]?.textContent.trim().slice(0,120)||null,column:column<0?null:el.closest('table')?.rows[0]?.cells[column]?.textContent.trim(),region:el.closest('aside')?'callouts':null,in_viewport:r.bottom>0&&r.right>0&&r.top<innerHeight&&r.left<innerWidth};
     });
     return {ok:true,components,count:components.length,coverage:'语义控件、标题、图表与表格；无语义的指标和自定义控件需结合实际页面补充。跨源 iframe 未覆盖。'};
   }
@@ -24,6 +24,7 @@
     if([...groups.keys()].some(id=>id!==args.session_id))throw Error('HELP_SESSION_CONFLICT: 页面已有另一会话的帮助，请先由原会话清理。');
     if(args.components.some(c=>c.target.frame_path?.length))throw Error('UNSUPPORTED_SCOPE: 网页帮助暂不支持 iframe 内组件。');
     const staged=args.components.map(spec=>({spec,element:locate(spec.target).element}));
+    const byElement=new Map(staged.map(item=>[item.element,item]));
     clear(args.session_id);
     const host=document.createElement('div');host.dataset.pageGuideHelp=args.session_id;
     host.style.cssText='position:fixed;inset:0;z-index:2147483646;pointer-events:none';
@@ -79,7 +80,7 @@
     function pointer(event){
       if(event.composedPath().includes(host)){clearTimeout(timer);return;}
       clearTimeout(timer);const path=event.composedPath();
-      const item=staged.filter(i=>path.includes(i.element)).sort((a,b)=>path.indexOf(a.element)-path.indexOf(b.element))[0];
+      const item=path.map(element=>byElement.get(element)).find(Boolean);
       if(item){active=item;layout();}else timer=setTimeout(()=>{hideHover();layout();},180);
     }
     function leave(event){if(!event.relatedTarget){hideHover();layout();}}
